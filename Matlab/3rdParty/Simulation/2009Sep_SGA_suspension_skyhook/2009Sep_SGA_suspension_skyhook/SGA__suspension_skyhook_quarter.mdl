@@ -1,0 +1,3793 @@
+Model {
+  Name			  "SGA__suspension_skyhook_quarter"
+  Version		  7.2
+  MdlSubVersion		  0
+  GraphicalInterface {
+    NumRootInports	    0
+    NumRootOutports	    0
+    ParameterArgumentNames  ""
+    ComputedModelVersion    "1.65"
+    NumModelReferences	    0
+    NumTestPointedSignals   0
+  }
+  SavedCharacterEncoding  "GBK"
+  SaveDefaultBlockParams  on
+  ScopeRefreshTime	  0.035000
+  OverrideScopeRefreshTime on
+  DisableAllScopes	  off
+  DataTypeOverride	  "UseLocalSettings"
+  MinMaxOverflowLogging	  "UseLocalSettings"
+  MinMaxOverflowArchiveMode "Overwrite"
+  Created		  "Tue Jul 15 17:52:46 2003"
+  Creator		  "yichen"
+  UpdateHistory		  "UpdateHistoryNever"
+  ModifiedByFormat	  "%<Auto>"
+  LastModifiedBy	  "yichen"
+  ModifiedDateFormat	  "%<Auto>"
+  LastModifiedDate	  "Wed Sep 30 21:33:13 2009"
+  RTWModifiedTimeStamp	  0
+  ModelVersionFormat	  "1.%<AutoIncrement:65>"
+  ConfigurationManager	  "None"
+  SampleTimeColors	  off
+  SampleTimeAnnotations	  off
+  LibraryLinkDisplay	  "none"
+  WideLines		  off
+  ShowLineDimensions	  off
+  ShowPortDataTypes	  off
+  ShowLoopsOnError	  on
+  IgnoreBidirectionalLines off
+  ShowStorageClass	  off
+  ShowTestPointIcons	  on
+  ShowSignalResolutionIcons on
+  ShowViewerIcons	  on
+  SortedOrder		  off
+  ExecutionContextIcon	  off
+  ShowLinearizationAnnotations on
+  BlockNameDataTip	  off
+  BlockParametersDataTip  off
+  BlockDescriptionStringDataTip	off
+  ToolBar		  on
+  StatusBar		  on
+  BrowserShowLibraryLinks off
+  BrowserLookUnderMasks	  off
+  SimulationMode	  "normal"
+  LinearizationMsg	  "none"
+  Profile		  off
+  ParamWorkspaceSource	  "MATLABWorkspace"
+  AccelSystemTargetFile	  "accel.tlc"
+  AccelTemplateMakefile	  "accel_default_tmf"
+  AccelMakeCommand	  "make_rtw"
+  TryForcingSFcnDF	  off
+  RecordCoverage	  off
+  CovPath		  "/"
+  CovSaveName		  "covdata"
+  CovMetricSettings	  "dw"
+  CovNameIncrementing	  off
+  CovHtmlReporting	  on
+  covSaveCumulativeToWorkspaceVar on
+  CovSaveSingleToWorkspaceVar on
+  CovCumulativeVarName	  "covCumulativeData"
+  CovCumulativeReport	  off
+  CovReportOnPause	  on
+  CovModelRefEnable	  "Off"
+  ExtModeBatchMode	  off
+  ExtModeEnableFloating	  on
+  ExtModeTrigType	  "manual"
+  ExtModeTrigMode	  "normal"
+  ExtModeTrigPort	  "1"
+  ExtModeTrigElement	  "any"
+  ExtModeTrigDuration	  1000
+  ExtModeTrigDurationFloating "auto"
+  ExtModeTrigHoldOff	  0
+  ExtModeTrigDelay	  0
+  ExtModeTrigDirection	  "rising"
+  ExtModeTrigLevel	  0
+  ExtModeArchiveMode	  "off"
+  ExtModeAutoIncOneShot	  off
+  ExtModeIncDirWhenArm	  off
+  ExtModeAddSuffixToVar	  off
+  ExtModeWriteAllDataToWs off
+  ExtModeArmWhenConnect	  on
+  ExtModeSkipDownloadWhenConnect off
+  ExtModeLogAll		  on
+  ExtModeAutoUpdateStatusClock on
+  BufferReuse		  on
+  ShowModelReferenceBlockVersion off
+  ShowModelReferenceBlockIO off
+  Array {
+    Type		    "Handle"
+    Dimension		    1
+    Simulink.ConfigSet {
+      $ObjectID		      1
+      Version		      "1.5.1"
+      Array {
+	Type			"Handle"
+	Dimension		8
+	Simulink.SolverCC {
+	  $ObjectID		  2
+	  Version		  "1.5.1"
+	  StartTime		  "0.0"
+	  StopTime		  "10"
+	  AbsTol		  "auto"
+	  FixedStep		  "auto"
+	  InitialStep		  "auto"
+	  MaxNumMinSteps	  "-1"
+	  MaxOrder		  5
+	  ZcThreshold		  "auto"
+	  ConsecutiveZCsStepRelTol "10*128*eps"
+	  MaxConsecutiveZCs	  "1000"
+	  ExtrapolationOrder	  4
+	  NumberNewtonIterations  1
+	  MaxStep		  "auto"
+	  MinStep		  "auto"
+	  MaxConsecutiveMinStep	  "1"
+	  RelTol		  "1e-3"
+	  SolverMode		  "Auto"
+	  Solver		  "ode45"
+	  SolverName		  "ode45"
+	  ShapePreserveControl	  "DisableAll"
+	  ZeroCrossControl	  "UseLocalSettings"
+	  ZeroCrossAlgorithm	  "Nonadaptive"
+	  AlgebraicLoopSolver	  "TrustRegion"
+	  SolverResetMethod	  "Fast"
+	  PositivePriorityOrder	  off
+	  AutoInsertRateTranBlk	  off
+	  SampleTimeConstraint	  "Unconstrained"
+	  InsertRTBMode		  "Whenever possible"
+	  SignalSizeVariationType "Allow only fixed size"
+	}
+	Simulink.DataIOCC {
+	  $ObjectID		  3
+	  Version		  "1.5.1"
+	  Decimation		  "1"
+	  ExternalInput		  "[t, u]"
+	  FinalStateName	  "xFinal"
+	  InitialState		  "xInitial"
+	  LimitDataPoints	  on
+	  MaxDataPoints		  "1000"
+	  LoadExternalInput	  off
+	  LoadInitialState	  off
+	  SaveFinalState	  off
+	  SaveFormat		  "Array"
+	  SaveOutput		  on
+	  SaveState		  off
+	  SignalLogging		  on
+	  InspectSignalLogs	  off
+	  SaveTime		  on
+	  StateSaveName		  "xout"
+	  TimeSaveName		  "tout"
+	  OutputSaveName	  "yout"
+	  SignalLoggingName	  "logsout"
+	  OutputOption		  "RefineOutputTimes"
+	  OutputTimes		  "[]"
+	  Refine		  "1"
+	}
+	Simulink.OptimizationCC {
+	  $ObjectID		  4
+	  Version		  "1.5.1"
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    4
+	    Cell		    "ZeroExternalMemoryAtStartup"
+	    Cell		    "ZeroInternalMemoryAtStartup"
+	    Cell		    "NoFixptDivByZeroProtection"
+	    Cell		    "OptimizeModelRefInitCode"
+	    PropName		    "DisabledProps"
+	  }
+	  BlockReduction	  on
+	  BooleanDataType	  off
+	  ConditionallyExecuteInputs on
+	  InlineParams		  off
+	  InlineInvariantSignals  off
+	  OptimizeBlockIOStorage  on
+	  BufferReuse		  on
+	  EnhancedBackFolding	  off
+	  EnforceIntegerDowncast  on
+	  ExpressionFolding	  on
+	  EnableMemcpy		  on
+	  MemcpyThreshold	  64
+	  ExpressionDepthLimit	  2147483647
+	  FoldNonRolledExpr	  on
+	  LocalBlockOutputs	  on
+	  RollThreshold		  5
+	  SystemCodeInlineAuto	  off
+	  StateBitsets		  off
+	  DataBitsets		  off
+	  UseTempVars		  off
+	  ZeroExternalMemoryAtStartup on
+	  ZeroInternalMemoryAtStartup on
+	  InitFltsAndDblsToZero	  on
+	  NoFixptDivByZeroProtection off
+	  EfficientFloat2IntCast  off
+	  EfficientMapNaN2IntZero on
+	  OptimizeModelRefInitCode off
+	  LifeSpan		  "inf"
+	  BufferReusableBoundary  on
+	  SimCompilerOptimization "Off"
+	  AccelVerboseBuild	  off
+	}
+	Simulink.DebuggingCC {
+	  $ObjectID		  5
+	  Version		  "1.5.1"
+	  RTPrefix		  "error"
+	  ConsistencyChecking	  "none"
+	  ArrayBoundsChecking	  "none"
+	  SignalInfNanChecking	  "none"
+	  SignalRangeChecking	  "none"
+	  ReadBeforeWriteMsg	  "UseLocalSettings"
+	  WriteAfterWriteMsg	  "UseLocalSettings"
+	  WriteAfterReadMsg	  "UseLocalSettings"
+	  AlgebraicLoopMsg	  "warning"
+	  ArtificialAlgebraicLoopMsg "warning"
+	  SaveWithDisabledLinksMsg "warning"
+	  SaveWithParameterizedLinksMsg	"none"
+	  CheckSSInitialOutputMsg on
+	  UnderspecifiedInitializationDetection	"Classic"
+	  MergeDetectMultiDrivingBlocksExec "none"
+	  CheckExecutionContextPreStartOutputMsg off
+	  CheckExecutionContextRuntimeOutputMsg	off
+	  SignalResolutionControl "TryResolveAllWithWarning"
+	  BlockPriorityViolationMsg "warning"
+	  MinStepSizeMsg	  "warning"
+	  TimeAdjustmentMsg	  "none"
+	  MaxConsecutiveZCsMsg	  "error"
+	  SolverPrmCheckMsg	  "none"
+	  InheritedTsInSrcMsg	  "warning"
+	  DiscreteInheritContinuousMsg "warning"
+	  MultiTaskDSMMsg	  "warning"
+	  MultiTaskCondExecSysMsg "none"
+	  MultiTaskRateTransMsg	  "error"
+	  SingleTaskRateTransMsg  "none"
+	  TasksWithSamePriorityMsg "warning"
+	  SigSpecEnsureSampleTimeMsg "warning"
+	  CheckMatrixSingularityMsg "none"
+	  IntegerOverflowMsg	  "warning"
+	  Int32ToFloatConvMsg	  "warning"
+	  ParameterDowncastMsg	  "error"
+	  ParameterOverflowMsg	  "error"
+	  ParameterUnderflowMsg	  "none"
+	  ParameterPrecisionLossMsg "warning"
+	  ParameterTunabilityLossMsg "warning"
+	  UnderSpecifiedDataTypeMsg "none"
+	  UnnecessaryDatatypeConvMsg "none"
+	  VectorMatrixConversionMsg "none"
+	  InvalidFcnCallConnMsg	  "error"
+	  FcnCallInpInsideContextMsg "Use local settings"
+	  SignalLabelMismatchMsg  "none"
+	  UnconnectedInputMsg	  "warning"
+	  UnconnectedOutputMsg	  "warning"
+	  UnconnectedLineMsg	  "warning"
+	  SFcnCompatibilityMsg	  "none"
+	  UniqueDataStoreMsg	  "none"
+	  BusObjectLabelMismatch  "warning"
+	  RootOutportRequireBusObject "warning"
+	  AssertControl		  "UseLocalSettings"
+	  EnableOverflowDetection off
+	  ModelReferenceIOMsg	  "none"
+	  ModelReferenceVersionMismatchMessage "none"
+	  ModelReferenceIOMismatchMessage "none"
+	  ModelReferenceCSMismatchMessage "none"
+	  UnknownTsInhSupMsg	  "warning"
+	  ModelReferenceDataLoggingMessage "warning"
+	  ModelReferenceSymbolNameMessage "warning"
+	  ModelReferenceExtraNoncontSigs "error"
+	  StateNameClashWarn	  "warning"
+	  StrictBusMsg		  "None"
+	  LoggingUnavailableSignals "error"
+	  BlockIODiagnostic	  "none"
+	}
+	Simulink.HardwareCC {
+	  $ObjectID		  6
+	  Version		  "1.5.1"
+	  ProdBitPerChar	  8
+	  ProdBitPerShort	  16
+	  ProdBitPerInt		  32
+	  ProdBitPerLong	  32
+	  ProdIntDivRoundTo	  "Undefined"
+	  ProdEndianess		  "Unspecified"
+	  ProdWordSize		  32
+	  ProdShiftRightIntArith  on
+	  ProdHWDeviceType	  "32-bit Generic"
+	  TargetBitPerChar	  8
+	  TargetBitPerShort	  16
+	  TargetBitPerInt	  32
+	  TargetBitPerLong	  32
+	  TargetShiftRightIntArith on
+	  TargetIntDivRoundTo	  "Undefined"
+	  TargetEndianess	  "Unspecified"
+	  TargetWordSize	  32
+	  TargetTypeEmulationWarnSuppressLevel 0
+	  TargetPreprocMaxBitsSint 32
+	  TargetPreprocMaxBitsUint 32
+	  TargetHWDeviceType	  "Specified"
+	  TargetUnknown		  on
+	  ProdEqTarget		  on
+	}
+	Simulink.ModelReferenceCC {
+	  $ObjectID		  7
+	  Version		  "1.5.1"
+	  UpdateModelReferenceTargets "IfOutOfDateOrStructuralChange"
+	  CheckModelReferenceTargetMessage "error"
+	  ModelReferenceNumInstancesAllowed "Multi"
+	  ModelReferencePassRootInputsByReference on
+	  ModelReferenceMinAlgLoopOccurrences off
+	}
+	Simulink.SFSimCC {
+	  $ObjectID		  8
+	  Version		  "1.5.1"
+	  SFSimEnableDebug	  on
+	  SFSimOverflowDetection  on
+	  SFSimEcho		  on
+	  SimUseLocalCustomCode	  off
+	  SimBuildMode		  "sf_incremental_build"
+	}
+	Simulink.RTWCC {
+	  $BackupClass		  "Simulink.RTWCC"
+	  $ObjectID		  9
+	  Version		  "1.5.1"
+	  Array {
+	    Type		    "Cell"
+	    Dimension		    1
+	    Cell		    "IncludeHyperlinkInReport"
+	    PropName		    "DisabledProps"
+	  }
+	  SystemTargetFile	  "grt.tlc"
+	  GenCodeOnly		  off
+	  MakeCommand		  "make_rtw"
+	  GenerateMakefile	  on
+	  TemplateMakefile	  "grt_default_tmf"
+	  GenerateReport	  off
+	  SaveLog		  off
+	  RTWVerbose		  on
+	  RetainRTWFile		  off
+	  ProfileTLC		  off
+	  TLCDebug		  off
+	  TLCCoverage		  off
+	  TLCAssert		  off
+	  ProcessScriptMode	  "Default"
+	  ConfigurationMode	  "Optimized"
+	  ConfigAtBuild		  off
+	  RTWUseLocalCustomCode	  off
+	  RTWUseSimCustomCode	  off
+	  IncludeHyperlinkInReport off
+	  LaunchReport		  off
+	  TargetLang		  "C"
+	  IncludeBusHierarchyInRTWFileBlockHierarchyMap	off
+	  IncludeERTFirstTime	  on
+	  GenerateTraceInfo	  off
+	  GenerateTraceReport	  off
+	  GenerateTraceReportSl	  off
+	  GenerateTraceReportSf	  off
+	  GenerateTraceReportEml  off
+	  GenerateCodeInfo	  off
+	  RTWCompilerOptimization "Off"
+	  Array {
+	    Type		    "Handle"
+	    Dimension		    2
+	    Simulink.CodeAppCC {
+	      $ObjectID		      10
+	      Version		      "1.5.1"
+	      Array {
+		Type			"Cell"
+		Dimension		9
+		Cell			"IgnoreCustomStorageClasses"
+		Cell			"InsertBlockDesc"
+		Cell			"SFDataObjDesc"
+		Cell			"SimulinkDataObjDesc"
+		Cell			"DefineNamingRule"
+		Cell			"SignalNamingRule"
+		Cell			"ParamNamingRule"
+		Cell			"InlinedPrmAccess"
+		Cell			"CustomSymbolStr"
+		PropName		"DisabledProps"
+	      }
+	      ForceParamTrailComments off
+	      GenerateComments	      on
+	      IgnoreCustomStorageClasses on
+	      IgnoreTestpoints	      off
+	      IncHierarchyInIds	      off
+	      MaxIdLength	      31
+	      PreserveName	      off
+	      PreserveNameWithParent  off
+	      ShowEliminatedStatement off
+	      IncAutoGenComments      off
+	      SimulinkDataObjDesc     off
+	      SFDataObjDesc	      off
+	      IncDataTypeInIds	      off
+	      MangleLength	      1
+	      CustomSymbolStrGlobalVar "$R$N$M"
+	      CustomSymbolStrType     "$N$R$M"
+	      CustomSymbolStrField    "$N$M"
+	      CustomSymbolStrFcn      "$R$N$M$F"
+	      CustomSymbolStrBlkIO    "rtb_$N$M"
+	      CustomSymbolStrTmpVar   "$N$M"
+	      CustomSymbolStrMacro    "$R$N$M"
+	      DefineNamingRule	      "None"
+	      ParamNamingRule	      "None"
+	      SignalNamingRule	      "None"
+	      InsertBlockDesc	      off
+	      SimulinkBlockComments   on
+	      EnableCustomComments    off
+	      InlinedPrmAccess	      "Literals"
+	      ReqsInCode	      off
+	      UseSimReservedNames     off
+	    }
+	    Simulink.GRTTargetCC {
+	      $BackupClass	      "Simulink.TargetCC"
+	      $ObjectID		      11
+	      Version		      "1.5.1"
+	      Array {
+		Type			"Cell"
+		Dimension		12
+		Cell			"IncludeMdlTerminateFcn"
+		Cell			"CombineOutputUpdateFcns"
+		Cell			"SuppressErrorStatus"
+		Cell			"ERTCustomFileBanners"
+		Cell			"GenerateSampleERTMain"
+		Cell			"MultiInstanceERTCode"
+		Cell			"PurelyIntegerCode"
+		Cell			"SupportNonFinite"
+		Cell			"SupportComplex"
+		Cell			"SupportAbsoluteTime"
+		Cell			"SupportContinuousTime"
+		Cell			"SupportNonInlinedSFcns"
+		PropName		"DisabledProps"
+	      }
+	      TargetFcnLib	      "ansi_tfl_tmw.mat"
+	      TargetLibSuffix	      ""
+	      TargetPreCompLibLocation ""
+	      TargetFunctionLibrary   "ANSI_C"
+	      UtilityFuncGeneration   "Auto"
+	      ERTMultiwordTypeDef     "System defined"
+	      ERTMultiwordLength      256
+	      MultiwordLength	      2048
+	      GenerateFullHeader      on
+	      GenerateSampleERTMain   off
+	      GenerateTestInterfaces  off
+	      IsPILTarget	      off
+	      ModelReferenceCompliant on
+	      CompOptLevelCompliant   on
+	      IncludeMdlTerminateFcn  on
+	      CombineOutputUpdateFcns off
+	      SuppressErrorStatus     off
+	      ERTFirstTimeCompliant   off
+	      IncludeFileDelimiter    "Auto"
+	      ERTCustomFileBanners    off
+	      SupportAbsoluteTime     on
+	      LogVarNameModifier      "rt_"
+	      MatFileLogging	      on
+	      MultiInstanceERTCode    off
+	      SupportNonFinite	      on
+	      SupportComplex	      on
+	      PurelyIntegerCode	      off
+	      SupportContinuousTime   on
+	      SupportNonInlinedSFcns  on
+	      EnableShiftOperators    on
+	      ParenthesesLevel	      "Nominal"
+	      PortableWordSizes	      off
+	      ModelStepFunctionPrototypeControlCompliant off
+	      CPPClassGenCompliant    off
+	      AutosarCompliant	      off
+	      UseMalloc		      off
+	      ExtMode		      off
+	      ExtModeStaticAlloc      off
+	      ExtModeTesting	      off
+	      ExtModeStaticAllocSize  1000000
+	      ExtModeTransport	      0
+	      ExtModeMexFile	      "ext_comm"
+	      ExtModeIntrfLevel	      "Level1"
+	      RTWCAPISignals	      off
+	      RTWCAPIParams	      off
+	      RTWCAPIStates	      off
+	      GenerateASAP2	      off
+	    }
+	    PropName		    "Components"
+	  }
+	}
+	PropName		"Components"
+      }
+      Name		      "Configuration"
+      CurrentDlgPage	      "Solver"
+      ConfigPrmDlgPosition    " [ 200, 197, 1080, 827 ] "
+    }
+    PropName		    "ConfigurationSets"
+  }
+  Simulink.ConfigSet {
+    $PropName		    "ActiveConfigurationSet"
+    $ObjectID		    1
+  }
+  BlockDefaults {
+    Orientation		    "right"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    NamePlacement	    "normal"
+    FontName		    "arial"
+    FontSize		    36
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    ShowName		    on
+  }
+  AnnotationDefaults {
+    HorizontalAlignment	    "center"
+    VerticalAlignment	    "middle"
+    ForegroundColor	    "black"
+    BackgroundColor	    "white"
+    DropShadow		    off
+    FontName		    "arial"
+    FontSize		    36
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+    UseDisplayTextAsClickCallback off
+  }
+  LineDefaults {
+    FontName		    "arial"
+    FontSize		    36
+    FontWeight		    "normal"
+    FontAngle		    "normal"
+  }
+  BlockParameterDefaults {
+    Block {
+      BlockType		      Constant
+      Value		      "1"
+      VectorParams1D	      on
+      SamplingMode	      "Sample based"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeMode	      "Inherit from 'Constant value'"
+      OutDataType	      "fixdt(1,16,0)"
+      ConRadixGroup	      "Use specified scaling"
+      OutScaling	      "[]"
+      OutDataTypeStr	      "Inherit: Inherit from 'Constant value'"
+      LockScale		      off
+      SampleTime	      "inf"
+      FramePeriod	      "inf"
+    }
+    Block {
+      BlockType		      Demux
+      Outputs		      "4"
+      DisplayOption	      "none"
+      BusSelectionMode	      off
+    }
+    Block {
+      BlockType		      Derivative
+      LinearizePole	      "inf"
+    }
+    Block {
+      BlockType		      Gain
+      Gain		      "1"
+      Multiplication	      "Element-wise(K.*u)"
+      ParamMin		      "[]"
+      ParamMax		      "[]"
+      ParameterDataTypeMode   "Same as input"
+      ParameterDataType	      "fixdt(1,16,0)"
+      ParameterScalingMode    "Best Precision: Matrix-wise"
+      ParameterScaling	      "[]"
+      ParamDataTypeStr	      "Inherit: Same as input"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeMode	      "Same as input"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      OutDataTypeStr	      "Inherit: Same as input"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Inport
+      Port		      "1"
+      UseBusObject	      off
+      BusObject		      "BusObject"
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      DataType		      "auto"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      OutDataTypeStr	      "Inherit: auto"
+      LockScale		      off
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      LatchByDelayingOutsideSignal off
+      LatchByCopyingInsideSignal off
+      Interpolate	      on
+    }
+    Block {
+      BlockType		      Integrator
+      ExternalReset	      "none"
+      InitialConditionSource  "internal"
+      InitialCondition	      "0"
+      LimitOutput	      off
+      UpperSaturationLimit    "inf"
+      LowerSaturationLimit    "-inf"
+      ShowSaturationPort      off
+      ShowStatePort	      off
+      AbsoluteTolerance	      "auto"
+      IgnoreLimit	      off
+      ZeroCross		      on
+      ContinuousStateAttributes	"''"
+    }
+    Block {
+      BlockType		      Math
+      Operator		      "exp"
+      OutputSignalType	      "auto"
+      SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeMode	      "Same as first input"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      OutDataTypeStr	      "Inherit: Same as first input"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+    }
+    Block {
+      BlockType		      Mux
+      Inputs		      "4"
+      DisplayOption	      "none"
+      UseBusObject	      off
+      BusObject		      "BusObject"
+      NonVirtualBus	      off
+    }
+    Block {
+      BlockType		      Outport
+      Port		      "1"
+      UseBusObject	      off
+      BusObject		      "BusObject"
+      BusOutputAsStruct	      off
+      PortDimensions	      "-1"
+      SampleTime	      "-1"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      DataType		      "auto"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      OutDataTypeStr	      "Inherit: auto"
+      LockScale		      off
+      SignalType	      "auto"
+      SamplingMode	      "auto"
+      SourceOfInitialOutputValue "Dialog"
+      OutputWhenDisabled      "held"
+      InitialOutput	      "[]"
+    }
+    Block {
+      BlockType		      Product
+      Inputs		      "2"
+      Multiplication	      "Element-wise(.*)"
+      CollapseMode	      "All dimensions"
+      CollapseDim	      "1"
+      InputSameDT	      on
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeMode	      "Same as first input"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      OutDataTypeStr	      "Inherit: Same as first input"
+      LockScale		      off
+      RndMeth		      "Zero"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      "S-Function"
+      FunctionName	      "system"
+      SFunctionModules	      "''"
+      PortCounts	      "[]"
+      SFunctionDeploymentMode off
+    }
+    Block {
+      BlockType		      Scope
+      ModelBased	      off
+      TickLabels	      "OneTimeTick"
+      ZoomMode		      "on"
+      Grid		      "on"
+      TimeRange		      "auto"
+      YMin		      "-5"
+      YMax		      "5"
+      SaveToWorkspace	      off
+      SaveName		      "ScopeData"
+      LimitDataPoints	      on
+      MaxDataPoints	      "5000"
+      Decimation	      "1"
+      SampleInput	      off
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      Sin
+      SineType		      "Time based"
+      TimeSource	      "Use simulation time"
+      Amplitude		      "1"
+      Bias		      "0"
+      Frequency		      "1"
+      Phase		      "0"
+      Samples		      "10"
+      Offset		      "0"
+      SampleTime	      "-1"
+      VectorParams1D	      on
+    }
+    Block {
+      BlockType		      SubSystem
+      ShowPortLabels	      "FromPortIcon"
+      Permissions	      "ReadWrite"
+      PermitHierarchicalResolution "All"
+      TreatAsAtomicUnit	      off
+      CheckFcnCallInpInsideContextMsg off
+      SystemSampleTime	      "-1"
+      RTWFcnNameOpts	      "Auto"
+      RTWFileNameOpts	      "Auto"
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      SimViewingDevice	      off
+      DataTypeOverride	      "UseLocalSettings"
+      MinMaxOverflowLogging   "UseLocalSettings"
+    }
+    Block {
+      BlockType		      Sum
+      IconShape		      "rectangular"
+      Inputs		      "++"
+      CollapseMode	      "All dimensions"
+      CollapseDim	      "1"
+      InputSameDT	      on
+      AccumDataTypeStr	      "Inherit: Inherit via internal rule"
+      OutMin		      "[]"
+      OutMax		      "[]"
+      OutDataTypeMode	      "Same as first input"
+      OutDataType	      "fixdt(1,16,0)"
+      OutScaling	      "[]"
+      OutDataTypeStr	      "Inherit: Same as first input"
+      LockScale		      off
+      RndMeth		      "Floor"
+      SaturateOnIntegerOverflow	on
+      SampleTime	      "-1"
+    }
+    Block {
+      BlockType		      ToFile
+      Filename		      "untitled.mat"
+      MatrixName	      "ans"
+      Decimation	      "1"
+      SampleTime	      "-1"
+    }
+  }
+  System {
+    Name		    "SGA__suspension_skyhook_quarter"
+    Location		    [2, 70, 1262, 988]
+    Open		    on
+    ModelBrowserVisibility  off
+    ModelBrowserWidth	    200
+    ScreenColor		    "white"
+    PaperOrientation	    "landscape"
+    PaperPositionMode	    "auto"
+    PaperType		    "A4"
+    PaperUnits		    "centimeters"
+    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
+    TiledPageScale	    1
+    ShowPageBoundaries	    off
+    ZoomFactor		    "71"
+    ReportName		    "simulink-default.rpt"
+    Block {
+      BlockType		      Reference
+      Name		      " white noise"
+      Ports		      [0, 1]
+      Position		      [55, 353, 195, 387]
+      BackgroundColor	      "magenta"
+      FontSize		      12
+      SourceBlock	      "simulink/Sources/Band-Limited\nWhite Noise"
+      SourceType	      "Band-Limited White Noise."
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      Cov		      "[256*10^-6]"
+      Ts		      "0.01"
+      seed		      "[23341]"
+      VectorParams1D	      on
+    }
+    Block {
+      BlockType		      Constant
+      Name		      "0"
+      Position		      [835, 1340, 865, 1370]
+      FontSize		      12
+      Value		      "0"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "1/4 vehicle passive suspension system"
+      Ports		      [2, 3]
+      Position		      [985, 1087, 1305, 1443]
+      ForegroundColor	      "blue"
+      BackgroundColor	      "blue"
+      DropShadow	      on
+      FontSize		      12
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      MaskDescription	      "1/4 passive vehicle suspension system\nleo.chen.yi@gmail.com"
+      MaskPromptString	      "Sprung mass-m1(kg)|Unsprung mass-m2(kg)|Stiffness of tyre-k1(N/m)|Stiffness of suspensio"
+      "n-k2(N/m)|Coefficient of damper-c0(N/m/s)|Friction of suspension-fr(N)|Acceleration of gravity-g(m/s^2)"
+      MaskStyleString	      "edit,edit,edit,edit,edit,edit,edit"
+      MaskTunableValueString  "on,on,on,on,on,on,on"
+      MaskCallbackString      "||||||"
+      MaskEnableString	      "on,on,on,on,on,on,on"
+      MaskVisibilityString    "on,on,on,on,on,on,on"
+      MaskToolTipString	      "on,on,on,on,on,on,on"
+      MaskVarAliasString      ",,,,,,"
+      MaskVariables	      "m1=@1;m2=@2;k1=@3;k2=@4;c0=@5;fr=@6;g=@7;"
+      MaskDisplay	      "image(imread('SGA__suspension_quarter_passive.jpg'));"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      MaskValueString	      "36|240|160000|16000|1400|300|9.8"
+      MaskTabNameString	      ",,,,,,"
+      System {
+	Name			"1/4 vehicle passive suspension system"
+	Location		[2, 74, 998, 728]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "q"
+	  Position		  [205, 998, 235, 1022]
+	  FontSize		  12
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "fd"
+	  Position		  [1545, 1052, 1575, 1078]
+	  Orientation		  "left"
+	  FontSize		  12
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "-1"
+	  Position		  [845, 695, 875, 725]
+	  FontSize		  12
+	  Gain			  "-1"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant2=-1"
+	  Position		  [1400, 1435, 1430, 1465]
+	  FontSize		  12
+	  Value			  "-1"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant=-1"
+	  Position		  [1240, 805, 1270, 835]
+	  FontSize		  12
+	  Value			  "-1"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Data Inputs"
+	  Ports			  [0, 1]
+	  Position		  [160, 1209, 290, 1281]
+	  FontSize		  12
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "Data Inputs"
+	    Location		    [2, 74, 1014, 744]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Fr"
+	      Position		      [265, 500, 295, 530]
+	      Value		      "fr"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [7, 1]
+	      Position		      [410, 104, 515, 626]
+	      ShowName		      off
+	      Inputs		      "7"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "c0"
+	      Position		      [265, 425, 295, 455]
+	      Value		      "c0"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "g"
+	      Position		      [260, 575, 290, 605]
+	      Value		      "g"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "k1"
+	      Position		      [265, 275, 295, 305]
+	      Value		      "k1"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "k2"
+	      Position		      [265, 350, 295, 380]
+	      Value		      "k2"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "m1"
+	      Position		      [265, 125, 295, 155]
+	      Value		      "m1"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "m2"
+	      Position		      [265, 200, 295, 230]
+	      Value		      "m2"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Simulaiton Parameters\n"
+	      Position		      [765, 358, 795, 372]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Line {
+	      SrcBlock		      "m1"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "m2"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "k1"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "k2"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      4
+	    }
+	    Line {
+	      SrcBlock		      "c0"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      5
+	    }
+	    Line {
+	      SrcBlock		      "Fr"
+	      SrcPort		      1
+	      Points		      [0, 0]
+	      DstBlock		      "Mux"
+	      DstPort		      6
+	    }
+	    Line {
+	      SrcBlock		      "g"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      7
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      Points		      [0, 0]
+	      DstBlock		      "Simulaiton Parameters\n"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux"
+	  Ports			  [1, 7]
+	  Position		  [445, 832, 465, 1658]
+	  BackgroundColor	  "black"
+	  ShowName		  off
+	  FontSize		  12
+	  Outputs		  "7"
+	  BusSelectionMode	  on
+	}
+	Block {
+	  BlockType		  Integrator
+	  Name			  "Integrator"
+	  Ports			  [1, 1]
+	  Position		  [360, 680, 420, 730]
+	  FontSize		  12
+	}
+	Block {
+	  BlockType		  Integrator
+	  Name			  "Integrator1"
+	  Ports			  [1, 1]
+	  Position		  [550, 445, 610, 495]
+	  FontSize		  12
+	}
+	Block {
+	  BlockType		  Integrator
+	  Name			  "Integrator2"
+	  Ports			  [1, 1]
+	  Position		  [550, 525, 610, 575]
+	  FontSize		  12
+	}
+	Block {
+	  BlockType		  Integrator
+	  Name			  "Integrator3"
+	  Ports			  [1, 1]
+	  Position		  [360, 745, 420, 795]
+	  FontSize		  12
+	}
+	Block {
+	  BlockType		  Math
+	  Name			  "Math\nFunction"
+	  Ports			  [2, 1]
+	  Position		  [1300, 761, 1335, 839]
+	  FontSize		  12
+	  Operator		  "pow"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Math
+	  Name			  "Math\nFunction1"
+	  Ports			  [2, 1]
+	  Position		  [1465, 1391, 1500, 1469]
+	  FontSize		  12
+	  Operator		  "pow"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Scope
+	  Name			  "Scope1"
+	  Ports			  [1]
+	  Position		  [1580, 1459, 1610, 1491]
+	  FontSize		  12
+	  Floating		  off
+	  Location		  [5, 53, 1029, 743]
+	  Open			  off
+	  NumInputPorts		  "1"
+	  List {
+	    ListType		    AxesTitles
+	    axes1		    "%<SignalLabel>"
+	  }
+	  SaveName		  "ScopeData5"
+	  DataFormat		  "StructureWithTime"
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum"
+	  Ports			  [2, 1]
+	  Position		  [945, 735, 965, 755]
+	  ShowName		  off
+	  FontSize		  12
+	  IconShape		  "round"
+	  Inputs		  "|++"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum2"
+	  Ports			  [6, 1]
+	  Position		  [1235, 865, 1345, 975]
+	  ShowName		  off
+	  FontSize		  12
+	  IconShape		  "round"
+	  Inputs		  "|++++-+"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum3"
+	  Ports			  [2, 1]
+	  Position		  [290, 930, 310, 950]
+	  ShowName		  off
+	  FontSize		  12
+	  IconShape		  "round"
+	  Inputs		  "|+-"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum4"
+	  Ports			  [5, 1]
+	  Position		  [1470, 1210, 1560, 1300]
+	  ShowName		  off
+	  FontSize		  12
+	  IconShape		  "round"
+	  Inputs		  "|++---"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum5"
+	  Ports			  [2, 1]
+	  Position		  [610, 820, 630, 840]
+	  ShowName		  off
+	  FontSize		  12
+	  IconShape		  "round"
+	  Inputs		  "|+-"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "c0*(dz1-dz2)"
+	  Ports			  [2, 1]
+	  Position		  [750, 1289, 765, 1391]
+	  FontSize		  12
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "gain2=-1"
+	  Position		  [1395, 905, 1425, 935]
+	  FontSize		  12
+	  Gain			  "-1"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "gain3=-1"
+	  Position		  [1300, 1325, 1330, 1355]
+	  FontSize		  12
+	  Gain			  "-1"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "gain4=-1"
+	  Position		  [1305, 1210, 1335, 1240]
+	  FontSize		  12
+	  Gain			  "-1"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "k1*(z1-q)"
+	  Ports			  [2, 1]
+	  Position		  [780, 1049, 795, 1151]
+	  FontSize		  12
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "k2*(z1-z2)"
+	  Ports			  [2, 1]
+	  Position		  [580, 1186, 595, 1264]
+	  FontSize		  12
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "m1ddz1/m1"
+	  Ports			  [2, 1]
+	  Position		  [1590, 741, 1610, 979]
+	  FontSize		  12
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "m1g"
+	  Ports			  [2, 1]
+	  Position		  [725, 1529, 740, 1631]
+	  FontSize		  12
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "m2*ddz2/m2"
+	  Ports			  [2, 1]
+	  Position		  [1720, 1294, 1735, 1396]
+	  FontSize		  12
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "m2g"
+	  Ports			  [2, 1]
+	  Position		  [725, 1654, 740, 1756]
+	  FontSize		  12
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out1"
+	  Position		  [1900, 1393, 1930, 1407]
+	  FontSize		  12
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out2"
+	  Position		  [360, 853, 390, 867]
+	  FontSize		  12
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out3"
+	  Position		  [870, 823, 900, 837]
+	  FontSize		  12
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Line {
+	  SrcBlock		  "Data Inputs"
+	  SrcPort		  1
+	  DstBlock		  "Demux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  1
+	  Points		  [0, 0; 205, 0]
+	  Branch {
+	    Points		    [0, 670]
+	    DstBlock		    "m1g"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Labels		    [3, 0]
+	    Points		    [280, 0; 0, -85; 320, 0; 0, -20]
+	    DstBlock		    "Math\nFunction"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Integrator2"
+	  SrcPort		  1
+	  Points		  [110, 0; 0, 110; -85, 0]
+	  Branch {
+	    Points		    [0, 125; 315, 0]
+	    DstBlock		    "Sum"
+	    DstPort		    2
+	  }
+	  Branch {
+	    Points		    [-390, 0; 0, 45]
+	    DstBlock		    "Integrator"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Integrator"
+	  SrcPort		  1
+	  Points		  [140, 0; 0, 125]
+	  Branch {
+	    DstBlock		    "Sum5"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [-315, 0; 0, 110]
+	    DstBlock		    "Sum3"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  5
+	  Points		  [0, 0]
+	  DstBlock		  "c0*(dz1-dz2)"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "-1"
+	  SrcPort		  1
+	  Points		  [25, 0; 0, 35]
+	  DstBlock		  "Sum"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Sum"
+	  SrcPort		  1
+	  Points		  [70, 0; 0, 510; -335, 0; 0, 60]
+	  DstBlock		  "c0*(dz1-dz2)"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Integrator1"
+	  SrcPort		  1
+	  Points		  [75, 0; 0, 55; 140, 0; 0, 105; -30, 0]
+	  Branch {
+	    Points		    [0, 80]
+	    DstBlock		    "-1"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [-575, 0; 0, 140]
+	    DstBlock		    "Integrator3"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  4
+	  Points		  [0, 0]
+	  DstBlock		  "k2*(z1-z2)"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  3
+	  Points		  [0, 0]
+	  DstBlock		  "k1*(z1-q)"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Sum3"
+	  SrcPort		  1
+	  Points		  [0, 0; 10, 0]
+	  Branch {
+	    Points		    [55, 0; 0, 135]
+	    DstBlock		    "k1*(z1-q)"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -80]
+	    DstBlock		    "Out2"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Sum2"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "gain2=-1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "gain2=-1"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "m1ddz1/m1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "k1*(z1-q)"
+	  SrcPort		  1
+	  Points		  [205, 0; 0, -240]
+	  DstBlock		  "Sum2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "k2*(z1-z2)"
+	  SrcPort		  1
+	  Points		  [0, 0; 550, 0]
+	  Branch {
+	    Points		    [0, -340]
+	    DstBlock		    "Sum2"
+	    DstPort		    2
+	  }
+	  Branch {
+	    DstBlock		    "gain4=-1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "c0*(dz1-dz2)"
+	  SrcPort		  1
+	  Points		  [0, 0; 415, 0]
+	  Branch {
+	    Points		    [0, -420]
+	    DstBlock		    "Sum2"
+	    DstPort		    3
+	  }
+	  Branch {
+	    DstBlock		    "gain3=-1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "fd"
+	  SrcPort		  1
+	  Points		  [0, 0; -125, 0]
+	  Branch {
+	    Points		    [-125, 0]
+	    DstBlock		    "Sum2"
+	    DstPort		    6
+	  }
+	  Branch {
+	    Points		    [0, 208]
+	    DstBlock		    "Sum4"
+	    DstPort		    3
+	  }
+	}
+	Line {
+	  SrcBlock		  "Constant=-1"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "Math\nFunction"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Math\nFunction"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "m1ddz1/m1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "m1ddz1/m1"
+	  SrcPort		  1
+	  Points		  [115, 0; 0, -440; -1320, 0; 0, 130]
+	  DstBlock		  "Integrator2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  6
+	  Points		  [760, 0; 0, -315]
+	  Branch {
+	    DstBlock		    "Sum2"
+	    DstPort		    4
+	  }
+	  Branch {
+	    Points		    [228, 0]
+	    DstBlock		    "Sum4"
+	    DstPort		    2
+	  }
+	}
+	Line {
+	  SrcBlock		  "gain3=-1"
+	  SrcPort		  1
+	  Points		  [180, 0]
+	  DstBlock		  "Sum4"
+	  DstPort		  5
+	}
+	Line {
+	  SrcBlock		  "gain4=-1"
+	  SrcPort		  1
+	  Points		  [40, 0; 0, 90; 100, 0]
+	  DstBlock		  "Sum4"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "Sum4"
+	  SrcPort		  1
+	  Points		  [100, 0; 0, 65]
+	  DstBlock		  "m2*ddz2/m2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  7
+	  Points		  [0, 0; 90, 0]
+	  Branch {
+	    DstBlock		    "m1g"
+	    DstPort		    2
+	  }
+	  Branch {
+	    Points		    [0, 125]
+	    DstBlock		    "m2g"
+	    DstPort		    2
+	  }
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  2
+	  Points		  [0, 0; 160, 0]
+	  Branch {
+	    Points		    [0, 675]
+	    DstBlock		    "m2g"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [275, 0; 0, 405]
+	    DstBlock		    "Math\nFunction1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "m1g"
+	  SrcPort		  1
+	  Points		  [1030, 0; 0, -465; -520, 0]
+	  DstBlock		  "Sum2"
+	  DstPort		  5
+	}
+	Line {
+	  SrcBlock		  "m2g"
+	  SrcPort		  1
+	  Points		  [1085, 0; 0, -565; -350, 0]
+	  DstBlock		  "Sum4"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Constant2=-1"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "Math\nFunction1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Math\nFunction1"
+	  SrcPort		  1
+	  Points		  [0, 0; 40, 0]
+	  Branch {
+	    Points		    [85, 0; 0, -60]
+	    DstBlock		    "m2*ddz2/m2"
+	    DstPort		    2
+	  }
+	  Branch {
+	    Points		    [0, 45]
+	    DstBlock		    "Scope1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "m2*ddz2/m2"
+	  SrcPort		  1
+	  Points		  [0, 0; 120, 0]
+	  Branch {
+	    Points		    [50, 0; 0, -965; -1545, 0; 0, 90]
+	    DstBlock		    "Integrator1"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 55]
+	    DstBlock		    "Out1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Integrator3"
+	  SrcPort		  1
+	  Points		  [120, 0; 0, 90; 75, 0]
+	  DstBlock		  "Sum5"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Sum5"
+	  SrcPort		  1
+	  Points		  [0, 0; 185, 0]
+	  Branch {
+	    Points		    [0, 135; 270, 0; 0, 215; -540, 0; 0, 25]
+	    DstBlock		    "k2*(z1-z2)"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "Out3"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "q"
+	  SrcPort		  1
+	  Points		  [60, 0]
+	  DstBlock		  "Sum3"
+	  DstPort		  2
+	}
+	Annotation {
+	  Name			  "m1"
+	  Position		  [485, 871]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "k1"
+	  Position		  [487, 1109]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "m2"
+	  Position		  [484, 989]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "k2"
+	  Position		  [493, 1235]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "c0"
+	  Position		  [486, 1359]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "z1"
+	  Position		  [588, 818]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "dz1"
+	  Position		  [284, 702]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "Fr"
+	  Position		  [485, 1478]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "g"
+	  Position		  [484, 1596]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "dz2"
+	  Position		  [280, 760]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "-dz2"
+	  Position		  [893, 694]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "dz1-dz2"
+	  Position		  [991, 729]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "dz1"
+	  Position		  [705, 539]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "dz2"
+	  Position		  [799, 514]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "ddz2"
+	  Position		  [512, 465]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "q"
+	  Position		  [274, 984]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "z1"
+	  Position		  [268, 932]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "z1-q"
+	  Position		  [736, 1068]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "Fr"
+	  Position		  [1233, 969]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "m1g"
+	  Position		  [1261, 992]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "m1*ddz1"
+	  Position		  [1493, 898]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "1/m1"
+	  Position		  [1385, 788]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "ddz1"
+	  Position		  [1676, 845]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "m2g"
+	  Position		  [1491, 1191]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "m2*ddz2*"
+	  Position		  [1606, 1240]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "1/m2"
+	  Position		  [1530, 1413]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "ddz2"
+	  Position		  [1875, 1336]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "z2"
+	  Position		  [496, 757]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "ddz1"
+	  Position		  [507, 546]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "1/4 passive vehicle suspension system"
+	  Position		  [421, 91]
+	  BackgroundColor	  "lightBlue"
+	  FontSize		  28
+	  FontWeight		  "bold"
+	}
+	Annotation {
+	  Name			  "%Revision -\n%Date                  Name        Description of Change                             Where\n"
+	  "%17-Jul-2003     Yi Chen     Initial version                                              Chongqing\n%09-Jan-2007  "
+	  "  Yi Chen     Update it as SGALAB demo                    Glasgow\n%HISTORY$\n"
+	  Position		  [176, 160]
+	  HorizontalAlignment	  "left"
+	  FontSize		  12
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "1/4 vehicle semi-active suspension system"
+      Ports		      [2, 4]
+      Position		      [1030, 247, 1385, 603]
+      ForegroundColor	      "blue"
+      BackgroundColor	      "blue"
+      DropShadow	      on
+      FontSize		      12
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      MaskDescription	      "1/4 semi-active vehicle suspension system\nleo.chen.yi@gmail.com"
+      MaskPromptString	      "Sprung mass-m1(kg)|Unsprung mass-m2(kg|Stiffness of tyre-k1(N/m)|Stiffness of suspension"
+      "-k2(N/m)|Coefficient of damper-c0(N/m/s)|Friction of suspension-fr(N)|Acceleration of gravity-g(m/s^2)"
+      MaskStyleString	      "edit,edit,edit,edit,edit,edit,edit"
+      MaskTunableValueString  "on,on,on,on,on,on,on"
+      MaskCallbackString      "||||||"
+      MaskEnableString	      "on,on,on,on,on,on,on"
+      MaskVisibilityString    "on,on,on,on,on,on,on"
+      MaskToolTipString	      "on,on,on,on,on,on,on"
+      MaskVarAliasString      ",,,,,,"
+      MaskVariables	      "m1=@1;m2=@2;k1=@3;k2=@4;c0=@5;fr=@6;g=@7;"
+      MaskDisplay	      "image(imread('SGA__suspension_quarter_passive.jpg'));"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      MaskValueString	      "36|240|160000|16000|1400|300|9.8"
+      MaskTabNameString	      ",,,,,,"
+      System {
+	Name			"1/4 vehicle semi-active suspension system"
+	Location		[2, 74, 995, 728]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "q"
+	  Position		  [120, 953, 150, 977]
+	  FontSize		  12
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "fd"
+	  Position		  [1460, 1007, 1490, 1033]
+	  Orientation		  "left"
+	  FontSize		  12
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "-1"
+	  Position		  [760, 650, 790, 680]
+	  FontSize		  12
+	  Gain			  "-1"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant2=-1"
+	  Position		  [1315, 1390, 1345, 1420]
+	  FontSize		  12
+	  Value			  "-1"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Constant
+	  Name			  "Constant=-1"
+	  Position		  [1155, 760, 1185, 790]
+	  FontSize		  12
+	  Value			  "-1"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  SubSystem
+	  Name			  "Data Inputs"
+	  Ports			  [0, 1]
+	  Position		  [75, 1163, 205, 1237]
+	  FontSize		  12
+	  MinAlgLoopOccurrences	  off
+	  PropExecContextOutsideSubsystem off
+	  RTWSystemCode		  "Auto"
+	  FunctionWithSeparateData off
+	  Opaque		  off
+	  RequestExecContextInheritance	off
+	  MaskHideContents	  off
+	  System {
+	    Name		    "Data Inputs"
+	    Location		    [2, 74, 1014, 744]
+	    Open		    off
+	    ModelBrowserVisibility  off
+	    ModelBrowserWidth	    200
+	    ScreenColor		    "white"
+	    PaperOrientation	    "landscape"
+	    PaperPositionMode	    "auto"
+	    PaperType		    "A4"
+	    PaperUnits		    "centimeters"
+	    TiledPaperMargins	    [1.270000, 1.270000, 1.270000, 1.270000]
+	    TiledPageScale	    1
+	    ShowPageBoundaries	    off
+	    ZoomFactor		    "100"
+	    Block {
+	      BlockType		      Constant
+	      Name		      "Fr"
+	      Position		      [150, 415, 180, 445]
+	      Value		      "fr"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Mux
+	      Name		      "Mux"
+	      Ports		      [7, 1]
+	      Position		      [295, 19, 400, 541]
+	      ShowName		      off
+	      Inputs		      "7"
+	      DisplayOption	      "bar"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "c0"
+	      Position		      [150, 340, 180, 370]
+	      Value		      "c0"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "g"
+	      Position		      [145, 490, 175, 520]
+	      Value		      "g"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "k1"
+	      Position		      [150, 190, 180, 220]
+	      Value		      "k1"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "k2"
+	      Position		      [150, 265, 180, 295]
+	      Value		      "k2"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "m1"
+	      Position		      [150, 40, 180, 70]
+	      Value		      "m1"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Constant
+	      Name		      "m2"
+	      Position		      [150, 115, 180, 145]
+	      Value		      "m2"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Block {
+	      BlockType		      Outport
+	      Name		      "Simulaiton Parameters\n"
+	      Position		      [650, 273, 680, 287]
+	      IconDisplay	      "Port number"
+	      OutDataType	      "sfix(16)"
+	      OutScaling	      "2^0"
+	    }
+	    Line {
+	      SrcBlock		      "m1"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      1
+	    }
+	    Line {
+	      SrcBlock		      "m2"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      2
+	    }
+	    Line {
+	      SrcBlock		      "k1"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      3
+	    }
+	    Line {
+	      SrcBlock		      "k2"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      4
+	    }
+	    Line {
+	      SrcBlock		      "c0"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      5
+	    }
+	    Line {
+	      SrcBlock		      "Fr"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      6
+	    }
+	    Line {
+	      SrcBlock		      "g"
+	      SrcPort		      1
+	      DstBlock		      "Mux"
+	      DstPort		      7
+	    }
+	    Line {
+	      SrcBlock		      "Mux"
+	      SrcPort		      1
+	      DstBlock		      "Simulaiton Parameters\n"
+	      DstPort		      1
+	    }
+	  }
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux"
+	  Ports			  [1, 7]
+	  Position		  [360, 787, 380, 1613]
+	  BackgroundColor	  "black"
+	  ShowName		  off
+	  FontSize		  12
+	  Outputs		  "7"
+	  BusSelectionMode	  on
+	}
+	Block {
+	  BlockType		  Integrator
+	  Name			  "Integrator"
+	  Ports			  [1, 1]
+	  Position		  [275, 635, 335, 685]
+	  FontSize		  12
+	}
+	Block {
+	  BlockType		  Integrator
+	  Name			  "Integrator1"
+	  Ports			  [1, 1]
+	  Position		  [465, 400, 525, 450]
+	  FontSize		  12
+	}
+	Block {
+	  BlockType		  Integrator
+	  Name			  "Integrator2"
+	  Ports			  [1, 1]
+	  Position		  [465, 480, 525, 530]
+	  FontSize		  12
+	}
+	Block {
+	  BlockType		  Integrator
+	  Name			  "Integrator3"
+	  Ports			  [1, 1]
+	  Position		  [275, 700, 335, 750]
+	  FontSize		  12
+	}
+	Block {
+	  BlockType		  Math
+	  Name			  "Math\nFunction"
+	  Ports			  [2, 1]
+	  Position		  [1215, 716, 1250, 794]
+	  FontSize		  12
+	  Operator		  "pow"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Math
+	  Name			  "Math\nFunction1"
+	  Ports			  [2, 1]
+	  Position		  [1380, 1346, 1415, 1424]
+	  FontSize		  12
+	  Operator		  "pow"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Scope
+	  Name			  "Scope1"
+	  Ports			  [1]
+	  Position		  [1495, 1414, 1525, 1446]
+	  FontSize		  12
+	  Floating		  off
+	  Location		  [5, 53, 1029, 743]
+	  Open			  off
+	  NumInputPorts		  "1"
+	  List {
+	    ListType		    AxesTitles
+	    axes1		    "%<SignalLabel>"
+	  }
+	  SaveName		  "ScopeData5"
+	  DataFormat		  "StructureWithTime"
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum"
+	  Ports			  [2, 1]
+	  Position		  [860, 690, 880, 710]
+	  ShowName		  off
+	  FontSize		  12
+	  IconShape		  "round"
+	  Inputs		  "|++"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum2"
+	  Ports			  [6, 1]
+	  Position		  [1150, 820, 1260, 930]
+	  ShowName		  off
+	  FontSize		  12
+	  IconShape		  "round"
+	  Inputs		  "|++++-+"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum3"
+	  Ports			  [2, 1]
+	  Position		  [205, 885, 225, 905]
+	  ShowName		  off
+	  FontSize		  12
+	  IconShape		  "round"
+	  Inputs		  "|+-"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum4"
+	  Ports			  [5, 1]
+	  Position		  [1385, 1165, 1475, 1255]
+	  ShowName		  off
+	  FontSize		  12
+	  IconShape		  "round"
+	  Inputs		  "|++---"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Sum
+	  Name			  "Sum5"
+	  Ports			  [2, 1]
+	  Position		  [525, 775, 545, 795]
+	  ShowName		  off
+	  FontSize		  12
+	  IconShape		  "round"
+	  Inputs		  "|+-"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "c0*(dz1-dz2)"
+	  Ports			  [2, 1]
+	  Position		  [665, 1244, 680, 1346]
+	  FontSize		  12
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "gain2=-1"
+	  Position		  [1310, 860, 1340, 890]
+	  FontSize		  12
+	  Gain			  "-1"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "gain3=-1"
+	  Position		  [1215, 1280, 1245, 1310]
+	  FontSize		  12
+	  Gain			  "-1"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Gain
+	  Name			  "gain4=-1"
+	  Position		  [1220, 1165, 1250, 1195]
+	  FontSize		  12
+	  Gain			  "-1"
+	  ParameterDataType	  "sfix(16)"
+	  ParameterScaling	  "2^0"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "k1*(z1-q)"
+	  Ports			  [2, 1]
+	  Position		  [695, 1004, 710, 1106]
+	  FontSize		  12
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "k2*(z1-z2)"
+	  Ports			  [2, 1]
+	  Position		  [495, 1141, 510, 1219]
+	  FontSize		  12
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "m1ddz1/m1"
+	  Ports			  [2, 1]
+	  Position		  [1505, 696, 1525, 934]
+	  FontSize		  12
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "m1g"
+	  Ports			  [2, 1]
+	  Position		  [640, 1484, 655, 1586]
+	  FontSize		  12
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "m2*ddz2/m2"
+	  Ports			  [2, 1]
+	  Position		  [1635, 1249, 1650, 1351]
+	  FontSize		  12
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Product
+	  Name			  "m2g"
+	  Ports			  [2, 1]
+	  Position		  [640, 1609, 655, 1711]
+	  FontSize		  12
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out1"
+	  Position		  [1815, 1348, 1845, 1362]
+	  FontSize		  12
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out2"
+	  Position		  [275, 808, 305, 822]
+	  FontSize		  12
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out3"
+	  Position		  [785, 778, 815, 792]
+	  FontSize		  12
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out4"
+	  Position		  [830, 498, 860, 512]
+	  FontSize		  12
+	  Port			  "4"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Line {
+	  SrcBlock		  "Data Inputs"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "Demux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  1
+	  Points		  [0, 0; 205, 0]
+	  Branch {
+	    Points		    [0, 670]
+	    DstBlock		    "m1g"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Labels		    [3, 0]
+	    Points		    [280, 0; 0, -85; 320, 0; 0, -20]
+	    DstBlock		    "Math\nFunction"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Integrator2"
+	  SrcPort		  1
+	  Points		  [110, 0]
+	  Branch {
+	    Points		    [0, 110; -85, 0]
+	    Branch {
+	      Points		      [0, 125; 315, 0]
+	      DstBlock		      "Sum"
+	      DstPort		      2
+	    }
+	    Branch {
+	      Points		      [-390, 0; 0, 45]
+	      DstBlock		      "Integrator"
+	      DstPort		      1
+	    }
+	  }
+	  Branch {
+	    DstBlock		    "Out4"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Integrator"
+	  SrcPort		  1
+	  Points		  [140, 0; 0, 125]
+	  Branch {
+	    DstBlock		    "Sum5"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [-315, 0; 0, 110]
+	    DstBlock		    "Sum3"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  5
+	  Points		  [0, 0]
+	  DstBlock		  "c0*(dz1-dz2)"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "-1"
+	  SrcPort		  1
+	  Points		  [25, 0; 0, 35]
+	  DstBlock		  "Sum"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Sum"
+	  SrcPort		  1
+	  Points		  [70, 0; 0, 510; -335, 0; 0, 60]
+	  DstBlock		  "c0*(dz1-dz2)"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Integrator1"
+	  SrcPort		  1
+	  Points		  [75, 0; 0, 55; 140, 0; 0, 105; -30, 0]
+	  Branch {
+	    Points		    [0, 80]
+	    DstBlock		    "-1"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [-575, 0; 0, 140]
+	    DstBlock		    "Integrator3"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  4
+	  Points		  [0, 0]
+	  DstBlock		  "k2*(z1-z2)"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  3
+	  Points		  [0, 0]
+	  DstBlock		  "k1*(z1-q)"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Sum3"
+	  SrcPort		  1
+	  Points		  [0, 0; 10, 0]
+	  Branch {
+	    Points		    [55, 0; 0, 135]
+	    DstBlock		    "k1*(z1-q)"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -80]
+	    DstBlock		    "Out2"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Sum2"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "gain2=-1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "gain2=-1"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "m1ddz1/m1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "k1*(z1-q)"
+	  SrcPort		  1
+	  Points		  [205, 0; 0, -240]
+	  DstBlock		  "Sum2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "k2*(z1-z2)"
+	  SrcPort		  1
+	  Points		  [0, 0; 550, 0]
+	  Branch {
+	    Points		    [0, -340]
+	    DstBlock		    "Sum2"
+	    DstPort		    2
+	  }
+	  Branch {
+	    DstBlock		    "gain4=-1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "c0*(dz1-dz2)"
+	  SrcPort		  1
+	  Points		  [0, 0; 415, 0]
+	  Branch {
+	    Points		    [0, -420]
+	    DstBlock		    "Sum2"
+	    DstPort		    3
+	  }
+	  Branch {
+	    DstBlock		    "gain3=-1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "fd"
+	  SrcPort		  1
+	  Points		  [0, 0; -125, 0]
+	  Branch {
+	    Points		    [-125, 0]
+	    DstBlock		    "Sum2"
+	    DstPort		    6
+	  }
+	  Branch {
+	    Points		    [0, 208]
+	    DstBlock		    "Sum4"
+	    DstPort		    3
+	  }
+	}
+	Line {
+	  SrcBlock		  "Constant=-1"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "Math\nFunction"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Math\nFunction"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "m1ddz1/m1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "m1ddz1/m1"
+	  SrcPort		  1
+	  Points		  [115, 0; 0, -440; -1320, 0; 0, 130]
+	  DstBlock		  "Integrator2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  6
+	  Points		  [760, 0; 0, -315]
+	  Branch {
+	    DstBlock		    "Sum2"
+	    DstPort		    4
+	  }
+	  Branch {
+	    Points		    [228, 0]
+	    DstBlock		    "Sum4"
+	    DstPort		    2
+	  }
+	}
+	Line {
+	  SrcBlock		  "gain3=-1"
+	  SrcPort		  1
+	  Points		  [180, 0]
+	  DstBlock		  "Sum4"
+	  DstPort		  5
+	}
+	Line {
+	  SrcBlock		  "gain4=-1"
+	  SrcPort		  1
+	  Points		  [40, 0; 0, 90; 100, 0]
+	  DstBlock		  "Sum4"
+	  DstPort		  4
+	}
+	Line {
+	  SrcBlock		  "Sum4"
+	  SrcPort		  1
+	  Points		  [100, 0; 0, 65]
+	  DstBlock		  "m2*ddz2/m2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  7
+	  Points		  [0, 0; 90, 0]
+	  Branch {
+	    DstBlock		    "m1g"
+	    DstPort		    2
+	  }
+	  Branch {
+	    Points		    [0, 125]
+	    DstBlock		    "m2g"
+	    DstPort		    2
+	  }
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  2
+	  Points		  [0, 0; 160, 0]
+	  Branch {
+	    Points		    [0, 675]
+	    DstBlock		    "m2g"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [275, 0; 0, 405]
+	    DstBlock		    "Math\nFunction1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "m1g"
+	  SrcPort		  1
+	  Points		  [1030, 0; 0, -465; -520, 0]
+	  DstBlock		  "Sum2"
+	  DstPort		  5
+	}
+	Line {
+	  SrcBlock		  "m2g"
+	  SrcPort		  1
+	  Points		  [1085, 0; 0, -565; -350, 0]
+	  DstBlock		  "Sum4"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Constant2=-1"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "Math\nFunction1"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Math\nFunction1"
+	  SrcPort		  1
+	  Points		  [0, 0; 40, 0]
+	  Branch {
+	    Points		    [85, 0; 0, -60]
+	    DstBlock		    "m2*ddz2/m2"
+	    DstPort		    2
+	  }
+	  Branch {
+	    Points		    [0, 45]
+	    DstBlock		    "Scope1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "m2*ddz2/m2"
+	  SrcPort		  1
+	  Points		  [0, 0; 120, 0]
+	  Branch {
+	    Points		    [50, 0; 0, -965; -1545, 0; 0, 90]
+	    DstBlock		    "Integrator1"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, 55]
+	    DstBlock		    "Out1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Integrator3"
+	  SrcPort		  1
+	  Points		  [120, 0; 0, 90; 75, 0]
+	  DstBlock		  "Sum5"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Sum5"
+	  SrcPort		  1
+	  Points		  [0, 0; 185, 0]
+	  Branch {
+	    Points		    [0, 135; 270, 0; 0, 215; -540, 0; 0, 25]
+	    DstBlock		    "k2*(z1-z2)"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "Out3"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "q"
+	  SrcPort		  1
+	  Points		  [60, 0]
+	  DstBlock		  "Sum3"
+	  DstPort		  2
+	}
+	Annotation {
+	  Name			  "m1"
+	  Position		  [400, 826]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "k1"
+	  Position		  [402, 1064]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "m2"
+	  Position		  [399, 944]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "k2"
+	  Position		  [408, 1190]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "c0"
+	  Position		  [401, 1314]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "z1"
+	  Position		  [503, 773]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "dz1"
+	  Position		  [199, 657]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "Fr"
+	  Position		  [400, 1433]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "g"
+	  Position		  [399, 1551]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "dz2"
+	  Position		  [195, 715]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "-dz2"
+	  Position		  [808, 649]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "dz1-dz2"
+	  Position		  [906, 684]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "dz1"
+	  Position		  [620, 494]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "dz2"
+	  Position		  [714, 469]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "ddz2"
+	  Position		  [427, 420]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "q"
+	  Position		  [189, 939]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "z1"
+	  Position		  [183, 887]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "z1-q"
+	  Position		  [651, 1023]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "Fr"
+	  Position		  [1148, 924]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "m1g"
+	  Position		  [1176, 947]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "m1*ddz1"
+	  Position		  [1408, 853]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "1/m1"
+	  Position		  [1300, 743]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "ddz1"
+	  Position		  [1591, 800]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "m2g"
+	  Position		  [1406, 1146]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "m2*ddz2*"
+	  Position		  [1521, 1195]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "1/m2"
+	  Position		  [1445, 1368]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "ddz2"
+	  Position		  [1790, 1291]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "z2"
+	  Position		  [411, 712]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "ddz1"
+	  Position		  [422, 501]
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "1/4 Semi-active Vehicle Suspension System"
+	  Position		  [471, 121]
+	  BackgroundColor	  "lightBlue"
+	  FontSize		  28
+	  FontWeight		  "bold"
+	}
+	Annotation {
+	  Name			  "%Revision -\n%Date                  Name        Description of Change                             Where\n"
+	  "%17-Jul-2003     Yi Chen     Initial version                                              Chongqing\n%09-Jan-2007  "
+	  "  Yi Chen     Update it as SGALAB demo                    Glasgow\n%HISTORY$\n"
+	  Position		  [211, 205]
+	  HorizontalAlignment	  "left"
+	  FontSize		  12
+	}
+      }
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "Body Acc1"
+      Ports		      [1]
+      Position		      [1560, 859, 1590, 891]
+      FontSize		      14
+      Floating		      off
+      Location		      [-3, 41, 1021, 763]
+      Open		      off
+      NumInputPorts	      "1"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      YMin		      "-2.25"
+      YMax		      "1.5"
+      SaveName		      "ScopeData11"
+      DataFormat	      "StructureWithTime"
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Integrator
+      Name		      "Integrator"
+      Ports		      [1, 1]
+      Position		      [825, 320, 855, 350]
+      FontSize		      12
+    }
+    Block {
+      BlockType		      Integrator
+      Name		      "Integrator1"
+      Ports		      [1, 1]
+      Position		      [345, 735, 375, 765]
+      FontSize		      12
+    }
+    Block {
+      BlockType		      Mux
+      Name		      "Mux1"
+      Ports		      [2, 1]
+      Position		      [1225, 828, 1235, 917]
+      ShowName		      off
+      Inputs		      "2"
+      DisplayOption	      "bar"
+    }
+    Block {
+      BlockType		      Mux
+      Name		      "Mux2"
+      Ports		      [2, 1]
+      Position		      [1555, 1173, 1565, 1262]
+      ShowName		      off
+      Inputs		      "2"
+      DisplayOption	      "bar"
+    }
+    Block {
+      BlockType		      Mux
+      Name		      "Mux3"
+      Ports		      [2, 1]
+      Position		      [1525, 1053, 1535, 1142]
+      ShowName		      off
+      Inputs		      "2"
+      DisplayOption	      "bar"
+    }
+    Block {
+      BlockType		      Mux
+      Name		      "Mux4"
+      Ports		      [4, 1]
+      Position		      [1830, 805, 1840, 895]
+      ShowName		      off
+      DisplayOption	      "bar"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "Passvie Suspension Distorsion"
+      Ports		      [1]
+      Position		      [1415, 1369, 1445, 1401]
+      FontSize		      12
+      Floating		      off
+      Location		      [1, 49, 1025, 767]
+      Open		      off
+      NumInputPorts	      "1"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      SaveName		      "ScopeData8"
+      DataFormat	      "StructureWithTime"
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Reference
+      Name		      "Road type Switch"
+      Ports		      [2, 1]
+      Position		      [345, 266, 375, 404]
+      FontSize		      12
+      SourceBlock	      "simulink/Signal\nRouting/Manual Switch"
+      SourceType	      "Manual Switch"
+      ShowPortLabels	      "FromPortIcon"
+      SystemSampleTime	      "-1"
+      FunctionWithSeparateData off
+      RTWMemSecFuncInitTerm   "Inherit from model"
+      RTWMemSecFuncExecute    "Inherit from model"
+      RTWMemSecDataConstants  "Inherit from model"
+      RTWMemSecDataInternal   "Inherit from model"
+      RTWMemSecDataParameters "Inherit from model"
+      sw		      "1"
+      action		      "0"
+      varsize		      off
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "Suspension Deformation"
+      Ports		      [1]
+      Position		      [1580, 454, 1610, 486]
+      FontSize		      12
+      Floating		      off
+      Location		      [5, 53, 1029, 771]
+      Open		      off
+      NumInputPorts	      "1"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      SaveName		      "ScopeData2"
+      DataFormat	      "StructureWithTime"
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      ToFile
+      Name		      "To File"
+      Position		      [1865, 826, 2185, 874]
+      FontSize		      18
+      Filename		      "SGA__suspension_skyhook_quarter"
+      MatrixName	      "SGA__suspension_skyhook_quarter"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "control force"
+      Ports		      [1]
+      Position		      [1030, 664, 1060, 696]
+      FontSize		      12
+      Floating		      off
+      Location		      [256, 336, 580, 575]
+      Open		      off
+      NumInputPorts	      "1"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      YMin		      "-2.5e+276"
+      YMax		      "1.75e+277"
+      SaveName		      "ScopeData3"
+      DataFormat	      "StructureWithTime"
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "pasive acc"
+      Ports		      [1]
+      Position		      [1395, 1129, 1425, 1161]
+      FontSize		      12
+      Floating		      off
+      Location		      [454, 421, 984, 737]
+      Open		      off
+      NumInputPorts	      "1"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      YMin		      "-2"
+      YMax		      "2"
+      SaveName		      "ScopeData10"
+      DataFormat	      "StructureWithTime"
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "semiactive Body Acc"
+      Ports		      [1]
+      Position		      [1450, 274, 1480, 306]
+      FontSize		      12
+      Floating		      off
+      Location		      [316, 111, 806, 477]
+      Open		      off
+      NumInputPorts	      "1"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      YMin		      "-2.25"
+      YMax		      "2.5"
+      DataFormat	      "StructureWithTime"
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "sin"
+      Ports		      [0, 1]
+      Position		      [55, 284, 195, 316]
+      BackgroundColor	      "green"
+      DropShadow	      on
+      FontSize		      12
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      MaskDisplay	      "disp('Sin Roadspectrum')"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      System {
+	Name			"sin"
+	Location		[215, 151, 955, 509]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Derivative
+	  Name			  "Derivative"
+	  Position		  [220, 156, 335, 204]
+	}
+	Block {
+	  BlockType		  Derivative
+	  Name			  "Derivative1"
+	  Position		  [480, 26, 595, 74]
+	}
+	Block {
+	  BlockType		  Sin
+	  Name			  "Sine Wave"
+	  Ports			  [0, 1]
+	  Position		  [25, 282, 85, 328]
+	  BackgroundColor	  "magenta"
+	  DropShadow		  on
+	  Amplitude		  "0.015"
+	  Frequency		  "2"
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  Scope
+	  Name			  "accelerator"
+	  Ports			  [1]
+	  Position		  [685, 34, 715, 66]
+	  Floating		  off
+	  Location		  [1, 49, 1025, 739]
+	  Open			  off
+	  NumInputPorts		  "1"
+	  List {
+	    ListType		    AxesTitles
+	    axes1		    "%<SignalLabel>"
+	  }
+	  SaveName		  "ScopeData2"
+	  DataFormat		  "StructureWithTime"
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  Scope
+	  Name			  "displacement"
+	  Ports			  [1]
+	  Position		  [535, 279, 565, 311]
+	  Floating		  off
+	  Location		  [667, 381, 991, 620]
+	  Open			  off
+	  NumInputPorts		  "1"
+	  List {
+	    ListType		    AxesTitles
+	    axes1		    "%<SignalLabel>"
+	  }
+	  DataFormat		  "StructureWithTime"
+	  SampleTime		  "0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out1"
+	  Position		  [410, 173, 440, 187]
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Line {
+	  SrcBlock		  "Sine Wave"
+	  SrcPort		  1
+	  Points		  [0, -10; 20, 0]
+	  Branch {
+	    DstBlock		    "displacement"
+	    DstPort		    1
+	  }
+	  Branch {
+	    Points		    [0, -115]
+	    DstBlock		    "Derivative"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Derivative"
+	  SrcPort		  1
+	  Points		  [0, 0; 50, 0]
+	  Branch {
+	    Points		    [0, -130]
+	    DstBlock		    "Derivative1"
+	    DstPort		    1
+	  }
+	  Branch {
+	    DstBlock		    "Out1"
+	    DstPort		    1
+	  }
+	}
+	Line {
+	  SrcBlock		  "Derivative1"
+	  SrcPort		  1
+	  DstBlock		  "accelerator"
+	  DstPort		  1
+	}
+      }
+    }
+    Block {
+      BlockType		      SubSystem
+      Name		      "skyhook controller for\n 1/4 semi active suspension systems"
+      Ports		      [3, 2]
+      Position		      [470, 612, 785, 888]
+      FontSize		      12
+      MinAlgLoopOccurrences   off
+      PropExecContextOutsideSubsystem off
+      RTWSystemCode	      "Auto"
+      FunctionWithSeparateData off
+      Opaque		      off
+      RequestExecContextInheritance off
+      MaskHideContents	      off
+      MaskDisplay	      "image(imread('SGA__suspension_skyhook_quarter.jpg'));"
+      MaskIconFrame	      on
+      MaskIconOpaque	      on
+      MaskIconRotate	      "none"
+      MaskIconUnits	      "autoscale"
+      System {
+	Name			"skyhook controller for\n 1/4 semi active suspension systems"
+	Location		[2, 74, 1014, 744]
+	Open			off
+	ModelBrowserVisibility	off
+	ModelBrowserWidth	200
+	ScreenColor		"white"
+	PaperOrientation	"landscape"
+	PaperPositionMode	"auto"
+	PaperType		"A4"
+	PaperUnits		"centimeters"
+	TiledPaperMargins	[1.270000, 1.270000, 1.270000, 1.270000]
+	TiledPageScale		1
+	ShowPageBoundaries	off
+	ZoomFactor		"100"
+	Block {
+	  BlockType		  Inport
+	  Name			  "In1"
+	  Position		  [125, 223, 155, 237]
+	  FontSize		  12
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "In2"
+	  Position		  [125, 303, 155, 317]
+	  FontSize		  12
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Inport
+	  Name			  "In3"
+	  Position		  [125, 383, 155, 397]
+	  FontSize		  12
+	  Port			  "3"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  "S-Function"
+	  Name			  " Skyhook Controller for 1/4 vehicle suspension system"
+	  Description		  "Practical skyhook controller"
+	  Ports			  [1, 1]
+	  Position		  [305, 157, 595, 463]
+	  BackgroundColor	  "red"
+	  DropShadow		  on
+	  FontSize		  12
+	  FunctionName		  "SGA__suspension_skyhook_quarter_sfuncion"
+	  Parameters		  "Cfirm,Csoft,Csh"
+	  EnableBusSupport	  off
+	  MaskDescription	  "Pratical Skyhook controller for semi active suspension systems\n\n    if ( Cfirm/Csh ) < Sprung_"
+	  "Velocity/(Unsprung_Velocity-Sprung_Velocity)\n\n          u_control             = Cfirm*(Unsprung_Velocity-Sprung_V"
+	  "elocity);\n          c_semi_skyhook = Cfirm;\n\n    elseif (Csoft/Csh) < Sprung_Velocity/(Unsprung_Velocity-Sprung_"
+	  "Velocity)&(Cfirm/Csh)>Sprung_Velocity/(Unsprung_Velocity-Sprung_Velocity)\n\n          u_control            =  Csh*"
+	  "Sprung_Velocity;\n          c_semi_skyhook = Csh*Sprung_Velocity/(Unsprung_Velocity-Sprung_Velocity);\n\n    else\n"
+	  "\n        u_control             = Csoft*(Unsprung_Velocity-Sprung_Velocity);\n        c_semi_skyhook = Csoft;\n\n  "
+	  "  end\n"
+	  MaskHelp		  "Skyhook control for 1/4 sem-iactive suspension systems\n-- SGALAB Demonstration Case\n%Revision -\n%Da"
+	  "te                  Name        Description of Change                             Where\n%17-Jul-2003     Yi Chen  "
+	  "   Initial version                                              Chongqing\n%09-Jan-2007    Yi Chen     Update it as"
+	  " SGALAB demo                     Glasgow\n%HISTORY$  leo.chen.yi@gmail.com"
+	  MaskPromptString	  "Max Damping Of Skyhook|Min Damping Of skyhook|Expecting Damping Of Skyhook"
+	  MaskStyleString	  "edit,edit,edit"
+	  MaskTunableValueString  "on,on,on"
+	  MaskCallbackString	  "||"
+	  MaskEnableString	  "on,on,on"
+	  MaskVisibilityString	  "on,on,on"
+	  MaskToolTipString	  "on,on,on"
+	  MaskVarAliasString	  ",,"
+	  MaskVariables		  "Cfirm=@1;Csoft=@2;Csh=@3;"
+	  MaskDisplay		  "image(imread('SGA__suspension_skyhook_quater.jpg'));"
+	  MaskIconFrame		  on
+	  MaskIconOpaque	  on
+	  MaskIconRotate	  "none"
+	  MaskIconUnits		  "autoscale"
+	  MaskValueString	  "3000|1000|1800"
+	  MaskTabNameString	  ",,"
+	}
+	Block {
+	  BlockType		  Demux
+	  Name			  "Demux"
+	  Ports			  [1, 2]
+	  Position		  [640, 213, 710, 402]
+	  BackgroundColor	  "yellow"
+	  ShowName		  off
+	  FontSize		  12
+	  Outputs		  "2"
+	}
+	Block {
+	  BlockType		  Mux
+	  Name			  "Mux"
+	  Ports			  [3, 1]
+	  Position		  [180, 187, 230, 433]
+	  BackgroundColor	  "yellow"
+	  ShowName		  off
+	  FontSize		  12
+	  Inputs		  "3"
+	  DisplayOption		  "signals"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out1"
+	  Position		  [735, 253, 765, 267]
+	  FontSize		  12
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Block {
+	  BlockType		  Outport
+	  Name			  "Out2"
+	  Position		  [735, 348, 765, 362]
+	  FontSize		  12
+	  Port			  "2"
+	  IconDisplay		  "Port number"
+	  OutDataType		  "sfix(16)"
+	  OutScaling		  "2^0"
+	}
+	Line {
+	  SrcBlock		  "Mux"
+	  SrcPort		  1
+	  DstBlock		  " Skyhook Controller for 1/4 vehicle suspension system"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  " Skyhook Controller for 1/4 vehicle suspension system"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "Demux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "In1"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "Mux"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "Out1"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "In2"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "Mux"
+	  DstPort		  2
+	}
+	Line {
+	  SrcBlock		  "Demux"
+	  SrcPort		  2
+	  Points		  [0, 0]
+	  DstBlock		  "Out2"
+	  DstPort		  1
+	}
+	Line {
+	  SrcBlock		  "In3"
+	  SrcPort		  1
+	  Points		  [0, 0]
+	  DstBlock		  "Mux"
+	  DstPort		  3
+	}
+	Annotation {
+	  Name			  "unsprung_velocity"
+	  Position		  [101, 215]
+	  BackgroundColor	  "yellow"
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "sprung_velocity"
+	  Position		  [64, 298]
+	  BackgroundColor	  "yellow"
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "road_velocity"
+	  Position		  [71, 378]
+	  BackgroundColor	  "yellow"
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "skyhook control force"
+	  Position		  [815, 228]
+	  BackgroundColor	  "yellow"
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "skyhook damping"
+	  Position		  [812, 332]
+	  BackgroundColor	  "yellow"
+	  FontSize		  12
+	}
+	Annotation {
+	  Name			  "Skyhook control for 1/4 sem-iactive suspension systems\n-- SGALAB Demonstration Case"
+	  Position		  [82, 26]
+	  HorizontalAlignment	  "left"
+	  BackgroundColor	  "lightBlue"
+	  FontSize		  14
+	}
+	Annotation {
+	  Name			  "%Revision -\n%Date                  Name        Description of Change                             Where\n"
+	  "%17-Jul-2003     Yi Chen     Initial version                                              Chongqing\n%09-Jan-2007  "
+	  "  Yi Chen     Update it as SGALAB demo                     Glasgow\n%HISTORY$  leo.chen.yi@gmail.com\n"
+	  Position		  [76, 95]
+	  HorizontalAlignment	  "left"
+	  FontSize		  12
+	}
+      }
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "skyhook damping"
+      Ports		      [1]
+      Position		      [945, 804, 975, 836]
+      FontSize		      12
+      Floating		      off
+      Location		      [-3, 41, 1021, 763]
+      Open		      off
+      NumInputPorts	      "1"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      YMin		      "1000"
+      YMax		      "3000"
+      SaveName		      "ScopeData4"
+      DataFormat	      "StructureWithTime"
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Gain
+      Name		      "tyre stiffness"
+      Position		      [1675, 1085, 1705, 1115]
+      FontSize		      12
+      Gain		      "160000"
+      ParameterDataType	      "sfix(16)"
+      ParameterScaling	      "2^0"
+      OutDataType	      "sfix(16)"
+      OutScaling	      "2^0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "unsprung velocity"
+      Ports		      [1]
+      Position		      [1540, 729, 1570, 761]
+      FontSize		      12
+      Floating		      off
+      Location		      [5, 44, 1029, 762]
+      Open		      off
+      NumInputPorts	      "1"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      YMin		      "-22.5"
+      YMax		      "22.5"
+      SaveName		      "ScopeData6"
+      DataFormat	      "StructureWithTime"
+      SampleTime	      "0"
+    }
+    Block {
+      BlockType		      Scope
+      Name		      "whitenoise_spectrum"
+      Ports		      [1]
+      Position		      [750, 384, 780, 416]
+      FontSize		      12
+      Floating		      off
+      Location		      [616, 449, 939, 688]
+      Open		      off
+      NumInputPorts	      "1"
+      List {
+	ListType		AxesTitles
+	axes1			"%<SignalLabel>"
+      }
+      SaveName		      "ScopeData7"
+      DataFormat	      "StructureWithTime"
+      SampleTime	      "0"
+    }
+    Line {
+      SrcBlock		      "Road type Switch"
+      SrcPort		      1
+      Points		      [0, 0; 75, 0]
+      Branch {
+	Points			[205, 0]
+	Branch {
+	  Points		  [0, 65]
+	  DstBlock		  "whitenoise_spectrum"
+	  DstPort		  1
+	}
+	Branch {
+	  DstBlock		  "Integrator"
+	  DstPort		  1
+	}
+      }
+      Branch {
+	Points			[0, 120; 230, 0; 0, 110; -395, 0; 0, 275]
+	DstBlock		"skyhook controller for\n 1/4 semi active suspension systems"
+	DstPort			3
+      }
+    }
+    Line {
+      SrcBlock		      "1/4 vehicle semi-active suspension system"
+      SrcPort		      1
+      Points		      [25, 0]
+      Branch {
+	DstBlock		"semiactive Body Acc"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, -50; 240, 0; 0, 790; -520, 0]
+	Branch {
+	  Points		  [-940, 0; 0, -280]
+	  DstBlock		  "Integrator1"
+	  DstPort		  1
+	}
+	Branch {
+	  Points		  [0, -180]
+	  DstBlock		  "Mux1"
+	  DstPort		  1
+	}
+      }
+    }
+    Line {
+      SrcBlock		      "1/4 vehicle semi-active suspension system"
+      SrcPort		      3
+      Points		      [100, 0]
+      Branch {
+	DstBlock		"Suspension Deformation"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, 725]
+	DstBlock		"Mux2"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "1/4 vehicle semi-active suspension system"
+      SrcPort		      2
+      Points		      [40, 0; 0, 695]
+      DstBlock		      "Mux3"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "skyhook controller for\n 1/4 semi active suspension systems"
+      SrcPort		      1
+      Points		      [80, 0]
+      Branch {
+	DstBlock		"control force"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, -165]
+	DstBlock		"1/4 vehicle semi-active suspension system"
+	DstPort			2
+      }
+    }
+    Line {
+      SrcBlock		      "skyhook controller for\n 1/4 semi active suspension systems"
+      SrcPort		      2
+      DstBlock		      "skyhook damping"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "1/4 vehicle semi-active suspension system"
+      SrcPort		      4
+      Points		      [70, 0; 0, 185]
+      Branch {
+	DstBlock		"unsprung velocity"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, 240; -1340, 0; 0, -325]
+	DstBlock		"skyhook controller for\n 1/4 semi active suspension systems"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "Integrator1"
+      SrcPort		      1
+      DstBlock		      "skyhook controller for\n 1/4 semi active suspension systems"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Integrator"
+      SrcPort		      1
+      Points		      [0, 0; 105, 0]
+      Branch {
+	DstBlock		"1/4 vehicle semi-active suspension system"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, 295; 145, 0; 0, 285; -295, 0; 0, 260]
+	Branch {
+	  DstBlock		  "1/4 vehicle passive suspension system"
+	  DstPort		  1
+	}
+	Branch {
+	  Points		  [0, 290; 990, 0; 0, -585]
+	  DstBlock		  "Mux4"
+	  DstPort		  4
+	}
+      }
+    }
+    Line {
+      SrcBlock		      "1/4 vehicle passive suspension system"
+      SrcPort		      1
+      Points		      [25, 0]
+      Branch {
+	DstBlock		"pasive acc"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, -190; -165, 0; 0, -60]
+	DstBlock		"Mux1"
+	DstPort			2
+      }
+    }
+    Line {
+      SrcBlock		      "1/4 vehicle passive suspension system"
+      SrcPort		      3
+      Points		      [60, 0]
+      Branch {
+	DstBlock		"Passvie Suspension Distorsion"
+	DstPort			1
+      }
+      Branch {
+	Points			[0, -145]
+	DstBlock		"Mux2"
+	DstPort			2
+      }
+    }
+    Line {
+      SrcBlock		      "1/4 vehicle passive suspension system"
+      SrcPort		      2
+      Points		      [175, 0; 0, -145]
+      DstBlock		      "Mux3"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "sin"
+      SrcPort		      1
+      DstBlock		      "Road type Switch"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      " white noise"
+      SrcPort		      1
+      DstBlock		      "Road type Switch"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "0"
+      SrcPort		      1
+      DstBlock		      "1/4 vehicle passive suspension system"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Mux4"
+      SrcPort		      1
+      DstBlock		      "To File"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "Mux1"
+      SrcPort		      1
+      Points		      [0, 0; 170, 0]
+      Branch {
+	DstBlock		"Body Acc1"
+	DstPort			1
+      }
+      Branch {
+	Points			[95, 0; 0, -55]
+	DstBlock		"Mux4"
+	DstPort			1
+      }
+    }
+    Line {
+      SrcBlock		      "Mux3"
+      SrcPort		      1
+      DstBlock		      "tyre stiffness"
+      DstPort		      1
+    }
+    Line {
+      SrcBlock		      "tyre stiffness"
+      SrcPort		      1
+      Points		      [35, 0; 0, -260]
+      DstBlock		      "Mux4"
+      DstPort		      2
+    }
+    Line {
+      SrcBlock		      "Mux2"
+      SrcPort		      1
+      Points		      [210, 0; 0, -360]
+      DstBlock		      "Mux4"
+      DstPort		      3
+    }
+    Annotation {
+      Name		      "q"
+      Position		      [1014, 322]
+      FontSize		      12
+    }
+    Annotation {
+      Name		      "fd"
+      Position		      [1001, 504]
+      FontSize		      12
+    }
+    Annotation {
+      Name		      "unsprung_velocity"
+      Position		      [361, 640]
+      BackgroundColor	      "yellow"
+      FontSize		      12
+    }
+    Annotation {
+      Name		      "sprung_velocity"
+      Position		      [354, 728]
+      BackgroundColor	      "yellow"
+      FontSize		      12
+    }
+    Annotation {
+      Name		      "road_velocity"
+      Position		      [356, 823]
+      BackgroundColor	      "yellow"
+      FontSize		      12
+    }
+    Annotation {
+      Name		      "skyhook control force"
+      Position		      [950, 663]
+      BackgroundColor	      "yellow"
+      FontSize		      12
+    }
+    Annotation {
+      Name		      "skyhook damping"
+      Position		      [857, 802]
+      BackgroundColor	      "yellow"
+      FontSize		      12
+    }
+    Annotation {
+      Name		      "dz1"
+      Position		      [1423, 546]
+      FontSize		      12
+    }
+    Annotation {
+      Name		      "Skyhook control for 1/4 sem-iactive suspension systems \n-- SGALAB Demonstration Case"
+      Position		      [72, 126]
+      HorizontalAlignment     "left"
+      BackgroundColor	      "lightBlue"
+      FontSize		      14
+    }
+    Annotation {
+      Name		      "%Revision -\n%Date                  Name        Description of Change                             W"
+      "here\n%17-Jul-2003     Yi Chen     Initial version                                              Chongqing\n%09-J"
+      "an-2007    Yi Chen     Update it as SGALAB demo                     Glasgow\n%HISTORY$  leo.chen.yi@gmail.com\n"
+      Position		      [66, 195]
+      HorizontalAlignment     "left"
+      FontSize		      12
+    }
+    Annotation {
+      Name		      "fd"
+      Position		      [951, 1344]
+      FontSize		      12
+    }
+    Annotation {
+      Name		      "run 'SGA__suspension_skyhook_replot' \nto see the data graphs"
+      Position		      [1878, 930]
+      HorizontalAlignment     "left"
+      ForegroundColor	      "blue"
+      FontSize		      16
+    }
+    Annotation {
+      Name		      "passive tire deformation"
+      Position		      [1454, 1282]
+      FontSize		      12
+    }
+    Annotation {
+      Name		      "semiactive tire deformation"
+      Position		      [1483, 363]
+      FontSize		      12
+    }
+  }
+}

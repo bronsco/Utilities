@@ -1,0 +1,3 @@
+Use kalmanfilter.m for detailed kalman filter learning.
+
+Use kalmanf.m for implementation of kalman filter using covariance matrix.

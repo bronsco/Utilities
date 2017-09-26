@@ -1,0 +1,58 @@
+Title:
+	Bump hunting using Patient Rule Induction Method for Matlab/Octave
+
+Version:
+	1.0
+
+Date:
+	Newest version: November 9, 2015
+	First public release: November 9, 2015
+
+Author:
+	Gints Jekabsons (gints.jekabsons@rtu.lv)
+	Institute of Applied Computer Systems
+	Riga Technical University
+	Setas str. 1, LV-1048, Riga, Latvia
+
+URL:
+	http://www.cs.rtu.lv/jekabsons/
+
+Description:
+	The toolbox implements the Patient Rule Induction Method (PRIM),
+	a method for finding “interesting” regions (bumps) in high-
+	dimensional data. The regions are described by hyper-rectangles
+	(boxes) containing simple decision rules. The toolbox can be used
+	on regression-type as well as classification-type data. It accepts
+	input variables to be continuous, binary, and categorical, as well
+	as manages missing values.
+	The source code is tested under Matlab version 8.5 (R2015a) and
+	Octave version 4.0.0.
+
+Installation (for Matlab):
+	Copy the PRIM folder into the MATLAB_DIR/toolbox directory
+	(where MATLAB_DIR indicates your Matlab installation directory).
+	Start Matlab and select "Set path..." from the File menu. Click
+	"Add folder..." button and select the folder
+	MATLAB_DIR/toolbox/PRIM in the file dialog. Subsequently, press
+	the Save button in order to save your changes to the Matlab
+	search path. The toolbox is now installed. Have fun.
+
+Citing the toolbox:
+	Jekabsons G., Bump hunting using Patient Rule Induction Method for
+	Matlab/Octave, 2015, available at http://www.cs.rtu.lv/jekabsons/
+
+License:
+	Copyright (C) 2015  Gints Jekabsons
+
+	This program is free software: you can redistribute it and/or modify
+	it under the terms of the GNU General Public License as published by
+	the Free Software Foundation, either version 3 of the License, or
+	(at your option) any later version.
+
+	This program is distributed in the hope that it will be useful,
+	but WITHOUT ANY WARRANTY; without even the implied warranty of
+	MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE. See the
+	GNU General Public License for more details.
+
+	You should have received a copy of the GNU General Public License
+	along with this program. If not, see <http://www.gnu.org/licenses/>.
