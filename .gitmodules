@@ -1,0 +1,75 @@
+[submodule "Matlab/3rdParty/ComputerVision/mexopencv"]
+	path = Matlab/3rdParty/ComputerVision/mexopencv
+	url = https://github.com/kyamagu/mexopencv.git
+[submodule "Matlab/3rdParty/Math/Optimization/OPTI"]
+	path = Matlab/3rdParty/Math/Optimization/OPTI
+	url = https://github.com/jonathancurrie/OPTI.git
+[submodule "Matlab/3rdParty/MachineLearning/FANN/fann"]
+	path = Matlab/3rdParty/MachineLearning/FANN/fann
+	url = https://github.com/libfann/fann.git
+[submodule "Matlab/3rdParty/MachineLearning/FANN/LanguageBindings/Matlab/mfann"]
+	path = Matlab/3rdParty/MachineLearning/FANN/LanguageBindings/Matlab/mfann
+	url = https://github.com/dgorissen/mfann.git
+[submodule "Matlab/3rdParty/MachineLearning/FANN/LanguageBindings/Python/fann2"]
+	path = Matlab/3rdParty/MachineLearning/FANN/LanguageBindings/Python/fann2
+	url = https://github.com/FutureLinkCorporation/fann2.git
+[submodule "Matlab/3rdParty/MachineLearning/DeepLearnToolbox"]
+	path = Matlab/3rdParty/MachineLearning/DeepLearnToolbox
+	url = https://github.com/rasmusbergpalm/DeepLearnToolbox.git
+[submodule "Matlab/3rdParty/MachineLearning/wekalab"]
+	path = Matlab/3rdParty/MachineLearning/wekalab
+	url = https://github.com/NicholasMcCarthy/wekalab.git
+[submodule "Matlab/3rdParty/MachineLearning/Demo/NeuralNetPlayground"]
+	path = Matlab/3rdParty/MachineLearning/Demo/NeuralNetPlayground
+	url = https://github.com/StackOverflowMatlabchat/NeuralNetPlayground.git
+[submodule "Matlab/3rdParty/MachineLearning/sklearn-matlab"]
+	path = Matlab/3rdParty/MachineLearning/sklearn-matlab
+	url = https://github.com/steven2358/sklearn-matlab.git
+[submodule "Matlab/3rdParty/Visualization/plot_google_map"]
+	path = Matlab/3rdParty/Visualization/plot_google_map
+	url = https://github.com/zoharby/plot_google_map.git
+[submodule "Matlab/3rdParty/Visualization/gramm"]
+	path = Matlab/3rdParty/Visualization/gramm
+	url = https://github.com/piermorel/gramm.git
+[submodule "Matlab/3rdParty/Visualization/boundedline-pkg"]
+	path = Matlab/3rdParty/Visualization/boundedline-pkg
+	url = https://github.com/kakearney/boundedline-pkg.git
+[submodule "Matlab/3rdParty/Visualization/BrewerMap"]
+	path = Matlab/3rdParty/Visualization/BrewerMap
+	url = https://github.com/DrosteEffect/BrewerMap.git
+[submodule "Matlab/3rdParty/Visualization/PlotPub"]
+	path = Matlab/3rdParty/Visualization/PlotPub
+	url = https://github.com/masumhabib/PlotPub.git
+[submodule "Matlab/3rdParty/Math/Regression/loess"]
+	path = Matlab/3rdParty/Math/Regression/loess
+	url = https://github.com/bartverm/loess.git
+[submodule "Matlab/3rdParty/Math/Regression/nricp"]
+	path = Matlab/3rdParty/Math/Regression/nricp
+	url = https://github.com/charlienash/nricp.git
+[submodule "Matlab/3rdParty/FileIO/struct2xml"]
+	path = Matlab/3rdParty/FileIO/struct2xml
+	url = https://github.com/joe-of-all-trades/struct2xml.git
+[submodule "Matlab/3rdParty/FileIO/xml2struct"]
+	path = Matlab/3rdParty/FileIO/xml2struct
+	url = https://github.com/joe-of-all-trades/xml2struct.git
+[submodule "Matlab/3rdParty/ImageProcessing/FastGuassianBlur"]
+	path = Matlab/3rdParty/ImageProcessing/FastGuassianBlur
+	url = https://github.com/RoyiAvital/FastGuassianBlur.git
+[submodule "Matlab/3rdParty/Math/Optimization/psomatlab"]
+	path = Matlab/3rdParty/Math/Optimization/psomatlab
+	url = https://github.com/sdnchen/psomatlab.git
+[submodule "Matlab/3rdParty/Simulation/openvd"]
+	path = Matlab/3rdParty/Simulation/openvd
+	url = https://github.com/andresmendes/openvd.git
+[submodule "Matlab/3rdParty/General/mesh2d"]
+	path = Matlab/3rdParty/General/mesh2d
+	url = https://github.com/dengwirda/mesh2d.git
+[submodule "Matlab/3rdParty/General/vec2grid-pkg"]
+	path = Matlab/3rdParty/General/vec2grid-pkg
+	url = https://github.com/kakearney/vec2grid-pkg.git
+[submodule "Matlab/3rdParty/Math/Regression/SparsifiedKMeans"]
+	path = Matlab/3rdParty/Math/Regression/SparsifiedKMeans
+	url = https://github.com/stephenbeckr/SparsifiedKMeans.git
+[submodule "Matlab/3rdParty/Visualization/export_fig"]
+	path = Matlab/3rdParty/Visualization/export_fig
+	url = https://github.com/altmany/export_fig.git

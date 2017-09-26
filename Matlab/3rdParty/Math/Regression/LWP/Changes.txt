@@ -1,0 +1,47 @@
+ver. 2.2
+September 3, 2016
+* The functions now issue warning if Xtr has duplicate rows.
+* The functions now have additional checks for correct X,Y argument types.
+* Most warning messages are now displayed using the warning function instead of disp.
+* A few user's manual touch-ups.
+
+ver. 2.1
+December 22, 2015
+* Implemented handling of observation weights.
+* Implemented robust fitting.
+* Added "polynomial mixing" when params.degree is not an integer.
+* Fine-tuning in function lwpfindh is now also available for nearest neighbor window widths.
+* In function lwppredict, if argument Xq is empty, query points are Xtr.
+* A number of code optimizations.
+
+ver. 2.0
+December 8, 2015
+* Everything is completely recoded from scratch.
+  Highlights:
+  > Metric and nearest neighbor window widths
+  > Polynomials of any degree
+  > Nine kernel types
+  > Ten criteria for bandwidth optimization
+  > A function for bandwidth optimization
+  > A proper user's manual
+* Upgraded the license to GPL ver. 3
+
+ver. 1.3
+February 10, 2010
+* Additional input argument for function lwploocv: stepSize.
+* Some other minor code touch-ups.
+* Some corrections in LWP.pdf file.
+
+ver. 1.2
+November 3, 2009
+* Some minor code touch-ups.
+
+ver. 1.1
+August 12, 2009
+* Some additional vectorization.
+* Polynomials of degree higher than 2 are now available.
+* Recoded LOOCV.
+
+ver. 1.0
+July 11, 2009
+* First public release.

@@ -1,0 +1,14 @@
+1. LageregRIC.m 
+
+illustriert den Entwurf einer quadratisch optimalen Regelung 
+auf endlichem Zeitintervall für das Lageregelungssystem mittels
+Riccate-Differentialgleichung, wie auf beiblatt 4.4 seite 6 beschrieben. 
+Sie benötigen außerdem x_dot.m und p_dot.m, die Sie ins selbe Verzeichnis kopieren.
+
+
+2. LageregLQR.m
+
+illustriert den Entwurf einer quadratisch optimalen Regelung auf 
+unendlichem Zeitintervall,  
+wie auf Beiblatt 4.4 Seite 7 beschrieben. 
+Sie benötigen außerdem x_dotLQR.m, das Sie ins selbe Verzeichnis kopieren.
