@@ -1,0 +1,34 @@
+INSTALLATION NOTE for MWEKA
+
+
+Assuming that files are copied  to D:\MWEKA
+
+1. Change the current directory to D:\MWEKA
+1. Type mweka in Command Window to get GUI of mweka
+2. Classifier: 
+	Path - Browse to the weka.jar file (shiped with this tool) (D:\MWEKA\weka.jar)
+	Name - Specify the name of classifier e.g. weka.classifiers.m5.M5Prime
+			   
+3. Test Option (File Name):
+   Train - Training file name (D:\MWEKA\train.arff)
+   Test - Test file name (D:\MWEKA\test.arff)
+   
+4. If Input listbox of Attributes is empty, Click Show Attributes button
+5. Click Run Weka button
+
+PLEASE NOTE THAT MWEKA WORKS ONLY WITH NUMERICAL DATA.
+THIS MWEKA IS DESIGNED TO WORK WITH WEKA-3.2 VERSION.
+THIS PROGRAM IS WRITTEN IN VERY SHORT TIME AND I AM SURE THAT PROGRAM CAN BE IMPROVED.
+CALLING OF WEKA IS DONE THROUGH COMMAND LINE, HOWEVER FOR THE EFFICIENCY IT SHOULD BE DONE
+THROUHG JAVA CLASS.
+
+
+
+   
+Author: Durga Lal Shrestha
+UNESCO-IHE Institute for Water Education, Delft, The Netherlands
+eMail: durgals@hotmail.com
+Website: http://www.durgalal.co.cc
+Copyright 2008 Durga Lal Shrestha
+$First created: 19-Nov-2008
+$Revision: 1.0.0 $ $Date: 19-Nov-2008 16:12:19 $
