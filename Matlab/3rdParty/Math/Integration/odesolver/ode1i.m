@@ -1,4 +1,4 @@
-function [t,x]= EulerImplicit(MyFunc,InitialValue,Start,Finish,dt)
+function [t,x]= ode1i(MyFunc,InitialValue,Start,Finish,dt)
 % solves the initial value problem dx/dt = f(x)
 % Uses the Implicit Euler method
 

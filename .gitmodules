@@ -61,11 +61,11 @@
 [submodule "Matlab/3rdParty/Simulation/openvd"]
 	path = Matlab/3rdParty/Simulation/openvd
 	url = https://github.com/andresmendes/openvd.git
-[submodule "Matlab/3rdParty/General/mesh2d"]
-	path = Matlab/3rdParty/General/mesh2d
+[submodule "Matlab/3rdParty/Math/Misc/mesh2d"]
+	path = Matlab/3rdParty/Math/Misc/mesh2d
 	url = https://github.com/dengwirda/mesh2d.git
-[submodule "Matlab/3rdParty/General/vec2grid-pkg"]
-	path = Matlab/3rdParty/General/vec2grid-pkg
+[submodule "Matlab/3rdParty/Math/Misc/vec2grid-pkg"]
+	path = Matlab/3rdParty/Math/Misc/vec2grid-pkg
 	url = https://github.com/kakearney/vec2grid-pkg.git
 [submodule "Matlab/3rdParty/Math/Regression/SparsifiedKMeans"]
 	path = Matlab/3rdParty/Math/Regression/SparsifiedKMeans
