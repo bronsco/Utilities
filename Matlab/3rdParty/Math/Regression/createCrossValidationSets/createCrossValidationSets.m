@@ -20,18 +20,18 @@ function cvsets=createCrossValidationSets(numSamples,kfold)
 
 
 for i=1:kfold-1
-    numSamplesPerFold(i)=floor(numSamples/kfold);
+	numSamplesPerFold(i)=floor(numSamples/kfold);
 end
 numSamplesPerFold(kfold)=numSamples-floor(numSamples/kfold)*(kfold-1);
 
 %   do una mescolata
-indici=randperm(numSamples)
+indici=randperm(numSamples);
 
 %   ora li prendo in gruppi
 presi=0;
 for i=1:kfold
-    cvsets{i}.vd=indici(presi+1:presi+numSamplesPerFold(i));
-    cvsets{i}.tr=setdiff((1:numSamples),cvsets{i}.vd);
-    cvsets{i}.tr=cvsets{i}.tr(randperm(length(cvsets{i}.tr)));
-    presi=presi+numSamplesPerFold(i);
+	cvsets{i}.vd=indici(presi+1:presi+numSamplesPerFold(i));
+	cvsets{i}.tr=setdiff((1:numSamples),cvsets{i}.vd);
+	cvsets{i}.tr=cvsets{i}.tr(randperm(length(cvsets{i}.tr)));
+	presi=presi+numSamplesPerFold(i);
 end
