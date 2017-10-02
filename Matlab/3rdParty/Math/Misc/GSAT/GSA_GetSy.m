@@ -31,7 +31,7 @@
 %      06-01-2014  Added comments.
 %%
 
-function [S eS pro] = GSA_GetSy(pro, iset, verbose)
+function [S eS pro] = GSA_GetSy(pro, iset, verbose, varargin)
 
 
 if ~exist('verbose','var')
@@ -94,7 +94,7 @@ else
                     % calculate the elements of the summation reported in
                     % section 2.4 as I
                     for j=1:N
-                        ff(j) = pro.GSA.fE(j)*(pro.Model.handle(H(j,:))-pro.GSA.mfE);
+                        ff(j) = pro.GSA.fE(j)*(pro.Model.handle(H(j,:),varargin{:})-pro.GSA.mfE);
                     end
                     
                     % calculate the I value in section 2.4
