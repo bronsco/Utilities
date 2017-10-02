@@ -23,7 +23,7 @@
 %      06-01-2014  Added comments.
 %%
 
-function pro = GSA_Init(pro)
+function pro = GSA_Init(pro,varargin)
 
 % get two sets of samples of the input variables
 [E T] = fnc_SampleInputs(pro);
@@ -44,7 +44,7 @@ pro.GSA.fE = nan(N,1);
 
 % evaluate the model at the sample points in the set E
 for j=1:N
-    pro.GSA.fE(j) = pro.Model.handle(pro.SampleSets.E(j,:));
+    pro.GSA.fE(j) = pro.Model.handle(pro.SampleSets.E(j,:),varargin{:});
 end
 
 % calculate the mean value of the model outcomes

@@ -28,14 +28,14 @@
 %%
  
 
-function Si = GSA_FAST_GetSi(pro)
+function Si = GSA_FAST_GetSi(pro,varargin)
 
 % retrieve the number of input variables
 k = length(pro.Inputs.pdfs);
 
 % set the number of discrete intervals for numerical integration of (13)
 % increasing this parameter makes more precise the numerical integration
-M = 10;
+M = 100;
 
 % read the table of incommensurate frequencies for k variables
 W = fnc_FAST_getFreqs(k);
@@ -63,7 +63,7 @@ Y = nan(N,1);
 
 % calculate the output of the model at input sample points
 for j=1:N
-    Y(j) = pro.Model.handle(X(j,:));
+    Y(j) = pro.Model.handle(X(j,:),varargin{:});
 end
 
 A = zeros(N,1);
