@@ -43,9 +43,7 @@ N = pro.N;
 pro.GSA.fE = nan(N,1);
 
 % evaluate the model at the sample points in the set E
-for j=1:N
-    pro.GSA.fE(j) = pro.Model.handle(pro.SampleSets.E(j,:),varargin{:});
-end
+pro.GSA.fE = pro.Model.handle(pro.SampleSets.E,varargin{:});
 
 % calculate the mean value of the model outcomes
 pro.GSA.mfE = nanmean(pro.GSA.fE);

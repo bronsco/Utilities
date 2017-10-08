@@ -59,12 +59,8 @@ NormedX = 0.5 + asin(sin(alpha'))/pi;
 % retrieve the corresponding inputs for the new input variables. 
 X = fnc_FAST_getInputs(pro, NormedX);
 
-Y = nan(N,1);
-
 % calculate the output of the model at input sample points
-for j=1:N
-    Y(j) = pro.Model.handle(X(j,:),varargin{:});
-end
+Y = pro.Model.handle(X,varargin{:});
 
 A = zeros(N,1);
 B = zeros(N,1);

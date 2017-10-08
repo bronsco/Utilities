@@ -3,4 +3,9 @@
 %   representation. Reliability Engineering & System Safety 79 (2), 187–193
 function g = TestModel(x,p)
 
-g = prod((abs(4*x - 2) + p)./(1 + p)); 
+N = size(x,1);
+
+g = zeros(N,1);
+for n = 1:N
+	g(n) = prod((abs(4*x(n,:) - 2) + p)./(1 + p));
+end
