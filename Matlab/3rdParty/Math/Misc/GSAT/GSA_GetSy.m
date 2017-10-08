@@ -89,13 +89,10 @@ else
                     % create the new mixed (E and T) samples to perform the 
                     % quasi-Monte Carlo algorithm (see section 2.4) 
                     H(:,cii) = pro.SampleSets.T(:,cii);
-                    ff = nan(N,1);
                     
                     % calculate the elements of the summation reported in
                     % section 2.4 as I
-                    for j=1:N
-                        ff(j) = pro.GSA.fE(j)*(pro.Model.handle(H(j,:),varargin{:})-pro.GSA.mfE);
-                    end
+					ff = pro.GSA.fE.*(pro.Model.handle(H,varargin{:})-pro.GSA.mfE);
                     
                     % calculate the I value in section 2.4
                     pro.GSA.Dmi(si)  = nanmean(ff);
