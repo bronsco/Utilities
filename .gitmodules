@@ -73,3 +73,6 @@
 [submodule "Matlab/3rdParty/Visualization/export_fig"]
 	path = Matlab/3rdParty/Visualization/export_fig
 	url = https://github.com/altmany/export_fig.git
+[submodule "Matlab/3rdParty/Math/Regression/loess-matlab"]
+	path = Matlab/3rdParty/Math/Regression/loess-matlab
+	url = https://github.com/bartverm/loess-matlab.git
