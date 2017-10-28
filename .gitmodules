@@ -76,3 +76,6 @@
 [submodule "Matlab/3rdParty/Math/Regression/loess-matlab"]
 	path = Matlab/3rdParty/Math/Regression/loess-matlab
 	url = https://github.com/bartverm/loess-matlab.git
+[submodule "Matlab/3rdParty/DataHandling/dirPlus"]
+	path = Matlab/3rdParty/DataHandling/dirPlus
+	url = git@github.com:kpeaton/dirPlus.git
