@@ -79,3 +79,6 @@
 [submodule "Matlab/3rdParty/DataHandling/dirPlus"]
 	path = Matlab/3rdParty/DataHandling/dirPlus
 	url = git@github.com:kpeaton/dirPlus.git
+[submodule "Matlab/3rdParty/FileIO/jsonlab"]
+	path = Matlab/3rdParty/FileIO/jsonlab
+	url = git://github.com/fangq/jsonlab.git
