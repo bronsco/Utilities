@@ -59,7 +59,7 @@
 	path = Matlab/3rdParty/Math/Optimization/psomatlab
 	url = https://github.com/sdnchen/psomatlab.git
 [submodule "Matlab/3rdParty/Simulation/openvd"]
-	path = Matlab/3rdParty/Simulation/openvd
+	path = Python/Simulation/openvd
 	url = https://github.com/andresmendes/openvd.git
 [submodule "Matlab/3rdParty/Math/Misc/mesh2d"]
 	path = Matlab/3rdParty/Math/Misc/mesh2d
