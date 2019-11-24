@@ -88,3 +88,6 @@
 [submodule "Python/Video/pytube"]
 	path = Python/Video/pytube
 	url = git@github.com:nficano/pytube.git
+[submodule "Matlab/3rdParty/General/matlab-schemer"]
+	path = Matlab/3rdParty/General/matlab-schemer
+	url = git@github.com:scottclowe/matlab-schemer.git
