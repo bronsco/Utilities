@@ -59,7 +59,7 @@
 	path = Matlab/3rdParty/Math/Optimization/psomatlab
 	url = https://github.com/sdnchen/psomatlab.git
 [submodule "Matlab/3rdParty/Simulation/openvd"]
-	path = Python/Simulation/openvd
+	path = Matlab/3rdParty/Simulation/openvd
 	url = https://github.com/andresmendes/openvd.git
 [submodule "Matlab/3rdParty/Math/Misc/mesh2d"]
 	path = Matlab/3rdParty/Math/Misc/mesh2d
@@ -82,3 +82,6 @@
 [submodule "Matlab/3rdParty/FileIO/jsonlab"]
 	path = Matlab/3rdParty/FileIO/jsonlab
 	url = git://github.com/fangq/jsonlab.git
+[submodule "Matlab/3rdParty/Visualization/matImage"]
+	path = Matlab/3rdParty/ImageProcessing/matImage
+	url = git@github.com:mattools/matImage.git
