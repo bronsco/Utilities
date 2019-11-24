@@ -85,3 +85,6 @@
 [submodule "Matlab/3rdParty/Visualization/matImage"]
 	path = Matlab/3rdParty/ImageProcessing/matImage
 	url = git@github.com:mattools/matImage.git
+[submodule "Python/Video/pytube"]
+	path = Python/Video/pytube
+	url = git@github.com:nficano/pytube.git
