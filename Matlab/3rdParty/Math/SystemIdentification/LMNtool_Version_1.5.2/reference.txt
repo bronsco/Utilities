@@ -1,0 +1,2 @@
+If you want to publish your results generated with this Toolbox, please acknowledge our work by citing the following article: 
+Hartmann B., Ebert T., Fischer T., Belz J., Kampmann G., Nelles O.: "LMNtool - Toolbox zum automatischen Trainieren lokaler Modellnetze", 22. Workshop Computational Intelligence, Dortmund, Dezember 2012.

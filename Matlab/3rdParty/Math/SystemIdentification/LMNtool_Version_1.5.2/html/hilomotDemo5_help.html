@@ -1,0 +1,208 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>hilomotDemo5 Demo 5: Static process: Global estimation and ridge regression after training.</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-09-05"><meta name="DC.source" content="hilomotDemo5_help.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>hilomotDemo5 Demo 5: Static process: Global estimation and ridge regression after training.</h1><pre class="language-matlab">HiLoMoT - Nonlinear System <span class="string">Identification</span> <span class="string">Toolbox</span>
+Benjamin <span class="string">Hartmann</span>, 25-January-2013
+Institute <span class="string">of</span> <span class="string">Mechanics</span> <span class="string">&amp;</span> <span class="string">Automatic</span> <span class="string">Control</span>, University <span class="string">of</span> <span class="string">Siegen</span>, Germany
+Copyright (c) 2013 by <span class="string">Prof.</span> <span class="string">Dr.-Ing.</span> <span class="string">Oliver</span> <span class="string">Nelles</span>
+</pre><pre class="codeinput"><span class="comment">% Initialize new hilomot object as local model network (LMN)</span>
+LMN = hilomot;
+
+<span class="comment">% Example process</span>
+N = 50;
+u = linspace(0,1,N)';
+sigmoide = 1./(1+exp((-0.65+u)/60));
+y1 = 1+sin(4*pi*u-pi/8);
+y2 = 0.1./(0.1+u);
+y = y1.*sigmoide + y2.*(1-sigmoide);
+
+<span class="comment">% Set input and output for training</span>
+LMN.input  = u;
+LMN.output = y + 0.1*randn(N,1);
+
+<span class="comment">% Set local models to polynomial order of 2</span>
+LMN.xRegressorDegree = 2;
+
+<span class="comment">% Train hilomot object</span>
+LMN = LMN.train;
+
+<span class="comment">% Visualization</span>
+figure
+LMN.plotModel
+title(<span class="string">'least squares local estimation'</span>)
+
+<span class="comment">% Perform global parameter estimation</span>
+figure;
+LMNglob = LMN;
+LMNglob = LMNglob.estimateParametersGlobal(<span class="string">'LS'</span>);
+LMNglob.plotModel
+title(<span class="string">'least squares global estimation'</span>)
+
+
+<span class="comment">% Perform global estimation regularized with ridge regression</span>
+figure;
+LMNridge = LMN;
+LMNridge = LMNridge.estimateParametersGlobal(<span class="string">'RIDGE'</span>);
+LMNridge.plotModel
+title(<span class="string">'least squares global estimation &amp; ridge regression'</span>)
+</pre><pre class="codeoutput">xInputDelay is empty, defaults are used: xInputDelay(1:p) = {0}
+zInputDelay is empty, defaults are used: zInputDelay(1:p) = {0}
+xOutputDelay is empty, defaults are used: xOutputDelay(1:p) = {[]}
+zOutputDelay is empty, defaults are used: zOutputDelay(1:p) = {[]}
+
+Initial net has 1 local model(s): J = 0.869099
+
+
+1. Iteration. Number of local models = 1. Checking for split of model 1 ... 
+
+   Testing split in dimension 1:         J = 0.578801
+   Axes-oblique splitting:               J = 0.466309
+-&gt; SPLITTING RESULT:                     J = 0.466309
+
+2. Iteration. Number of local models = 2. Checking for split of model 3 ... 
+
+   Testing split in dimension 1:         J = 0.235739
+   Axes-oblique splitting:               J = 0.229819
+-&gt; SPLITTING RESULT:                     J = 0.229819
+
+3. Iteration. Number of local models = 3. Checking for split of model 4 ... 
+
+   Testing split in dimension 1:         J = 0.207973
+   Axes-oblique splitting:               J = 0.207454
+-&gt; SPLITTING RESULT:                     J = 0.207454
+
+4. Iteration. Number of local models = 4. Checking for split of model 2 ... 
+
+   Testing split in dimension 1:         J = 0.204787
+   Axes-oblique splitting:               J = 0.198832
+-&gt; SPLITTING RESULT:                     J = 0.198832
+
+Estimated model complexity limit reached. The improvement of 
+the loss function (penaltyLossFunction) was 2 times less than 
+1.000000e-12 on TRAINING data.
+
+
+Final net has 5 local models and 19 parameters: J = 0.198832
+
+Net 3 with 3 LMs and 11 parameters is suggested as the model with the best complexity trade-off.Plot model for dimension 1.
+Plot model for dimension 1.
+Plot model for dimension 1.
+</pre><img vspace="5" hspace="5" src="hilomotDemo5_help_01.png" alt=""> <img vspace="5" hspace="5" src="hilomotDemo5_help_02.png" alt=""> <img vspace="5" hspace="5" src="hilomotDemo5_help_03.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% hilomotDemo5 Demo 5: Static process: Global estimation and ridge regression after training.
+%
+%
+%   HiLoMoT - Nonlinear System Identification Toolbox
+%   Benjamin Hartmann, 25-January-2013
+%   Institute of Mechanics & Automatic Control, University of Siegen, Germany
+%   Copyright (c) 2013 by Prof. Dr.-Ing. Oliver Nelles
+
+
+% Initialize new hilomot object as local model network (LMN)
+LMN = hilomot;
+
+% Example process
+N = 50;
+u = linspace(0,1,N)';
+sigmoide = 1./(1+exp((-0.65+u)/60));
+y1 = 1+sin(4*pi*u-pi/8);
+y2 = 0.1./(0.1+u);
+y = y1.*sigmoide + y2.*(1-sigmoide);
+
+% Set input and output for training
+LMN.input  = u;
+LMN.output = y + 0.1*randn(N,1);
+
+% Set local models to polynomial order of 2
+LMN.xRegressorDegree = 2;
+
+% Train hilomot object
+LMN = LMN.train;
+
+% Visualization
+figure
+LMN.plotModel
+title('least squares local estimation')
+
+% Perform global parameter estimation
+figure;
+LMNglob = LMN;
+LMNglob = LMNglob.estimateParametersGlobal('LS');
+LMNglob.plotModel
+title('least squares global estimation')
+
+
+% Perform global estimation regularized with ridge regression
+figure;
+LMNridge = LMN;
+LMNridge = LMNridge.estimateParametersGlobal('RIDGE');
+LMNridge.plotModel
+title('least squares global estimation & ridge regression')
+
+##### SOURCE END #####
+--></body></html>

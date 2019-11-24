@@ -1,0 +1,284 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>lolimotDemo3 Demo 3: Static process with 2 inputs and 2 outputs</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-09-05"><meta name="DC.source" content="lolimotDemo3_help.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>lolimotDemo3 Demo 3: Static process with 2 inputs and 2 outputs</h1><pre class="language-matlab">LoLiMoT - Nonlinear System <span class="string">Identification</span> <span class="string">Toolbox</span>
+Torsten <span class="string">Fischer</span>, 20-October-2011
+Institute <span class="string">of</span> <span class="string">Mechanics</span> <span class="string">&amp;</span> <span class="string">Automatic</span> <span class="string">Control</span>, University <span class="string">of</span> <span class="string">Siegen</span>, Germany
+Copyright (c) 2012 by <span class="string">Prof.</span> <span class="string">Dr.-Ing.</span> <span class="string">Oliver</span> <span class="string">Nelles</span>
+</pre><pre class="codeinput"><span class="comment">% Training</span>
+LMN = lolimot;                   <span class="comment">% initialize lolimot object</span>
+
+<span class="comment">% Generate training data</span>
+[u1g u2g] = meshgrid(linspace(0,1,25), linspace(0,1,25));
+u1 = u1g(:);
+u2 = u2g(:);
+y1 = 1./(0.1+u1) + (2*u2).^2;
+y2 = u1.*u2;
+y2 = y2 + 0.2*randn(size(y2))*(max(y2)-min(y2));
+LMN.input = [u1 u2];
+LMN.output = [y1, y2];
+
+LMN.maxNumberOfLM = 15;           <span class="comment">% Termination criterion for maximal number of LLMs (default: inf)</span>
+LMN.minError = 0.05;              <span class="comment">% Termination criterion for minimal error (default: 0)</span>
+LMN.kStepPrediction = 0;          <span class="comment">% Static model (default: 0)</span>
+LMN.history.displayMode = true;   <span class="comment">% display information (default: true)</span>
+LMN.xRegressorDegree = 1;         <span class="comment">% use 1st order polynoms for local models (default: 1)</span>
+
+<span class="comment">% Train net object</span>
+LMN = LMN.train;
+
+<span class="comment">% Generalization</span>
+[u1G u2G] = meshgrid(linspace(0,1,30), linspace(0,1,30));
+u1G = u1G(:);
+u2G = u2G(:);
+y1G = 1./(0.1+u1G) + (2*u2G).^2;
+y2G = u1G.*u2G;
+
+<span class="comment">% Simulate net</span>
+yGModel = calculateModelOutput(LMN, [u1G u2G], [y1G y2G]);
+
+<span class="comment">% Calculate loss function value</span>
+JG = calcGlobalLossFunction(LMN, [y1G y2G], yGModel);
+
+<span class="comment">% plot model output for first output</span>
+figure
+LMN.plotModel([1 2],1)
+
+<span class="comment">% plot model output for second output</span>
+figure
+LMN.plotModel([1 2],2)
+
+<span class="comment">% plot partition of the input space</span>
+figure
+LMN.plotPartition
+</pre><pre class="codeoutput">xInputDelay is empty, defaults are used: xInputDelay(1:p) = {0}
+zInputDelay is empty, defaults are used: zInputDelay(1:p) = {0}
+xOutputDelay is empty, defaults are used: xOutputDelay(1:p) = {[]}
+zOutputDelay is empty, defaults are used: zOutputDelay(1:p) = {[]}
+
+Initial net has 1 local linear model(s): J = 0.626324.
+
+
+1. Iteration. Number of local linear models = 1. Checking for split of model 1 ...
+   Testing split in dimension 1 with ratio 0.50: J = 0.505950.
+   Testing split in dimension 2 with ratio 0.50: J = 0.586840.
+-&gt; Splitting in dimension 1 with ratio 0.50: J = 0.505950 and penalty = 0.510598.
+
+2. Iteration. Number of local linear models = 2. Checking for split of model 2 ...
+   Testing split in dimension 1 with ratio 0.50: J = 0.435335.
+   Testing split in dimension 2 with ratio 0.50: J = 0.501448.
+-&gt; Splitting in dimension 1 with ratio 0.50: J = 0.435335 and penalty = 0.440570.
+
+3. Iteration. Number of local linear models = 3. Checking for split of model 3 ...
+   Testing split in dimension 1 with ratio 0.50: J = 0.429830.
+   Testing split in dimension 2 with ratio 0.50: J = 0.420472.
+-&gt; Splitting in dimension 2 with ratio 0.50: J = 0.420472 and penalty = 0.426425.
+
+4. Iteration. Number of local linear models = 4. Checking for split of model 4 ...
+   Testing split in dimension 1 with ratio 0.50: J = 0.381789.
+   Testing split in dimension 2 with ratio 0.50: J = 0.415637.
+-&gt; Splitting in dimension 1 with ratio 0.50: J = 0.381789 and penalty = 0.388263.
+
+5. Iteration. Number of local linear models = 5. Checking for split of model 5 ...
+   Testing split in dimension 1 with ratio 0.50: J = 0.381080.
+   Testing split in dimension 2 with ratio 0.50: J = 0.373932.
+-&gt; Splitting in dimension 2 with ratio 0.50: J = 0.373932 and penalty = 0.380832.
+
+6. Iteration. Number of local linear models = 6. Checking for split of model 7 ...
+   Testing split in dimension 1 with ratio 0.50: J = 0.372287.
+   Testing split in dimension 2 with ratio 0.50: J = 0.372504.
+-&gt; Splitting in dimension 1 with ratio 0.50: J = 0.372287 and penalty = 0.380060.
+
+7. Iteration. Number of local linear models = 7. Checking for split of model 6 ...
+   Testing split in dimension 1 with ratio 0.50: J = 0.370983.
+   Testing split in dimension 2 with ratio 0.50: J = 0.371039.
+-&gt; Splitting in dimension 1 with ratio 0.50: J = 0.370983 and penalty = 0.379627.
+
+8. Iteration. Number of local linear models = 8. Checking for split of model 8 ...
+   Testing split in dimension 1 with ratio 0.50: J = 0.357113.
+   Testing split in dimension 2 with ratio 0.50: J = 0.365156.
+-&gt; Splitting in dimension 1 with ratio 0.50: J = 0.357113 and penalty = 0.366517.
+
+9. Iteration. Number of local linear models = 9. Checking for split of model 11 ...
+   Testing split in dimension 1 with ratio 0.50: J = 0.355982.
+   Testing split in dimension 2 with ratio 0.50: J = 0.355506.
+-&gt; Splitting in dimension 2 with ratio 0.50: J = 0.355506 and penalty = 0.365505.
+
+10. Iteration. Number of local linear models = 10. Checking for split of model 10 ...
+   Testing split in dimension 1 with ratio 0.50: J = 0.355108.
+   Testing split in dimension 2 with ratio 0.50: J = 0.354057.
+-&gt; Splitting in dimension 2 with ratio 0.50: J = 0.354057 and penalty = 0.364689.
+
+11. Iteration. Number of local linear models = 11. Checking for split of model 9 ...
+   Testing split in dimension 1 with ratio 0.50: J = 0.354009.
+   Testing split in dimension 2 with ratio 0.50: J = 0.348044.
+-&gt; Splitting in dimension 2 with ratio 0.50: J = 0.348044 and penalty = 0.359016.
+
+12. Iteration. Number of local linear models = 12. Checking for split of model 13 ...
+   Testing split in dimension 1 with ratio 0.50: J = 0.347516.
+   Testing split in dimension 2 with ratio 0.50: J = 0.347311.
+-&gt; Splitting in dimension 2 with ratio 0.50: J = 0.347311 and penalty = 0.359075.
+
+13. Iteration. Number of local linear models = 13. Checking for split of model 15 ...
+   Testing split in dimension 1 with ratio 0.50: J = 0.346897.
+   Testing split in dimension 2 with ratio 0.50: J = 0.345686.
+-&gt; Splitting in dimension 2 with ratio 0.50: J = 0.345686 and penalty = 0.358263.
+
+14. Iteration. Number of local linear models = 14. Checking for split of model 12 ...
+   Testing split in dimension 1 with ratio 0.50: J = 0.345539.
+   Testing split in dimension 2 with ratio 0.50: J = 0.344465.
+-&gt; Splitting in dimension 2 with ratio 0.50: J = 0.344465 and penalty = 0.357589.
+
+Maximum number of local models reached.
+
+
+Final net has 15 local models and 90 parameters: J = 0.344465
+
+Net 15 with 15 LMs and 90 parameters is suggested as the model with the best complexity trade-off.
+Plot model for dimensions 1 and 2.
+Plot model for dimensions 1 and 2.
+
+ans =
+
+  1&times;29 cell array
+
+  Columns 1 through 13
+
+    []    []    []    []    []    []    []    []    []    []    []    []    []
+
+  Columns 14 through 19
+
+    [1&times;1 Line]    []    [1&times;1 Line]    [1&times;1 Line]    [1&times;1 Line]    [1&times;1 Line]
+
+  Columns 20 through 24
+
+    [1&times;1 Line]    [1&times;1 Line]    [1&times;1 Line]    [1&times;1 Line]    [1&times;1 Line]
+
+  Columns 25 through 29
+
+    [1&times;1 Line]    [1&times;1 Line]    [1&times;1 Line]    [1&times;1 Line]    [1&times;1 Line]
+
+</pre><img vspace="5" hspace="5" src="lolimotDemo3_help_01.png" alt=""> <img vspace="5" hspace="5" src="lolimotDemo3_help_02.png" alt=""> <img vspace="5" hspace="5" src="lolimotDemo3_help_03.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% lolimotDemo3 Demo 3: Static process with 2 inputs and 2 outputs
+%
+%
+%   LoLiMoT - Nonlinear System Identification Toolbox
+%   Torsten Fischer, 20-October-2011
+%   Institute of Mechanics & Automatic Control, University of Siegen, Germany
+%   Copyright (c) 2012 by Prof. Dr.-Ing. Oliver Nelles
+
+
+% Training
+LMN = lolimot;                   % initialize lolimot object
+
+% Generate training data
+[u1g u2g] = meshgrid(linspace(0,1,25), linspace(0,1,25));
+u1 = u1g(:);
+u2 = u2g(:);
+y1 = 1./(0.1+u1) + (2*u2).^2;
+y2 = u1.*u2;
+y2 = y2 + 0.2*randn(size(y2))*(max(y2)-min(y2));
+LMN.input = [u1 u2];
+LMN.output = [y1, y2];
+
+LMN.maxNumberOfLM = 15;           % Termination criterion for maximal number of LLMs (default: inf)
+LMN.minError = 0.05;              % Termination criterion for minimal error (default: 0)
+LMN.kStepPrediction = 0;          % Static model (default: 0)
+LMN.history.displayMode = true;   % display information (default: true)
+LMN.xRegressorDegree = 1;         % use 1st order polynoms for local models (default: 1)
+
+% Train net object
+LMN = LMN.train;
+
+% Generalization
+[u1G u2G] = meshgrid(linspace(0,1,30), linspace(0,1,30));
+u1G = u1G(:);
+u2G = u2G(:);
+y1G = 1./(0.1+u1G) + (2*u2G).^2;
+y2G = u1G.*u2G;
+
+% Simulate net
+yGModel = calculateModelOutput(LMN, [u1G u2G], [y1G y2G]);
+
+% Calculate loss function value
+JG = calcGlobalLossFunction(LMN, [y1G y2G], yGModel);
+
+% plot model output for first output
+figure
+LMN.plotModel([1 2],1)
+
+% plot model output for second output
+figure
+LMN.plotModel([1 2],2)
+
+% plot partition of the input space
+figure
+LMN.plotPartition
+##### SOURCE END #####
+--></body></html>

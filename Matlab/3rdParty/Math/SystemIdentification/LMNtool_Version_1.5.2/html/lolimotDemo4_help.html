@@ -1,0 +1,282 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>lolimotDemo4 Demo 4: Dynamic process of second order with 1 input and 1 output</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-09-05"><meta name="DC.source" content="lolimotDemo4_help.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>lolimotDemo4 Demo 4: Dynamic process of second order with 1 input and 1 output</h1><pre class="language-matlab">LoLiMoT - Nonlinear System <span class="string">Identification</span> <span class="string">Toolbox</span>
+Torsten <span class="string">Fischer</span>, 20-October-2011
+Institute <span class="string">of</span> <span class="string">Mechanics</span> <span class="string">&amp;</span> <span class="string">Automatic</span> <span class="string">Control</span>, University <span class="string">of</span> <span class="string">Siegen</span>, Germany
+Copyright (c) 2012 by <span class="string">Prof.</span> <span class="string">Dr.-Ing.</span> <span class="string">Oliver</span> <span class="string">Nelles</span>
+</pre><pre class="codeinput"><span class="comment">% Training</span>
+LMN = lolimot;                                   <span class="comment">% initialize lolimot object</span>
+
+load <span class="string">hammersteinT.mat</span>                                      <span class="comment">% Data for training</span>
+
+<span class="comment">% The training data was created with the input signal stored in</span>
+<span class="comment">% inputSequence1.mat which contains steps and an amplitude-modulated pseudo</span>
+<span class="comment">% random binary signal covering the complete operating range. The process</span>
+<span class="comment">% to be modeled has the following dynamics: y(k) = 0.1044*atan(u(k-1)) +</span>
+<span class="comment">% 0.0883*atan(u(k-2)) + 1.4138*y(k-1) - 0.6065*y(k-2);</span>
+
+<span class="comment">% Assign the training data</span>
+LMN.input = data(:,1);
+LMN.output = data(:,2);
+clear <span class="string">data</span>
+
+<span class="comment">% Generalization</span>
+load <span class="string">hammersteinG.mat</span>                                      <span class="comment">% Data for generalization</span>
+
+<span class="comment">% Assign the test data</span>
+LMN.testInput = data(:,1);
+LMN.testOutput = data(:,2);
+clear <span class="string">data</span>
+
+LMN.xInputDelay{1} = [1 2];                                <span class="comment">% Second order dynamic system</span>
+LMN.xOutputDelay{1} = [1 2];                               <span class="comment">% Second order dynamic system</span>
+LMN.zInputDelay{1} = [1 2];                                <span class="comment">% Second order dynamic system</span>
+LMN.zOutputDelay{1} = [1 2];                               <span class="comment">% Second order dynamic system</span>
+
+<span class="comment">% Try also the following cases:</span>
+<span class="comment">% - Premise input space is only of first order</span>
+<span class="comment">% LMN.xInputDelay{1} = [1 2];</span>
+<span class="comment">% LMN.xOutputDelay{1} = [1 2];</span>
+<span class="comment">% LMN.zInputDelay{1} = [1];</span>
+<span class="comment">% LMN.zOutputDelay{1} = [1];</span>
+
+<span class="comment">% - Premise input space does only contain the physical inputs (this reflects the Hammerstein structure)</span>
+<span class="comment">% LMN.xInputDelay{1} = [1 2];</span>
+<span class="comment">% LMN.xOutputDelay{1} = [1 2];</span>
+<span class="comment">% LMN.zInputDelay{1} = [1 2];</span>
+<span class="comment">% LMN.zOutputDelay{1} = [];</span>
+
+<span class="comment">% - Local finite impulse response (FIR) models (no feedback is involved which requires high feedforward order)</span>
+<span class="comment">% LMN.xInputDelay{1} = [1:30];</span>
+<span class="comment">% LMN.xOutputDelay{1} = [];</span>
+<span class="comment">% LMN.zInputDelay{1} = [1 2];</span>
+<span class="comment">% LMN.zOutputDelay{1} = [];</span>
+
+
+LMN.maxNumberOfLM = 10;                           <span class="comment">% Termination criterion for maximal number of LLMs (default: inf)</span>
+LMN.minError = 0.02;                              <span class="comment">% Termination criterion for minimal error (default: 0)</span>
+LMN.kStepPrediction = inf;                        <span class="comment">% Simulation, not one-step-ahead prediction</span>
+LMN.history.displayMode = true;                   <span class="comment">% display information about the training</span>
+
+<span class="comment">% Train net</span>
+LMN = LMN.train;
+
+<span class="comment">% Generalization</span>
+load <span class="string">hammersteinG.mat</span>                                      <span class="comment">% Data for generalization</span>
+
+<span class="comment">% The generalization data was generated with the input signal stored in inputSequence2.mat.</span>
+uG = data(:,1);
+yG = data(:,2);
+clear <span class="string">data</span>
+
+<span class="comment">% Simulate net</span>
+yGModel = calculateModelOutput(LMN, uG, yG);
+JG = calcGlobalLossFunction(LMN ,yG, yGModel);
+
+<span class="comment">% plot model output</span>
+figure
+LMN.plotModel
+</pre><pre class="codeoutput">
+Initial net has 1 local linear model(s): J = 0.216676.
+
+
+1. Iteration. Number of local linear models = 1. Checking for split of model 1 ...
+   Testing split in dimension 1 with ratio 0.50: J = 0.183792.
+   Testing split in dimension 2 with ratio 0.50: J = 0.184974.
+   Testing split in dimension 3 with ratio 0.50: J = 0.203428.
+   Testing split in dimension 4 with ratio 0.50: J = 0.204667.
+-&gt; Splitting in dimension 1 with ratio 0.50: J = 0.183792 and penalty = 0.185966.
+
+2. Iteration. Number of local linear models = 2. Checking for split of model 2 ...
+   Testing split in dimension 1 with ratio 0.50: J = 0.124674.
+   Testing split in dimension 2 with ratio 0.50: J = 0.148062.
+   Testing split in dimension 3 with ratio 0.50: J = 0.163641.
+   Testing split in dimension 4 with ratio 0.50: J = 0.171419.
+-&gt; Splitting in dimension 1 with ratio 0.50: J = 0.124674 and penalty = 0.126579.
+
+3. Iteration. Number of local linear models = 3. Checking for split of model 3 ...
+   Testing split in dimension 1 with ratio 0.50: J = 0.050380.
+   Testing split in dimension 2 with ratio 0.50: J = 0.087822.
+   Testing split in dimension 3 with ratio 0.50: J = 0.105525.
+   Testing split in dimension 4 with ratio 0.50: J = 0.113157.
+-&gt; Splitting in dimension 1 with ratio 0.50: J = 0.050380 and penalty = 0.051375.
+
+4. Iteration. Number of local linear models = 4. Checking for split of model 5 ...
+   Testing split in dimension 1 with ratio 0.50: J = 0.034592.
+   Testing split in dimension 2 with ratio 0.50: J = 0.043034.
+   Testing split in dimension 3 with ratio 0.50: J = 0.045931.
+   Testing split in dimension 4 with ratio 0.50: J = 0.047196.
+-&gt; Splitting in dimension 1 with ratio 0.50: J = 0.034592 and penalty = 0.035426.
+
+5. Iteration. Number of local linear models = 5. Checking for split of model 6 ...
+   Testing split in dimension 1 with ratio 0.50: J = 0.021593.
+   Testing split in dimension 2 with ratio 0.50: J = 0.029933.
+   Testing split in dimension 3 with ratio 0.50: J = 0.032685.
+   Testing split in dimension 4 with ratio 0.50: J = 0.033591.
+-&gt; Splitting in dimension 1 with ratio 0.50: J = 0.021593 and penalty = 0.022193.
+
+6. Iteration. Number of local linear models = 6. Checking for split of model 4 ...
+   Testing split in dimension 1 with ratio 0.50: J = 0.018624.
+   Testing split in dimension 2 with ratio 0.50: J = 0.019866.
+   Testing split in dimension 3 with ratio 0.50: J = 0.020505.
+   Testing split in dimension 4 with ratio 0.50: J = 0.021057.
+-&gt; Splitting in dimension 1 with ratio 0.50: J = 0.018624 and penalty = 0.019228.
+
+Error limit reached.
+
+
+Final net has 7 local models and 35 parameters: J = 0.018624
+
+Net 7 with 7 LMs and 35 parameters is suggested as the model with the best complexity trade-off.
+</pre><img vspace="5" hspace="5" src="lolimotDemo4_help_01.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% lolimotDemo4 Demo 4: Dynamic process of second order with 1 input and 1 output
+%
+%
+%   LoLiMoT - Nonlinear System Identification Toolbox
+%   Torsten Fischer, 20-October-2011
+%   Institute of Mechanics & Automatic Control, University of Siegen, Germany
+%   Copyright (c) 2012 by Prof. Dr.-Ing. Oliver Nelles
+
+
+% Training
+LMN = lolimot;                                   % initialize lolimot object
+
+load hammersteinT.mat                                      % Data for training
+
+% The training data was created with the input signal stored in
+% inputSequence1.mat which contains steps and an amplitude-modulated pseudo
+% random binary signal covering the complete operating range. The process
+% to be modeled has the following dynamics: y(k) = 0.1044*atan(u(k-1)) +
+% 0.0883*atan(u(k-2)) + 1.4138*y(k-1) - 0.6065*y(k-2);
+
+% Assign the training data
+LMN.input = data(:,1);
+LMN.output = data(:,2);
+clear data
+
+% Generalization
+load hammersteinG.mat                                      % Data for generalization
+
+% Assign the test data
+LMN.testInput = data(:,1);
+LMN.testOutput = data(:,2);
+clear data
+
+LMN.xInputDelay{1} = [1 2];                                % Second order dynamic system
+LMN.xOutputDelay{1} = [1 2];                               % Second order dynamic system
+LMN.zInputDelay{1} = [1 2];                                % Second order dynamic system
+LMN.zOutputDelay{1} = [1 2];                               % Second order dynamic system
+
+% Try also the following cases:
+% - Premise input space is only of first order
+% LMN.xInputDelay{1} = [1 2];
+% LMN.xOutputDelay{1} = [1 2];
+% LMN.zInputDelay{1} = [1];
+% LMN.zOutputDelay{1} = [1];
+
+% - Premise input space does only contain the physical inputs (this reflects the Hammerstein structure)
+% LMN.xInputDelay{1} = [1 2];
+% LMN.xOutputDelay{1} = [1 2];
+% LMN.zInputDelay{1} = [1 2];
+% LMN.zOutputDelay{1} = [];
+
+% - Local finite impulse response (FIR) models (no feedback is involved which requires high feedforward order)
+% LMN.xInputDelay{1} = [1:30];
+% LMN.xOutputDelay{1} = [];
+% LMN.zInputDelay{1} = [1 2];
+% LMN.zOutputDelay{1} = [];
+
+
+LMN.maxNumberOfLM = 10;                           % Termination criterion for maximal number of LLMs (default: inf)
+LMN.minError = 0.02;                              % Termination criterion for minimal error (default: 0)
+LMN.kStepPrediction = inf;                        % Simulation, not one-step-ahead prediction
+LMN.history.displayMode = true;                   % display information about the training
+
+% Train net
+LMN = LMN.train;
+
+% Generalization
+load hammersteinG.mat                                      % Data for generalization
+
+% The generalization data was generated with the input signal stored in inputSequence2.mat.
+uG = data(:,1);
+yG = data(:,2);
+clear data
+
+% Simulate net
+yGModel = calculateModelOutput(LMN, uG, yG);
+JG = calcGlobalLossFunction(LMN ,yG, yGModel);
+
+% plot model output
+figure
+LMN.plotModel
+
+##### SOURCE END #####
+--></body></html>

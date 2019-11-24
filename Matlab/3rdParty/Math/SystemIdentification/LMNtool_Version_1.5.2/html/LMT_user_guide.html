@@ -1,0 +1,265 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>Local Model Networks Toolbox User Guide</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-09-05"><meta name="DC.source" content="LMT_user_guide.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><h1>Local Model Networks Toolbox User Guide</h1><!--introduction--><p><b>Local Model Networks Toolbox for Nonlinear System Identification</b></p><p>Oliver Nelles, Benjamin Hartmann, Tobias Ebert, Torsten Fischer, Julian Belz, Geritt Kampmann</p><p>University of Siegen, Germany</p><p>January 2012</p><p><a href="www.uni-siegen.de/fb11/mrt">www.uni-siegen.de/fb11/mrt</a></p><!--/introduction--><h2>Contents</h2><div><ul><li><a href="#1">Abstract</a></li><li><a href="#2">1 Introduction</a></li><li><a href="#3">2	Toolbox Methods</a></li><li><a href="#4">2.1	LOLIMOT with Local Linear Models</a></li><li><a href="#5">2.2	LOLIMOT with Local Quadratic Models</a></li><li><a href="#6">2.3	HILOMOT with Local Linear Models</a></li><li><a href="#7">2.4	HILOMOT with Local Quadratic Models</a></li><li><a href="#8">3	Toolbox Inputs and Outputs</a></li><li><a href="#9">4    Model Use</a></li><li><a href="#10">5	Toolbox Examples</a></li><li><a href="#11">References</a></li></ul></div><h2 id="1">Abstract</h2><p>A new Matlab toolbox for nonlinear system identification with local model networks is introduced. Its goal is to provide even unskilled users with an easy possibility to generate nonlinear models from data. It trains a number of different models of different complexity with different architectures and a polynomial for comparison. At the end it gives an overview on the achieved performances and makes a recommendation for the best model. In [4] a more detailed description of the validation methods used for this toolbox is given.</p><p>The toolbox can be used by the trivial function call <tt>LMNTrain(data)</tt> where the training data <tt>data = [u 1 u 2 ... u p y]</tt> contains the inputs in the first columns and the output in the last column. The model with the best penalty loss function value (AICc) is recommended [1, 2].</p><h2 id="2">1 Introduction</h2><p>This toolbox limits itself to nonlinear models with <tt>p</tt> inputs and <tt>1</tt> output. For several outputs the user has to generate separate models for each. In the static case, the generated models are of the type</p><pre>  y_hat = f(u1,u2,...,up)</pre><p>Particularly for high-dimensional input spaces, i.e., high values of <tt>p</tt>, this can be a very demanding task.</p><p>Dynamic models can be constructed by using tapped delay lines, i.e.:</p><pre>  y_hat(k+1) = f(u_1(k), ..., u_1(k-n_u1), u_2(k), ..., u_2(k-n_u2), ...,
+                      u_p(k), ..., u_p(k-n_up), y(k), ..., y(k-n_y))</pre><p>However, such models performs only one-step-ahead predictions from <tt>y(k)</tt> to <tt>y_hat(k + 1)</tt>. For a simulation feedback is necessary.</p><p>This documentation concentrates on static models only. Dynamic models are not documented so far. They will be included in the documentation with future toolbox releases.</p><h2 id="3">2	Toolbox Methods</h2><p>The toolbox carries out several incremental learning algorithms for local model networks. It is build to run automatically and recommends the <i>best</i> model achieved. Here <i>best</i> stands for the least expected squared error on new data. Therefore, it tries to find a good bias/variance tradeoff and thus to avoid overfitting. Of course, each method can be called on each own and many parameters and options are available to fine tune the results. The primary goal of this toolbox, however, is to address the non-expert and deliver a very robust performance. It is highly encouraged and recommended to look into more details of the proposed methods. This can improve the performance even further.</p><p>The investigated methods are:</p><p><b>1. LOLIMOT with local linear models</b></p><p><b>2. LOLIMOT with local quadratic models</b></p><p><b>3. HILOMOT with local linear models</b></p><p><b>4. HILOMOT with local quadratic models</b></p><p>These methods are briefly discussed in the following. They will be extended and improved in the future. More methods will be added. Some methods can easily be commented out in order to save computation time.</p><h2 id="4">2.1	LOLIMOT with Local Linear Models</h2><p>LOLIMOT (LOcal LInear MOdel Tree) is extensively covered in [6]. It is an incremental tree-structured algorithm that starts with a simple (typically linear) global model and refines its performance in each iteration by splitting the input space in an axes-orthogonal manner. In each iteration the worst local model is split into two equal halves. The associated local linear models are estimated by a local least squares approach. The algorithm is very fast and robust. Its performance can deteriorate with increasing input dimensions due to the sub-optimality of the axes-orthogonal splits.</p><h2 id="5">2.2	LOLIMOT with Local Quadratic Models</h2><p>In this case, the LOLIMOT algorithm trains local models of full polynomial type. All quadratic local model terms including all cross-terms of type <tt>u1*u2</tt> and similar are considered. It also is recommended for optimization purposes but becomes inefficient for high- dimensional input spaces due to the huge number of cross-terms. Then the sparse quadratic models might be a superior choice.</p><h2 id="6">2.3	HILOMOT with Local Linear Models</h2><p>HILOMOT and its original ideas are discussed in e.g. [3, 5]. It realizes two major improve- ments over the LOLIMOT algorithm. a) The strong limitations of axes-orthongonal splits fall and b) the flat (parallel) model structure is transferred into a hierarchical model structure. Advantage a) means that axis-oblique splits are carried out which overcomes the key weakness of LOLIMOT. The price to be paid is that the split has to be optimized which necessarily is a nonlinear optimization problem. This makes HILOMOT one or two orders of magnitude slower than LOLIMOT. However, it results in much better and more compact models. Advantage b) means that re-activation effects [7] due to the normalization can be completely avoided and only involves drawbacks on truly parallel hardware.</p><h2 id="7">2.4	HILOMOT with Local Quadratic Models</h2><p>Axes-oblique version of the method from Section 2.2; see Section 2.3.</p><h2 id="8">3	Toolbox Inputs and Outputs</h2><p>The toolbox can be called with two inputs <tt>traindata</tt> and optionally <tt>valdata</tt> and/or <tt>testdata</tt>, respectively, and delivers two outputs <tt>LMNBest</tt> and <tt>AllLMN</tt>:</p><pre class="language-matlab">[LMNBest, AllLMN]=LMNTrain(traindata,valdata,testdata)
+</pre><p>This is the help of the LMNtool toolbox:</p><p>Each method builds its models incrementally. The choice for a good model complexity is of paramount importance. Commonly, no separate validation data set is available. Then the function is just called as <tt>LMNTrain(data)</tt>. The complexity is determined for each method individually with the help of the AICc criterion [1, 2]. It is not aimed for the optimal bias/variance trade-off but other benefits for parsimonious models are also considered such as: computational demand, interpretability, and ease of handling. Furthermore, a too complex model with significant overfitting is considered more dangerous than a too simple model, because it causes the illusion of a good model fit to the unexperienced user.</p><p>If validation data is available,the toolbox shall be called by <tt>LMNTrain(traindata, valdata)</tt>. Then the model is assessed and the recommendation is made according to this separate validation data set which is more reliable. Additionally, the user can provide a separate test data set by calling <tt>LMNTrain(traindata, [ ], testdata)</tt>, which is then used for testing the model only. This ensures comparability to other models.</p><h2 id="9">4    Model Use</h2><p>The model considered best is characterized by the structure <tt>LMNBest</tt>. The model output can be evaluated for a single data point or a whole data set by</p><pre class="language-matlab">output = LMNBest.calculateModelOutput(input)
+</pre><p>with input as <tt>1 x p</tt> vector (<tt>p</tt> = number of inputs) or <tt>N x p</tt> matrix (<tt>N</tt> = number of data points), respectively. For a one- or two-dimensional visualization of the model the user can type <tt>LMNBest.plotModel</tt> into the Matlab command window. For further information type <tt>help plotModel</tt>. Furthermore, the partitioning can be plotted by typing <tt>LMNBest.plotPartition</tt>.</p><p>If there are more than two inputs, a graphical user interface (GUI) can be used to visualize the model at a demanded operating point. The user is free to choose the two dependent variables, that span the input space. While changing the operating point the change in the model output is simultaneously calculated and visualized. Furthermore, different models or different complexities of one model can be compared. There are two different possibilities to load a model to the GUI. Either you use the following syntax to import the trained local model networks <tt>lmn1</tt> up to <tt>lmnN</tt> from the MATLAB workspace:</p><pre class="language-matlab">GUIvisualize(lmn1, lmn2, <span class="keyword">...</span><span class="comment">, lmnN)</span>
+</pre><p>or you save a trained local model network to a variable and save this variable as a mat-file. The mat-file can be imported within the GUI.</p><h2 id="10">5	Toolbox Examples</h2><p>The toolbox functionality is demonstrated on four static example data sets. The user just has to run one of the follwing functions:</p><pre class="language-matlab">LMNTrainDemo
+</pre><pre class="language-matlab">hilomotDemo
+</pre><pre class="language-matlab">lolimotDemo
+</pre><p>After choosing the example the training procedure starts and after completion the user gets informed about the modeling via the <tt>LMNTool</tt> output screen or Matlab's command window.</p><h2 id="11">References</h2><p>[1] H. Akaike. Information theory and an extension of the maximum likelihood principle. In Second international symposium on information theory, volume 1, pages 267?281. Springer Verlag, 1973.</p><p>[2] K.P. Burnham and D.R. Anderson. Model selection and multimodel inference: a practical information-theoretic approach. Springer Verlag, 2002.</p><p>[3] S. Ernst. Hinging hyperplane trees for approximation and identification. In IEEE Con- ference on Decision and Control (CDC), pages 1261?1277, Tampa, USA, 1998.</p><p>[4] B. Hartmann, T. Ebert, T. Fischer, J. Belz, G. Kampmann, and O. Nelles. LMNtool - Toolbox zum automatischen Trainieren lokaler Modellnetze. In Workshop Computational Intelligence, Dortmund, Germany, December 2012.</p><p>[5] B. Hartmann and O. Nelles. Automatic adjustment of the transition between local models in a hierarchical structure identification algorithm. In European Control Conference (ECC), Budapest, Hungary, August 2009.</p><p>[6] O. Nelles. Nonlinear System Identification. Springer, Berlin, Germany, 2001.</p><p>[7] R. Shorten and R. Murray-Smith. Side-effects of normalising basis functions in local model networks. In Multiple Model Approaches to Modelling and Control, chapter 8, pages 211?229. Taylor &amp; Francis, London, 1997.</p><p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+%% Local Model Networks Toolbox User Guide
+%
+% *Local Model Networks Toolbox for Nonlinear System Identification* 
+%
+% Oliver Nelles, Benjamin Hartmann, Tobias Ebert, Torsten Fischer, Julian Belz,
+% Geritt Kampmann 
+%
+% University of Siegen, Germany
+%
+% January 2012
+%
+% <www.uni-siegen.de/fb11/mrt>
+%
+%
+%% Abstract
+% A new Matlab toolbox for nonlinear system identification with local model networks is introduced.
+% Its goal is to provide even unskilled users with an easy possibility to generate nonlinear models
+% from data. It trains a number of different models of different complexity with different
+% architectures and a polynomial for comparison. At the end it gives an overview on the achieved
+% performances and makes a recommendation for the best model. In [4] a more detailed description of
+% the validation methods used for this toolbox is given.
+%
+% The toolbox can be used by the trivial function call |LMNTrain(data)| where the training data
+% |data = [u 1 u 2 ... u p y]| contains the inputs in the first columns and the output in the last
+% column. The model with the best penalty loss function value (AICc) is recommended [1, 2].
+%
+%% 1 Introduction
+% This toolbox limits itself to nonlinear models with |p| inputs and |1| output. For several outputs
+% the user has to generate separate models for each. In the static case, the generated models are of
+% the type
+%
+%    y_hat = f(u1,u2,...,up)
+%
+% Particularly for high-dimensional input spaces, i.e., high values of |p|, this can be a very
+% demanding task.
+%
+% Dynamic models can be constructed by using tapped delay lines, i.e.:
+%
+% 
+%    y_hat(k+1) = f(u_1(k), ..., u_1(k-n_u1), u_2(k), ..., u_2(k-n_u2), ...,
+%                        u_p(k), ..., u_p(k-n_up), y(k), ..., y(k-n_y))
+% 
+%
+% However, such models performs only one-step-ahead predictions from |y(k)| to |y_hat(k + 1)|. For a
+% simulation feedback is necessary.
+%
+% This documentation concentrates on static models only. Dynamic models are not documented so far.
+% They will be included in the documentation with future toolbox releases.
+%
+%% 2	Toolbox Methods
+% The toolbox carries out several incremental learning algorithms for local model networks. It is
+% build to run automatically and recommends the _best_ model achieved. Here _best_ stands for the
+% least expected squared error on new data. Therefore, it tries to find a good bias/variance
+% tradeoff and thus to avoid overfitting. Of course, each method can be called on each own and many
+% parameters and options are available to fine tune the results. The primary goal of this toolbox,
+% however, is to address the non-expert and deliver a very robust performance. It is highly
+% encouraged and recommended to look into more details of the proposed methods. This can improve the
+% performance even further.
+%
+% The investigated methods are:
+%
+% *1. LOLIMOT with local linear models*
+%
+% *2. LOLIMOT with local quadratic models*
+%
+% *3. HILOMOT with local linear models*
+%
+% *4. HILOMOT with local quadratic models*
+%
+% These methods are briefly discussed in the following. They will be
+% extended and improved in the future. More methods will be added. Some
+% methods can easily be commented out in order to save computation time.
+%
+%% 2.1	LOLIMOT with Local Linear Models
+% LOLIMOT (LOcal LInear MOdel Tree) is extensively covered in [6]. It is an incremental
+% tree-structured algorithm that starts with a simple (typically linear) global model and refines
+% its performance in each iteration by splitting the input space in an axes-orthogonal manner. In
+% each iteration the worst local model is split into two equal halves. The associated local linear
+% models are estimated by a local least squares approach. The algorithm is very fast and robust. Its
+% performance can deteriorate with increasing input dimensions due to the sub-optimality of the
+% axes-orthogonal splits.
+%
+%% 2.2	LOLIMOT with Local Quadratic Models
+% In this case, the LOLIMOT algorithm trains local models of full polynomial type. All quadratic
+% local model terms including all cross-terms of type |u1*u2| and similar are considered. It also is
+% recommended for optimization purposes but becomes inefficient for high- dimensional input spaces
+% due to the huge number of cross-terms. Then the sparse quadratic models might be a superior
+% choice.
+%
+%% 2.3	HILOMOT with Local Linear Models
+% HILOMOT and its original ideas are discussed in e.g. [3, 5]. It realizes two major improve- ments
+% over the LOLIMOT algorithm. a) The strong limitations of axes-orthongonal splits fall and b) the
+% flat (parallel) model structure is transferred into a hierarchical model structure. Advantage a)
+% means that axis-oblique splits are carried out which overcomes the key weakness of LOLIMOT. The
+% price to be paid is that the split has to be optimized which necessarily is a nonlinear
+% optimization problem. This makes HILOMOT one or two orders of magnitude slower than LOLIMOT.
+% However, it results in much better and more compact models. Advantage b) means that re-activation
+% effects [7] due to the normalization can be completely avoided and only involves drawbacks on
+% truly parallel hardware.
+%
+%% 2.4	HILOMOT with Local Quadratic Models
+% Axes-oblique version of the method from Section 2.2; see Section 2.3.
+%
+%% 3	Toolbox Inputs and Outputs
+% The toolbox can be called with two inputs |traindata| and optionally |valdata| and/or |testdata|,
+% respectively, and delivers two outputs |LMNBest| and |AllLMN|:
+%
+%   [LMNBest, AllLMN]=LMNTrain(traindata,valdata,testdata) 
+%
+% This is the help of the LMNtool toolbox:
+% 
+% Each method builds its models incrementally. The choice for a good model complexity is of
+% paramount importance. Commonly, no separate validation data set is available. Then the function is
+% just called as |LMNTrain(data)|. The complexity is determined for each method individually with
+% the help of the AICc criterion [1, 2]. It is not aimed for the optimal bias/variance trade-off but
+% other benefits for parsimonious models are also considered such as: computational demand,
+% interpretability, and ease of handling. Furthermore, a too complex model with significant
+% overfitting is considered more dangerous than a too simple model, because it causes the illusion
+% of a good model fit to the unexperienced user.
+%
+% If validation data is available,the toolbox shall be called by |LMNTrain(traindata, valdata)|.
+% Then the model is assessed and the recommendation is made according to this separate validation
+% data set which is more reliable. Additionally, the user can provide a separate test data set by
+% calling |LMNTrain(traindata, [ ], testdata)|, which is then used for testing the model only. This
+% ensures comparability to other models.
+%
+%% 4    Model Use
+% The model considered best is characterized by the structure |LMNBest|. The model output can be
+% evaluated for a single data point or a whole data set by
+%
+%   output = LMNBest.calculateModelOutput(input)
+%
+% with input as |1 x p| vector (|p| = number of inputs) or |N x p| matrix (|N| = number of data
+% points), respectively. For a one- or two-dimensional visualization of the model the user can type
+% |LMNBest.plotModel| into the Matlab command window. For further information type |help plotModel|.
+% Furthermore, the partitioning can be plotted by typing |LMNBest.plotPartition|.
+%
+% If there are more than two inputs, a graphical user interface (GUI) can be used to visualize the
+% model at a demanded operating point. The user is free to choose the two dependent variables, that
+% span the input space. While changing the operating point the change in the model output is
+% simultaneously calculated and visualized. Furthermore, different models or different complexities
+% of one model can be compared. There are two different possibilities to load a model to the GUI.
+% Either you use the following syntax to import the trained local model networks |lmn1| up to |lmnN|
+% from the MATLAB workspace:
+%
+%   GUIvisualize(lmn1, lmn2, ..., lmnN)
+%
+% or you save a trained local model network to a variable and save this variable as a mat-file. The
+% mat-file can be imported within the GUI.
+%
+%% 5	Toolbox Examples
+% The toolbox functionality is demonstrated on four static example data sets. The user just has to
+% run one of the follwing functions:
+%
+%   LMNTrainDemo
+%
+%   hilomotDemo
+%
+%   lolimotDemo
+%
+% After choosing the example the training procedure starts and after completion the user gets
+% informed about the modeling via the |LMNTool| output screen or Matlab's command window.
+%
+%% References
+% [1] H. Akaike. Information theory and an extension of the maximum likelihood principle. In Second
+% international symposium on information theory, volume 1, pages 267?281. Springer Verlag, 1973.
+% 
+% [2] K.P. Burnham and D.R. Anderson. Model selection and multimodel inference: a practical
+% information-theoretic approach. Springer Verlag, 2002.
+%
+% [3] S. Ernst. Hinging hyperplane trees for approximation and identification. In IEEE Con- ference
+% on Decision and Control (CDC), pages 1261?1277, Tampa, USA, 1998.
+% 
+% [4] B. Hartmann, T. Ebert, T. Fischer, J. Belz, G. Kampmann, and O. Nelles. LMNtool - Toolbox zum
+% automatischen Trainieren lokaler Modellnetze. In Workshop Computational Intelligence, Dortmund,
+% Germany, December 2012.
+%
+% [5] B. Hartmann and O. Nelles. Automatic adjustment of the transition between local models in a
+% hierarchical structure identification algorithm. In European Control Conference (ECC), Budapest,
+% Hungary, August 2009.
+% 
+% [6] O. Nelles. Nonlinear System Identification. Springer, Berlin, Germany, 2001.
+%
+% [7] R. Shorten and R. Murray-Smith. Side-effects of normalising basis functions in local model
+% networks. In Multiple Model Approaches to Modelling and Control, chapter 8, pages 211?229. Taylor
+% & Francis, London, 1997.
+##### SOURCE END #####
+--></body></html>

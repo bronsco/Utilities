@@ -1,0 +1,174 @@
+
+<!DOCTYPE html
+  PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html><head>
+      <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+   <!--
+This HTML was auto-generated from MATLAB code.
+To make changes, update the MATLAB code and republish this document.
+      --><title>LMNDemo1_help</title><meta name="generator" content="MATLAB 9.1"><link rel="schema.DC" href="http://purl.org/dc/elements/1.1/"><meta name="DC.date" content="2017-09-05"><meta name="DC.source" content="LMNDemo1_help.m"><style type="text/css">
+html,body,div,span,applet,object,iframe,h1,h2,h3,h4,h5,h6,p,blockquote,pre,a,abbr,acronym,address,big,cite,code,del,dfn,em,font,img,ins,kbd,q,s,samp,small,strike,strong,sub,sup,tt,var,b,u,i,center,dl,dt,dd,ol,ul,li,fieldset,form,label,legend,table,caption,tbody,tfoot,thead,tr,th,td{margin:0;padding:0;border:0;outline:0;font-size:100%;vertical-align:baseline;background:transparent}body{line-height:1}ol,ul{list-style:none}blockquote,q{quotes:none}blockquote:before,blockquote:after,q:before,q:after{content:'';content:none}:focus{outine:0}ins{text-decoration:none}del{text-decoration:line-through}table{border-collapse:collapse;border-spacing:0}
+
+html { min-height:100%; margin-bottom:1px; }
+html body { height:100%; margin:0px; font-family:Arial, Helvetica, sans-serif; font-size:10px; color:#000; line-height:140%; background:#fff none; overflow-y:scroll; }
+html body td { vertical-align:top; text-align:left; }
+
+h1 { padding:0px; margin:0px 0px 25px; font-family:Arial, Helvetica, sans-serif; font-size:1.5em; color:#d55000; line-height:100%; font-weight:normal; }
+h2 { padding:0px; margin:0px 0px 8px; font-family:Arial, Helvetica, sans-serif; font-size:1.2em; color:#000; font-weight:bold; line-height:140%; border-bottom:1px solid #d6d4d4; display:block; }
+h3 { padding:0px; margin:0px 0px 5px; font-family:Arial, Helvetica, sans-serif; font-size:1.1em; color:#000; font-weight:bold; line-height:140%; }
+
+a { color:#005fce; text-decoration:none; }
+a:hover { color:#005fce; text-decoration:underline; }
+a:visited { color:#004aa0; text-decoration:none; }
+
+p { padding:0px; margin:0px 0px 20px; }
+img { padding:0px; margin:0px 0px 20px; border:none; }
+p img, pre img, tt img, li img, h1 img, h2 img { margin-bottom:0px; } 
+
+ul { padding:0px; margin:0px 0px 20px 23px; list-style:square; }
+ul li { padding:0px; margin:0px 0px 7px 0px; }
+ul li ul { padding:5px 0px 0px; margin:0px 0px 7px 23px; }
+ul li ol li { list-style:decimal; }
+ol { padding:0px; margin:0px 0px 20px 0px; list-style:decimal; }
+ol li { padding:0px; margin:0px 0px 7px 23px; list-style-type:decimal; }
+ol li ol { padding:5px 0px 0px; margin:0px 0px 7px 0px; }
+ol li ol li { list-style-type:lower-alpha; }
+ol li ul { padding-top:7px; }
+ol li ul li { list-style:square; }
+
+.content { font-size:1.2em; line-height:140%; padding: 20px; }
+
+pre, code { font-size:12px; }
+tt { font-size: 1.2em; }
+pre { margin:0px 0px 20px; }
+pre.codeinput { padding:10px; border:1px solid #d3d3d3; background:#f7f7f7; }
+pre.codeoutput { padding:10px 11px; margin:0px 0px 20px; color:#4c4c4c; }
+pre.error { color:red; }
+
+@media print { pre.codeinput, pre.codeoutput { word-wrap:break-word; width:100%; } }
+
+span.keyword { color:#0000FF }
+span.comment { color:#228B22 }
+span.string { color:#A020F0 }
+span.untermstring { color:#B20000 }
+span.syscmd { color:#B28C00 }
+
+.footer { width:auto; padding:10px 0px; margin:25px 0px 0px; border-top:1px dotted #878787; font-size:0.8em; line-height:140%; font-style:italic; color:#878787; text-align:left; float:none; }
+.footer p { margin:0px; }
+.footer a { color:#878787; }
+.footer a:hover { color:#878787; text-decoration:underline; }
+.footer a:visited { color:#878787; }
+
+table th { padding:7px 5px; text-align:left; vertical-align:middle; border: 1px solid #d6d4d4; font-weight:bold; }
+table td { padding:7px 5px; text-align:left; vertical-align:top; border:1px solid #d6d4d4; }
+
+
+
+
+
+  </style></head><body><div class="content"><pre class="codeinput"><span class="comment">% LMNTool demo 1. static process with 1 input and 1 output</span>
+
+<span class="comment">% LMNTool - Nonlinear System Identification Toolbox</span>
+<span class="comment">% Institute of Mechanics &amp; Automatic Control</span>
+<span class="comment">% University of Siegen, Germany</span>
+<span class="comment">% Copyright (c) 2012 by Prof. Dr.-Ing. Oliver Nelles et. al.</span>
+
+
+<span class="comment">% generate input data on a grid</span>
+input  = rand(100,1);
+inputG = linspace(0,1,50)';
+
+<span class="comment">% product of a hyperbel and a sinus function</span>
+output  = (1+sin(4*pi*input-pi/8)) .* (0.1./(0.1+input));
+outputG = (1+sin(4*pi*inputG-pi/8)) .* (0.1./(0.1+inputG));
+
+outputG = outputG + 0.01*randn(size(outputG))*(max(outputG)-min(outputG));
+
+dataVal  = [inputG outputG];
+dataTest = [inputG outputG];
+
+<span class="comment">% add some noise</span>
+output = output + 0.05*randn(size(output))*(max(output)-min(output));
+dataTrain = [input output];
+
+<span class="comment">% start training</span>
+[LMNBest AllLMN] = LMNTrain(dataTrain, dataVal, dataTest);
+
+
+<span class="comment">% plot</span>
+figure
+outputModelG = LMNBest.calculateModelOutput(inputG);
+hold <span class="string">on</span>
+plot(inputG,outputG,<span class="string">'color'</span>,[0.9 0.9 0.9],<span class="string">'linestyle'</span>,<span class="string">'-'</span>,<span class="string">'linewidth'</span>,1.5)
+plot(inputG,outputModelG,<span class="string">'k-'</span>)
+plot(input,output,<span class="string">'kx'</span>,<span class="string">'markersize'</span>,12)
+hold <span class="string">off</span>
+box <span class="string">on</span>
+axis([0 1 -0.2 1])
+xlabel(<span class="string">'input'</span>)
+ylabel(<span class="string">'output'</span>)
+legend(<span class="string">'process'</span>,<span class="string">'model'</span>,<span class="string">'data'</span>)
+</pre><pre class="codeoutput">
+Current training method: lolimotQuad
+
+Current training method: lolimotSparseQuad
+
+Current training method: lolimot
+
+Current training method: hilomot
+
+Current training method: hilomotQuad
+
+Current training method: hilomotSparseQuad
+
+Suggested model: lolimotSparseQuad
+Warning: Ignoring extra legend entries. 
+</pre><img vspace="5" hspace="5" src="LMNDemo1_help_01.png" alt=""> <img vspace="5" hspace="5" src="LMNDemo1_help_02.png" alt=""> <p class="footer"><br><a href="http://www.mathworks.com/products/matlab/">Published with MATLAB&reg; R2016b</a><br></p></div><!--
+##### SOURCE BEGIN #####
+% LMNTool demo 1. static process with 1 input and 1 output
+
+% LMNTool - Nonlinear System Identification Toolbox
+% Institute of Mechanics & Automatic Control 
+% University of Siegen, Germany 
+% Copyright (c) 2012 by Prof. Dr.-Ing. Oliver Nelles et. al.
+
+
+% generate input data on a grid
+input  = rand(100,1);
+inputG = linspace(0,1,50)';
+
+% product of a hyperbel and a sinus function
+output  = (1+sin(4*pi*input-pi/8)) .* (0.1./(0.1+input));
+outputG = (1+sin(4*pi*inputG-pi/8)) .* (0.1./(0.1+inputG));
+
+outputG = outputG + 0.01*randn(size(outputG))*(max(outputG)-min(outputG));
+
+dataVal  = [inputG outputG];
+dataTest = [inputG outputG];
+
+% add some noise
+output = output + 0.05*randn(size(output))*(max(output)-min(output));
+dataTrain = [input output];
+
+% start training
+[LMNBest AllLMN] = LMNTrain(dataTrain, dataVal, dataTest);
+
+
+% plot
+figure
+outputModelG = LMNBest.calculateModelOutput(inputG);
+hold on
+plot(inputG,outputG,'color',[0.9 0.9 0.9],'linestyle','-','linewidth',1.5)
+plot(inputG,outputModelG,'k-')
+plot(input,output,'kx','markersize',12)
+hold off
+box on
+axis([0 1 -0.2 1])
+xlabel('input')
+ylabel('output')
+legend('process','model','data')
+
+
+
+##### SOURCE END #####
+--></body></html>
