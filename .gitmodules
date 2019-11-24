@@ -91,3 +91,6 @@
 [submodule "Matlab/3rdParty/General/matlab-schemer"]
 	path = Matlab/3rdParty/General/matlab-schemer
 	url = git@github.com:scottclowe/matlab-schemer.git
+[submodule "Matlab/3rdParty/Math/Optimization/GA-Toolbox"]
+	path = Matlab/3rdParty/Math/Optimization/GA-Toolbox
+	url = git@github.com:UoS-CODeM/GA-Toolbox.git
