@@ -1,12 +1,12 @@
-function TableStr = table2char(Data,varargin)
+function tableStr = table2char(data,varargin)
 % Converts a TABLE/DATASET array to a char array.
 %
 % @Synopsis:
-%   TableStr = table2char(Data)
-%     Converts 'Data' to a character matrix.
+%   tableStr = table2char(data)
+%     Converts 'data' to a character matrix.
 %
 % @Input:
-%   Data (required)
+%   data (required)
 %     A nxm TABLE or DATASET array.
 %
 %   AddUnits (optional)
@@ -15,8 +15,8 @@ function TableStr = table2char(Data,varargin)
 %     DEFAULT: false.
 %
 % @Output:
-%   TableStr
-%     A (n+2)xk character matrix with the string representation of 'Data'. The
+%   tableStr
+%     A (n+2)xk character matrix with the string representation of 'data'. The
 %     first row contains the variable names and the second a separator line. If
 %     a value has been rounded to 0 at a column's precision (e.g. 0.00001 -> 0
 %     at Precision 3), it will be shown as '<0.001' or '-<0.001' if the value
@@ -66,292 +66,343 @@ function TableStr = table2char(Data,varargin)
 %   2017-02-24 (DJM): [FIX] Rounding to one problem.
 %   2017-02-28 (DJM): [FIX] Error for columns containing only 1 finite negative
 %                           entry and otherwise NaNs.
-%   2017-05-26 (DJM): [FIX] No returns a proper representation for empty Data.
+%   2017-05-26 (DJM): [FIX] No returns a proper representation for empty data.
 %   2017-06-15 (DJM): [FIX] Error when using row names & units.
-
+%   2017-07-07 (DJM):
+%     - [MOD] Major code mod. Outsourced several routines to sub-functions to
+%             make the code more maintainable. Changed the style to adhere to
+%             Matlab Code Rules.
+%     - [FIX] Error when a variable name is shorter than its unit.
 %% Check input
-Id = 1;
-if length(varargin) >= Id && ~isempty(varargin{Id})
-	AddUnits = varargin{Id};
+id = 1;
+if length(varargin) >= id && ~isempty(varargin{id})
+	addUnits = varargin{id};
 else %Use default.
-	AddUnits = false;
+	addUnits = false;
 end
-
-if istable(Data)
-	RowPropName  = 'RowNames';
-	UnitPropName = 'VariableUnits';
-	VarNames     = Data.Properties.VariableNames;
-else %Dataset
-	RowPropName  = 'ObsNames';
-	UnitPropName = 'Units';
-	VarNames     = Data.Properties.VarNames;
-end
-
 %% Init
-%String representations of logicals.
-LogicalValues = {'false';'true'}; %Should be column vector.
-
-[nRows,nVars] = size(Data);
-
+SEPARATOR = '_';
+if istable(data)
+	ROW_PROP_NAME  = 'RowNames';
+	UNIT_PROP_NAME = 'VariableUnits';
+	varNames       = data.Properties.VariableNames;
+else % DATASET
+	ROW_PROP_NAME  = 'ObsNames';
+	UNIT_PROP_NAME = 'Units';
+	varNames       = data.Properties.varNames;
+end
+%% Compute stuff
+[nRows,nVars] = size(data);
 %Check row names.
-HasRowNames = ~isempty(Data.Properties.(RowPropName));
-if HasRowNames
+hasRowNames = ~isempty(data.Properties.(ROW_PROP_NAME));
+if hasRowNames
 	%use blanks for var names / units / seperator line.
-	TableStr = char(Data.Properties.(RowPropName));
-	Data.Properties.(RowPropName) = {};
+	tableStr = char(data.Properties.(ROW_PROP_NAME));
+	data.Properties.(ROW_PROP_NAME) = {};
 else
-	TableStr = '';
+	tableStr = '';
 end
-
-HasUnits = ~isempty(Data.Properties.(UnitPropName));
-
+hasUnits = ~isempty(data.Properties.(UNIT_PROP_NAME));
 %% Convert columns
-%+1 for header & +1 for units.
-nVarCols = 1+double(AddUnits);
-Blanks = repmat(' ',nRows+nVarCols+1,2); %+1 seperator line.
-if HasRowNames
-	TableStr = [repmat(' ',nVarCols+1,size(TableStr,2));TableStr];
+% 1 for header, 1 for seperator line (+1 for units).
+nVarRows = 2+double(addUnits);
+if hasRowNames
+	tableStr = [repmat(' ',nVarRows,size(tableStr,2)); tableStr];
 end
-
-for VarId = 1:nVars
-	Var = VarNames{VarId};
-	Var = Var(~isspace(Var));
-
-	%Keep the "weird" indexing to avoid problems with DATASET.
-	Col = Data.(VarNames{VarId});
-
-	%Convert column to character array (handle multi-dimensional columns by
-	%concatenation)...
-	if isempty(Col)
-		ColStr = '';
-	elseif ischar(Col)
-		ColStr = Col;
-	else %Other data types
-		for i = 1:size(Col,2)
-			if isnumeric(Col(:,i))
-				TmpStr = numcol2char(Col(:,i));
-			elseif islogical(Col(:,i))
-				TmpStr = char(LogicalValues(Col(:,i)+1));
-			elseif iscellstr(Col(:,i))% || iscategorical(Col(:,i))
-				%ISCATEGORICAL also covers depricated NOMINAL/ORDINAL arrays.
-				TmpStr = char(Col(:,i));
-			else  %other types
-				try 
-					if iscell(Col(:,i))
-						if all(cellfun(@isnumeric,Col(:,i)))
-							%Cell array of numeric values. Just show the dimensions...
-							if all(cellfun(@ismatrix,Col(:,i)))
-								%...all matrices, so show the exact dimensions.
-								TmpStr = strcat(int2str(cellfun(@(X) size(X,1),...
-												Col(:,i))), 'x', ...
-												int2str(cellfun(@(X) size(X,2),Col(:,i))));
-							else
-								%...some n-d arrays, so just show dummy dimensions.
-								TmpStr = {'n-d'};
-							end
-							TmpStr = char(strcat('[',TmpStr,{' '},...
-												cellfun(@class,Col(:,i), ...
-													'UniformOutput',false), ']'));
-						else
-							%Cell arrays of something other, just try to convert the
-							%content to char (e.g. this works fine for function
-							%handles).
-							TmpStr ...
-								= char(cellfun(@char,Col(:,i),'UniformOutput',false));
-						end
-					else
-						%Now we really do not know what it is. Just try direct
-						%conversion to char and hope it is implemented for that
-						%class.
-						TmpStr = char(Col(:,i));
-					end
-				catch Err
-					warning('DJM:IOFailure',...
-						'Could not convert %s to a string!\n %s',Var,Err.message);
-					TmpStr = repmat('<ERROR>',nRows,1);
-				end
-			end
-			%...do the concatenation.
-			if i == 1
-				ColStr = TmpStr;
-			else
-				%...add some blanks in-between columns.
-				ColStr = [ColStr repmat(' ',size(ColStr,1),2) TmpStr];  %#ok<AGROW>
-			end
-		end
-	end
-
-	if AddUnits
-		if HasUnits
-			Unit = Data.Properties.(UnitPropName){VarId};
+blankCol = repmat(' ',nRows+nVarRows,2);
+for varId = 1:nVars
+	% Remove blanks.
+	varName = varNames{varId};
+	varName = varName(~isspace(varName));
+	% Add units to var name if necessary.
+	if addUnits
+		if hasUnits
+			varUnit = data.Properties.(UNIT_PROP_NAME){varId};
 		else
-			Unit = '';
+			varUnit = '';
 		end
-		Unit = sprintf('[%s]', Unit);
-		
-		%Center variable name & units.
-		nVarChars  = length(Var);
-		nUnitChars = length(Unit);
-		nDiff = abs(nUnitChars-nVarChars)/2;
-		if nDiff > 0
-			LeftBlanks  = blanks(floor(nDiff));
-			RightBlanks = blanks( ceil(nDiff));
-			if nVarChars < nUnitChars
-				Var = [LeftBlanks Var RightBlanks; Unit]; %#ok<AGROW>
-			else %nUnitChars < nVarChars
-				Var = [Var; LeftBlanks Unit RightBlanks]; %#ok<AGROW>
-			end
-		end
+		varName = charCatCentered(varName, sprintf('[%s]', varUnit), '');
 	end
-	
-	%Create centered columns.
-	nColChars = size(ColStr,2);
-	nVarChars = size(Var,2);
-	nDiff = abs(nColChars-nVarChars)/2;
-	if nDiff > 0
-		LeftBlanks  = blanks(floor(nDiff));
-		RightBlanks = blanks( ceil(nDiff));
-		if nColChars > nVarChars
-			Var = [repmat(LeftBlanks,nVarCols,1) ...
-			       Var ...
-			       repmat(RightBlanks,nVarCols,1)]; %#ok<AGROW>
-		else %nColChars < nVarChars
-			ColStr = [repmat(LeftBlanks,nRows,1) ...
-			          ColStr ...
-			          repmat(RightBlanks,nRows,1)]; %#ok<AGROW>
-		end
-	end
-
-	%Add separator line and concatenate to output.
-	TableStr = [TableStr Blanks ...
-               [Var;repmat('_',1,max(nColChars,nVarChars));ColStr]]; %#ok<AGROW>
-end %nCols
-end %TABLE2CHAR
-
-
-
-%% SUBFUNCTION: numcol2char
-function ColStr = numcol2char(Col)
-%Convert numeric column to char array.
+	% Do actual conversion. Use "weird" indexing to avoid problems with DATASET.
+	colStr = col2char(varName, data.(varNames{varId}));
+	%Add separator line and concatenate with output.
+	colStr   = charCatCentered(varName, colStr, SEPARATOR);
+	tableStr = [tableStr blankCol colStr]; %#ok<AGROW>
+end
+end % MAINFUNCTION
+%% SUBFUNCTION: col2char
+% COL2CHAR Convert data column to character array (handle multi-dimensional
+% columns by concatenation).
 %
 % @Input
-%   Col (required): The column of the table to convert.
+%   varName (required): String with the name of the column (used for errors).
+%
+%   col (required): nxm column of table to convert.
 %
 % @Output
-%   ColStr: The string representation of 'Col'.
-
-%% >SUB: Get props of Col
-IsNegative   = Col < 0;
-IsNaN        = isnan(Col);
-IsFinite     = isfinite(Col);
-IsAllInteger = all(mod(Col(IsFinite),1) == 0);
-ColAbs       = abs(Col);
-ColAbsMax    = max(ColAbs(IsFinite));
-nRows        = size(Col,1);
-
+%   colStr: nxk char array with string representation of 'col'.
+function colStr = col2char(varName,col)
+%% >SUB: Init
+%String representations of logicals.
+LOGIC_NAMES = {'false';'true'}; %Should be column vector.
+%% >SUB: Compute
+if isempty(col)
+	colStr = '';
+elseif ischar(col)
+	colStr = col;
+else % Other data types
+	for i = 1:size(col,2)
+		if isnumeric(col(:,i))
+			tmpStr = numcol2char(col(:,i));
+		elseif islogical(col(:,i))
+			tmpStr = char(LOGIC_NAMES(col(:,i)+1));
+		elseif iscellstr(col(:,i)) || iscategorical(col(:,i))
+			% ISCATEGORICAL also covers depricated NOMINAL/ORDINAL arrays.
+			tmpStr = char(col(:,i));
+		else % other types
+			try 
+				if iscell(col(:,i))
+					tmpStr = cellcol2char(col);
+				else
+					% Now we really do not know what it is. Just try direct
+					% conversion to char and hope it is implemented for that
+					% class.
+					tmpStr = char(col(:,i));
+				end
+			catch Err
+				warning('DJM:IOFailure', ['Could not convert %s to a ' ...
+					'string!\n %s'], varName, Err.message);
+				tmpStr = repmat('<ERROR>',size(col,1),1);
+			end
+		end
+		% Do the concatenation.
+		if i == 1
+			colStr = tmpStr;
+		else
+			% Add blanks in-between columns.
+			colStr = [colStr repmat(' ',size(colStr,1),2) tmpStr];  %#ok<AGROW>
+		end
+	end
+end
+end % COL2CHAR
+%% SUBFUNCTION: numcol2char
+function colStr = numcol2char(col)
+% NUMCOL2CHAR Convert numeric column to char array.
+%
+% @Input
+%   col (required): nx1 numeric column vector.
+%
+% @Output
+%   colStr: nxk char array with string representation of 'col'.
+%% >SUB: Get props of data
+isNegative   = col < 0;
+isNaN        = isnan(col);
+isFinite     = isfinite(col);
+isAllInteger = all(mod(col(isFinite),1) == 0);
+colAbs       = abs(col);
+nRows        = size(col,1);
 %Check for all-inf or all-NaN and return if found.
-if ~any(IsFinite)
-	ColStr = num2str(Col);
+if ~any(isFinite)
+	colStr = num2str(col);
 	return;
 end
-
 %% >SUB: Compute format spec
-%Get indicator for the numer of decimal digits from the variance...
-Id = find(IsFinite,1,'first');
-if all(Col(Id) == Col(IsFinite))
-	%...if they are all the same use just the log.
-	ColVarLog = abs(Col(Id));
-else 
-	%...otherwise use the log of the IQR. Compute empirical prctiles as taken
-	%from solution R-9 in: 
-	%  https://en.wikipedia.org/wiki/Quantile#Estimating_quantiles_from_a_sample
-	%to avoid depency on Stats Toolbox's IQR.
-	X = sort(Col(IsFinite));
-	n = length(X);
-	if 0.25 < 5/(8*n+2) % <=> (5/8)/(n+1/4); lower bound on p
-		XP = X([1 end]);
-	else
-		H  = (n+1/4)*[0.25;0.75] + 3/8;
-		HF = floor(H);
-		XP = X(HF) + (H-HF).*(X(HF+1)-X(HF));
-	end
-	ColVarLog = diff(XP);
-
-	%Check for sparsely distributed data (e.g. [0 0 0 0 0.3 0 0 0 0]) for which
-	%the IQR is too robust. Use SD instead. 
-	if ColVarLog == 0
-		ColVarLog = std(Col(IsFinite));
-	end
-end
-ColVarLog = log10(ColVarLog);
-
-%Compute decimal places. Use floor of signed value to add more digits for small
-%values.
-if isfinite(ColVarLog) && ~IsAllInteger
-	Precision = max(0,ceil(abs(ColVarLog)) - floor(ColVarLog));
-else
-	Precision = 0;
-end
-
-%Compute field width.
-if ~isempty(ColAbsMax) && floor(ColAbsMax) > 0
-	IntegersPlaces = floor(log10(round(ColAbsMax,Precision))) + 1;
-else
-	IntegersPlaces = 1;
-end
-FieldWidth = IntegersPlaces + Precision + double(Precision>0); %add dec. point
-
-FormatSpec = sprintf('%%%d.%df',FieldWidth,Precision);
-
-%% >SUB: Create formatted string
+[formatSpec, intPlaces, decPlaces] = computeFormatSpec(col(isFinite));
+%% >SUB: Prep conversion
 % Check values qreater than 0 & less than 1 after rounding.
-IsAbsQt0Lt1 = all(round(ColAbs(IsFinite),Precision) < 1 ...
-                & round(ColAbs(IsFinite),Precision) > 0);
-
-ColStr = cellstr(num2str(ColAbs,FormatSpec));
-ColStr(IsNaN)      = {num2str(NaN())}; %Avoid leading spaces.
-ColStr(isinf(Col)) = {num2str(inf())}; %Avoid leading spaces.
-
-%Remove zeros (before adding the sign!)...
-if any(IsFinite) && ~IsAllInteger
-	%...split the string at the decimal point.
-	TmpStr = char(ColStr(IsFinite));
-	IntStr = TmpStr(:,1:IntegersPlaces); %Integer part.
-	DecStr = TmpStr(:,end-(FieldWidth-IntegersPlaces)+1:end);%Decimal part+point.
-	%...remove trailing zeros.
-	DecStr = regexprep(deblank(regexprep(cellstr(DecStr),'0',' ')),' ','0');
-	TmpStr = strcat(IntStr,DecStr);
-	%...remove resulting trailing dots.
-	TmpStr = regexprep(TmpStr,'[.]+$','');
-	%...remove leading zeros if all values are within (0,1).
-	if IsAbsQt0Lt1
-		%...check if cells are 0 after rounding and mark them by '0.0'.
-		TmpStr(ismember(TmpStr,'0')) = {'0.0'};
-		TmpStr = cellfun(@(X) X(2:end), TmpStr, 'UniformOutput',false);
+isAbsGt0Lt1 = all(round(colAbs(isFinite),decPlaces) < 1 ...
+                & round(colAbs(isFinite),decPlaces) > 0);
+colStr = cellstr(num2str(colAbs,formatSpec));
+colStr(isNaN)      = {num2str(NaN())}; %Avoid leading spaces.
+colStr(isinf(col)) = {num2str(inf())}; %Avoid leading spaces.
+%% >SUB: Remove zeros
+% Do this before adding the sign!
+if any(isFinite) && ~isAllInteger
+	% Split the string at the decimal point.
+	tmpStr = char(colStr(isFinite));
+	IntStr = tmpStr(:,1:intPlaces); %Integer part.
+	decStr = tmpStr(:,end-(decPlaces+double(decPlaces~=0))+1:end);%Dec. part+point.
+	% Remove trailing zeros.
+	decStr = regexprep(deblank(regexprep(cellstr(decStr),'0',' ')),' ','0');
+	tmpStr = strcat(IntStr,decStr);
+	% Remove resulting trailing dots.
+	tmpStr = regexprep(tmpStr,'[.]+$','');
+	% Remove leading zeros if all values are within (0,1).
+	if isAbsGt0Lt1
+		% Check if cells are 0 after rounding and mark them by '0.0'.
+		tmpStr(ismember(tmpStr,'0')) = {'0.0'};
+		tmpStr = cellfun(@(X) X(2:end), tmpStr, 'UniformOutput',false);
 	end
-	%...merge non-finite values back in.
-	ColStr(IsFinite) = TmpStr;
+	% Merge non-finite values back in.
+	colStr(isFinite) = tmpStr;
 end
-
-%Check for zeros due to rounding.
-IsRoundedZero = ColAbs ~= 0 & cellfun(@(X) all(ismember(X,' 0')),ColStr);
-if any(IsRoundedZero)
-	ColStr(~IsRoundedZero) = strcat({' '},ColStr(~IsRoundedZero));
-	Str = sprintf(FormatSpec,10^(-Precision));
-	if IsAbsQt0Lt1
-		Str = Str(2:end); %Clip first 0.
+%% >SUB: Check for zeros due to rounding
+isRoundedZero = colAbs ~= 0 & cellfun(@(X) all(ismember(X,' 0')),colStr);
+if any(isRoundedZero)
+	colStr(~isRoundedZero) = strcat({' '},colStr(~isRoundedZero));
+	str = sprintf(formatSpec,10^(-decPlaces));
+	if isAbsGt0Lt1
+		str = str(2:end); %Clip first 0.
 	end
-	ColStr( IsRoundedZero) = strcat({'<'},Str);
+	colStr( isRoundedZero) = strcat({'<'},str);
 end
-
-%Add sign.
-if any(IsNegative)
-	TmpStr = [repmat(' ',nRows,1) char(ColStr)];
-	TmpStr(IsNegative,1) = '-';
-%	TmpStr(Col > 0   ,1) = '+';
-	ColStr = cellstr(TmpStr);
+%% >SUB: Add sign
+if any(isNegative)
+	tmpStr = [repmat(' ',nRows,1) char(colStr)];
+	tmpStr(isNegative,1) = '-';
+%	tmpStr(dataCol > 0   ,1) = '+';
+	colStr = cellstr(tmpStr);
 end
-
-%Convert to char again.
-ColStr = char(ColStr);
+%% Convert to char again
+colStr = char(colStr);
 end %NUMCOL2CHAR
+%% SUBFUNCTION: cellcol2char
+function colStr = cellcol2char(col)
+% CELLCOL2CHAR Convert numeric column to char array.
+%
+% @Input
+%   col (required): nx1 cell.
+%
+% @Output
+%   colStr: nxk char array with string representation of 'col'.
+if all(cellfun(@isnumeric,col))
+	% Cell array of numeric values. Just show the dimensions.
+	if all(cellfun(@ismatrix,col))
+		% All matrices, show exact dimensions.
+		colStr = strcat(int2str(cellfun(@(X) size(X,1),col)), 'x', ...
+						int2str(cellfun(@(X) size(X,2),col)));
+	else
+		% Some n-d arrays, just show dummy dimensions. 
+		colStr = {'n-d'};
+	end
+	% Add class.
+	colStr = char(strcat('[', colStr, {' '}, ...
+				cellfun(@class,col,'UniformOutput',false), ']'));
+else
+	% Cell arrays of something other, just try to convert the content to char
+	% (e.g. this works fine for function handles).
+	colStr = char(cellfun(@char,col, 'UniformOutput',false));
+end
+end % CELLCOL2CHAR
+%% SUBFUNCTION: computeFormatSpec
+% COMPUTEFORMATSPEC Compute the optimal format spec for a column as used by
+% SPRINTF. Optimal means showing only the significant digits along a column.
+%
+% @Input
+%   x (required)
+%     Column vector with the data. Must be all-finite.
+%
+% @Output
+%   formatSpec
+%     A string with the format spec.
+%
+%   intPlaces
+%     An integer scalar with the number of integer places of the data.
+%
+%   decPlaces
+%     An integer scalar with the number of decimal places of the data (e.g. its
+%     precision).
+%
+function [formatSpec, intPlaces, decPlaces] = computeFormatSpec(x)
+%% >SUB: Estimate number of decimal digits
+% Use the log10 of a measure of spread to determine #decimal digits.
+if any(x(1) ~= x) % Check if not all values are the same.
+	% Use the IQR. Avoid dependency on Stats Toolbox's IQR.
+	nDecDigits = computeIqr(x);
+	% For sparsely distributed data (e.g. [0 0 0 0 0.3 0 0 0 0]), the IQR is
+	% "too robust". Use SD instead.
+	if nDecDigits == 0
+		nDecDigits = std(x);
+	end
+else % All same.
+	% Just use the first value.
+	nDecDigits = abs(x(1));
+end
+nDecDigits = log10(nDecDigits);
+%% >SUB: Compute number decimal places
+if isfinite(nDecDigits) && any(mod(x,1)~=0) % non-integer
+	% Use floor of signed nDigits to add more digits for small values.
+	decPlaces = max(0,ceil(abs(nDecDigits)) - floor(nDecDigits));
+else
+	decPlaces = 0;
+end
+%% >SUB: Compute field width (number of total places)
+xAbsMax = max(abs(x));
+if floor(xAbsMax) > 0
+	intPlaces = floor(log10(round(xAbsMax,decPlaces))) + 1;
+else
+	intPlaces = 1;
+end
+fieldWidth = intPlaces + decPlaces + double(decPlaces~=0); %add dec. point
+%% >SUB: Create format string
+formatSpec = sprintf('%%%d.%df',fieldWidth,decPlaces);
+end % COMPUTEFORMATSPEC
+%% SUBFUNCTION: computeIqr
+% COMPUTEIQR Computes the empirical IQR using solution R-9 in:
+%  https://en.wikipedia.org/wiki/Quantile#Estimating_quantiles_from_a_sample.
+%
+% @Input
+%   x (required)
+%     Column vector with the data. Must be all-finite.
+%
+% @Output
+%   iQR
+%     Scalar with the IQR.
+%
+function iQR = computeIqr(x)
+%% >SUB: Init
+QUARTILES = 0.25*[1;3];
+%% >SUB: Compute
+x = sort(x);
+n = length(x);
+if QUARTILES(1) < 5/(8*n+2) % <=> (5/8)/(n+1/4); lower bound on p
+	xP = x([1 end]);
+else
+	h  = (n+1/4)*QUARTILES + 3/8;
+	hF = floor(h);
+	xP = x(hF) + (h-hF).*(x(hF+1)-x(hF));
+end
+iQR = diff(xP);
+end % COMPUTEIQR
+%% SUBFUNCTION: str = charCatCentered(str1, str2, sep)
+% CHARCATCENTERED Concatenates two strings vertically centered.
+%
+% @Input
+%   str1 (required)
+%     A kxn char array.
+%
+%   str2 (required)
+%     A lxm char array.
+%
+%   sep (required)
+%     A 1x1 char used as separator between str1 & str2. If empty, no separator
+%     is used.
+%
+% @Output
+%   str
+%     A (k+l+length(sep))xmax(m,k) char array with the concatenated strings.
+%
+function str = charCatCentered(str1, str2, sep)
+%% >SUB: Create centered columns
+[nRows1,nCols1] = size(str1);
+[nRows2,nCols2] = size(str2);
+nDiff = abs(nCols1-nCols2)/2;
+if nDiff > 0
+	leftBlanks  = blanks(floor(nDiff));
+	rightBlanks = blanks( ceil(nDiff));
+	if nCols2 > nCols1
+		str1 = [repmat(leftBlanks ,nRows1,1) str1 ...
+		        repmat(rightBlanks,nRows1,1)];
+	else
+		str2 = [repmat(leftBlanks ,nRows2,1) str2 ...
+		        repmat(rightBlanks,nRows2,1)];
+	end
+end
+%% >SUB: Concatenate
+if sep
+	sep = repmat(sep,1,max(nCols1,nCols2));
+else
+	sep = '';
+end
+str = [str1;sep;str2];
+end % CHARCATCENTERED

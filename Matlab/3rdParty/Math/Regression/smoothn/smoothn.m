@@ -1,5 +1,4 @@
 function [z,s,exitflag] = smoothn(varargin)
-
 %SMOOTHN Robust spline smoothing for 1-D to N-D data.
 %   SMOOTHN provides a fast, automatized and robust discretized spline
 %   smoothing for data of arbitrary dimension.
@@ -72,10 +71,10 @@ function [z,s,exitflag] = smoothn(varargin)
 %
 %
 %   3) REFERENCES (please refer to the two following papers)
-%   ------------- 
+%   -------------
 %   1) Garcia D, Robust smoothing of gridded data in one and higher
 %   dimensions with missing values. Computational Statistics & Data
-%   Analysis, 2010;54:1167-1178. 
+%   Analysis, 2010;54:1167-1178.
 %   <a
 %   href="matlab:web('http://www.biomecardio.com/publis/csda10.pdf')">download PDF</a>
 %   2) Garcia D, A fast all-in-one method for automated post-processing of
@@ -195,7 +194,7 @@ function [z,s,exitflag] = smoothn(varargin)
 %   hsurfaces = slice(x,y,z,wind_speed,[xmin,xmax],ymax,zmin);
 %   set(hsurfaces,'FaceColor','interp','EdgeColor','none')
 %   hold off
-%   axis tight; view(30,40); axis off
+%   axis tight; view(30,40); axis equal off
 %   camproj perspective; camzoom(1.5)
 %   camlight right; lighting phong
 %   set(hsurfaces,'AmbientStrength',.6)
@@ -212,38 +211,40 @@ function [z,s,exitflag] = smoothn(varargin)
 %   hsurfaces = slice(x,y,z,wind_speed,[xmin,xmax],ymax,zmin);
 %   set(hsurfaces,'FaceColor','interp','EdgeColor','none')
 %   hold off
-%   axis tight; view(30,40); axis off
+%   axis tight; view(30,40); axis equal off
 %   camproj perspective; camzoom(1.5)
 %   camlight right; lighting phong
 %   set(hsurfaces,'AmbientStrength',.6)
 %   set(hcones,'DiffuseStrength',.8)
 %
-%   See also SMOOTH1Q, DCTN, IDCTN.
+%   See also SMOOTH1Q, DCTN, IDCTN, INPAINTN.
 %
-%   -- Damien Garcia -- 2009/03, last update 2017/08
+%   -- Damien Garcia -- 2009/03, last update 2018/09
 %   website: <a
 %   href="matlab:web('http://www.biomecardio.com/en')">www.BiomeCardio.com</a>
-
+persistent useBSXFUN
 %% Check input arguments
 narginchk(1,5);
 OPTIONS = struct;
 NArgIn = nargin;
 if isstruct(varargin{end}) % SMOOTHN(...,OPTIONS)
-    OPTIONS = varargin{end};
-    NArgIn = NArgIn-1;
+	OPTIONS = varargin{end};
+	NArgIn = NArgIn-1;
+elseif NArgIn>1 && isstruct(varargin{end-1}) % SMOOTHN(...,OPTIONS,'robust')
+	OPTIONS = varargin{end-1};
+	NArgIn = NArgIn-1;
 end
 idx = cellfun(@ischar,varargin);
 if any(idx) % SMOOTHN(...,'robust',...)
-    assert(sum(idx)==1 && strcmpi(varargin{idx},'robust'),...
-        'Wrong syntax. Read the help text for instructions.')
-    isrobust = true;
-    assert(find(idx)==NArgIn,...
-        'Wrong syntax. Read the help text for instructions.')
-    NArgIn = NArgIn-1;
+	assert(sum(idx)==1 && strcmpi(varargin{idx},'robust'),...
+		'Wrong syntax. Read the help text for instructions.')
+	isrobust = true;
+	assert(find(idx)>=NArgIn,...
+		'Wrong syntax. Read the help text for instructions.')
+	NArgIn = NArgIn-1;
 else
-    isrobust = false;
+	isrobust = false;
 end
-
 %% Test & prepare the variables
 %---
 % y = array to be smoothed
@@ -252,9 +253,9 @@ if ~iscell(y), y = {y}; end
 sizy = size(y{1});
 ny = numel(y); % number of y components
 for i = 1:ny
-    assert(isequal(sizy,size(y{i})),...
-        'Data arrays in Y must have the same size.')
-    y{i} = double(y{i});
+	assert(isequal(sizy,size(y{i})),...
+		'Data arrays in Y must have the same size.')
+	y{i} = double(y{i});
 end
 noe = prod(sizy); % number of elements
 if noe==1, z = y{1}; s = []; exitflag = true; return, end
@@ -263,92 +264,92 @@ if noe==1, z = y{1}; s = []; exitflag = true; return, end
 W = ones(sizy);
 s = [];
 if NArgIn==2
-    if isempty(varargin{2}) || isscalar(varargin{2}) % smoothn(y,s)
-        s = varargin{2}; % smoothness parameter
-    else % smoothn(y,W)
-        W = varargin{2}; % weight array
-    end
+	if isempty(varargin{2}) || isscalar(varargin{2}) % smoothn(y,s)
+		s = varargin{2}; % smoothness parameter
+	else % smoothn(y,W)
+		W = varargin{2}; % weight array
+	end
 elseif NArgIn==3 % smoothn(y,W,s)
-        W = varargin{2}; % weight array
-        s = varargin{3}; % smoothness parameter
+	W = varargin{2}; % weight array
+	s = varargin{3}; % smoothness parameter
 end
 assert(isnumeric(W),'W must be a numeric array')
 assert(isnumeric(s),'S must be a numeric scalar')
 assert(isequal(size(W),sizy),...
-        'Arrays for data and weights (Y and W) must have same size.')
+	'Arrays for data and weights (Y and W) must have same size.')
 assert(isempty(s) || (isscalar(s) && s>0),...
-    'The smoothing parameter S must be a scalar >0')
+	'The smoothing parameter S must be a scalar >0')
 %---
 % Field names in the structure OPTIONS
 OptionNames = fieldnames(OPTIONS);
 idx = ismember(OptionNames,...
-    {'TolZ','MaxIter','Initial','Weight','Spacing','Order'});
+	{'TolZ','MaxIter','Initial','Weight','Spacing','Order'});
 assert(all(idx),...
-    ['''' OptionNames{find(~idx,1)} ''' is not a valid field name for OPTIONS.'])
+	['''' OptionNames{find(~idx,1)} ''' is not a valid field name for OPTIONS.'])
 %---
 % "Maximal number of iterations" criterion
 if ~ismember('MaxIter',OptionNames)
-    OPTIONS.MaxIter = 100; % default value for MaxIter
+	OPTIONS.MaxIter = 100; % default value for MaxIter
 end
 assert(isnumeric(OPTIONS.MaxIter) && isscalar(OPTIONS.MaxIter) &&...
-    OPTIONS.MaxIter>=1 && OPTIONS.MaxIter==round(OPTIONS.MaxIter),...
-    'OPTIONS.MaxIter must be an integer >=1')
+	OPTIONS.MaxIter>=1 && OPTIONS.MaxIter==round(OPTIONS.MaxIter),...
+	'OPTIONS.MaxIter must be an integer >=1')
 %---
 % "Tolerance on smoothed output" criterion
 if ~ismember('TolZ',OptionNames)
-    OPTIONS.TolZ = 1e-3; % default value for TolZ
+	OPTIONS.TolZ = 1e-3; % default value for TolZ
 end
 assert(isnumeric(OPTIONS.TolZ) && isscalar(OPTIONS.TolZ) &&...
-    OPTIONS.TolZ>0 && OPTIONS.TolZ<1,'OPTIONS.TolZ must be in ]0,1[')
+	OPTIONS.TolZ>0 && OPTIONS.TolZ<1,'OPTIONS.TolZ must be in ]0,1[')
 %---
 % "Initial Guess" criterion
 if ~ismember('Initial',OptionNames)
-    isinitial = false;
+	isinitial = false;
 else
-    isinitial = true;
-    z0 = OPTIONS.Initial;
-    if ~iscell(z0), z0 = {z0}; end
-    nz0 = numel(z0); % number of y components
-    assert(nz0==ny,...
-        'OPTIONS.Initial must contain a valid initial guess for Z')
-    for i = 1:nz0
-        assert(isequal(sizy,size(z0{i})),...
-                'OPTIONS.Initial must contain a valid initial guess for Z')
-        z0{i} = double(z0{i});
-    end
+	isinitial = true;
+	z0 = OPTIONS.Initial;
+	if ~iscell(z0), z0 = {z0}; end
+	nz0 = numel(z0); % number of y components
+	assert(nz0==ny,...
+		'OPTIONS.Initial must contain a valid initial guess for Z')
+	for i = 1:nz0
+		assert(isequal(sizy,size(z0{i})),...
+			'OPTIONS.Initial must contain a valid initial guess for Z')
+		z0{i} = double(z0{i});
+	end
 end
 %---
 % "Weight function" criterion (for robust smoothing)
 if ~ismember('Weight',OptionNames)
-    OPTIONS.Weight = 'bisquare'; % default weighting function
+	OPTIONS.Weight = 'bisquare'; % default weighting function
 else
-    assert(ischar(OPTIONS.Weight),...
-        'A valid weight function (OPTIONS.Weight) must be chosen')
-    assert(any(ismember(lower(OPTIONS.Weight),...
-        {'bisquare','talworth','cauchy'})),...
-        'The weight function must be ''bisquare'', ''cauchy'' or '' talworth''.')
+	assert(ischar(OPTIONS.Weight),...
+		'A valid weight function (OPTIONS.Weight) must be chosen')
+	assert(any(ismember(lower(OPTIONS.Weight),...
+		{'bisquare','talworth','cauchy'})),...
+		'The weight function must be ''bisquare'', ''cauchy'' or '' talworth''.')
 end
 %---
 % "Order" criterion (by default m = 2)
 % Note: m = 0 is of course not recommended!
 if ~ismember('Order',OptionNames)
-    m = 2; % order
+	m = 2; % order
 else
-    m = OPTIONS.Order;
-    if ~ismember(m,0:2);
-        error('MATLAB:smoothn:IncorrectOrder',...
-            'The order (OPTIONS.order) must be 0, 1 or 2.')
-    end    
+	m = OPTIONS.Order;
+	if ~ismember(m,0:2)
+		error('MATLAB:smoothn:IncorrectOrder',...
+			'The order (OPTIONS.order) must be 0, 1 or 2.')
+	end
 end
 %---
 % "Spacing" criterion
 d = ndims(y{1});
 if ~ismember('Spacing',OptionNames)
-    dI = ones(1,d); % spacing increment
+	dI = ones(1,d); % spacing increment
 else
-    dI = OPTIONS.Spacing;
-    assert(isnumeric(dI) && length(dI)==d,...
-            'A valid spacing (OPTIONS.Spacing) must be chosen')
+	dI = OPTIONS.Spacing;
+	assert(isnumeric(dI) && length(dI)==d,...
+		'A valid spacing (OPTIONS.Spacing) must be chosen')
 end
 dI = dI/max(dI);
 %---
@@ -366,22 +367,32 @@ isweighted = any(W(:)<1);
 %---
 % Automatic smoothing?
 isauto = isempty(s);
-
-
+%% Are you using version R2017 or later?
+%   (if so, BSXFUN is no longer required)
+%   BSXFUN will be removed in future versions of SMOOTHN for clarity
+useBSXFUN = verLessThan('matlab','9.2');
 %% Create the Lambda tensor
 %---
 % Lambda contains the eingenvalues of the difference matrix used in this
 % penalized least squares process (see CSDA paper for details)
 d = ndims(y{1});
 Lambda = zeros(sizy);
-for i = 1:d
-    siz0 = ones(1,d);
-    siz0(i) = sizy(i);
-    Lambda = bsxfun(@plus,Lambda,...
-        (2-2*cos(pi*(reshape(1:sizy(i),siz0)-1)/sizy(i)))/dI(i)^2);
+if useBSXFUN
+	for i = 1:d
+		siz0 = ones(1,d);
+		siz0(i) = sizy(i);
+		Lambda = bsxfun(@plus,Lambda,...
+			(2-2*cos(pi*(reshape(1:sizy(i),siz0)-1)/sizy(i)))/dI(i)^2);
+	end
+else
+	for i = 1:d
+		siz0 = ones(1,d);
+		siz0(i) = sizy(i);
+		Lambda = Lambda +...
+			(2-2*cos(pi*(reshape(1:sizy(i),siz0)-1)/sizy(i)))/dI(i)^2;
+	end
 end
 if ~isauto, Gamma = 1./(1+s*Lambda.^m); end
-
 %% Upper and lower bound for the smoothness parameter
 % The average leverage (h) is by definition in [0 1]. Weak smoothing occurs
 % if h is close to 1, while over-smoothing appears when h is near 0. Upper
@@ -391,39 +402,38 @@ if ~isauto, Gamma = 1./(1+s*Lambda.^m); end
 N = sum(sizy~=1); % tensor rank of the y-array
 hMin = 1e-6; hMax = 0.99;
 if m==0 % Not recommended. For mathematical purpose only.
-    sMinBnd = 1/hMax^(1/N)-1;
-    sMaxBnd = 1/hMin^(1/N)-1;
+	sMinBnd = 1/hMax^(1/N)-1;
+	sMaxBnd = 1/hMin^(1/N)-1;
 elseif m==1
-    sMinBnd = (1/hMax^(2/N)-1)/4;
-    sMaxBnd = (1/hMin^(2/N)-1)/4;
+	sMinBnd = (1/hMax^(2/N)-1)/4;
+	sMaxBnd = (1/hMin^(2/N)-1)/4;
 elseif m==2
-    sMinBnd = (((1+sqrt(1+8*hMax^(2/N)))/4/hMax^(2/N))^2-1)/16;
-    sMaxBnd = (((1+sqrt(1+8*hMin^(2/N)))/4/hMin^(2/N))^2-1)/16;
+	sMinBnd = (((1+sqrt(1+8*hMax^(2/N)))/4/hMax^(2/N))^2-1)/16;
+	sMaxBnd = (((1+sqrt(1+8*hMin^(2/N)))/4/hMin^(2/N))^2-1)/16;
 end
-
 %% Initialize before iterating
 %---
 Wtot = W;
 %--- Initial conditions for z
 if isweighted
-    %--- With weighted/missing data
-    % An initial guess is provided to ensure faster convergence. For that
-    % purpose, a nearest neighbor interpolation followed by a coarse
-    % smoothing are performed.
-    %---
-    if isinitial % an initial guess (z0) has been already given
-        z = z0;
-    else
-        z = InitialGuess(y,IsFinite);
-    end
+	%--- With weighted/missing data
+	% An initial guess is provided to ensure faster convergence. For that
+	% purpose, a nearest neighbor interpolation followed by a coarse
+	% smoothing are performed.
+	%---
+	if isinitial % an initial guess (z0) has been already given
+		z = z0;
+	else
+		z = InitialGuess(y,IsFinite);
+	end
 else
-    z = cell(size(y));
-    for i = 1:ny, z{i} = zeros(sizy); end
+	z = cell(size(y));
+	for i = 1:ny, z{i} = zeros(sizy); end
 end
 %---
 z0 = z;
 for i = 1:ny
-    y{i}(~IsFinite) = 0; % arbitrary values for missing y-data
+	y{i}(~IsFinite) = 0; % arbitrary values for missing y-data
 end
 %---
 tol = 1;
@@ -437,145 +447,142 @@ errp = 0.1;
 opt = optimset('TolX',errp);
 %--- Relaxation factor RF: to speedup convergence
 RF = 1 + 0.75*isweighted;
-
 %% Main iterative process
 %---
 while RobustIterativeProcess
-    %--- "amount" of weights (see the function GCVscore)
-    aow = sum(Wtot(:))/noe; % 0 < aow <= 1
-    %---
-    while tol>OPTIONS.TolZ && nit<OPTIONS.MaxIter
-        nit = nit+1;
-        for i = 1:ny
-            DCTy{i} = dctn(Wtot.*(y{i}-z{i})+z{i});
-        end
-        if isauto && ~rem(log2(nit),1)
-            %---
-            % The generalized cross-validation (GCV) method is used.
-            % We seek the smoothing parameter S that minimizes the GCV
-            % score i.e. S = Argmin(GCVscore).
-            % Because this process is time-consuming, it is performed from
-            % time to time (when the step number - nit - is a power of 2)
-            %---
-            fminbnd(@gcv,log10(sMinBnd),log10(sMaxBnd),opt);
-        end
-        for i = 1:ny
-            z{i} = RF*idctn(Gamma.*DCTy{i}) + (1-RF)*z{i};
-        end
-        
-        % if no weighted/missing data => tol=0 (no iteration)
-        tol = isweighted*norm(vec([z0{:}]-[z{:}]))/norm(vec([z{:}]));
-       
-        z0 = z; % re-initialization
-    end
-    exitflag = nit<OPTIONS.MaxIter;
-
-    if isrobust %-- Robust Smoothing: iteratively re-weighted process
-        %--- average leverage
-        h = 1;
-        for k = 1:N
-            if m==0 % not recommended - only for numerical purpose
-                h0 = 1/(1+s/dI(k)^(2^m));
-            elseif m==1
-                h0 = 1/sqrt(1+4*s/dI(k)^(2^m));
-            elseif m==2
-                h0 = sqrt(1+16*s/dI(k)^(2^m));
-                h0 = sqrt(1+h0)/sqrt(2)/h0;
-            else
-                error('m must be 0, 1 or 2.')
-            end
-            h = h*h0;
-        end
-        %--- take robust weights into account
-        Wtot = W.*RobustWeights(y,z,IsFinite,h,OPTIONS.Weight);
-        %--- re-initialize for another iterative weighted process
-        isweighted = true; tol = 1; nit = 0; 
-        %---
-        RobustStep = RobustStep+1;
-        RobustIterativeProcess = RobustStep<4; % 3 robust steps are enough.
-    else
-        RobustIterativeProcess = false; % stop the whole process
-    end
+	%--- "amount" of weights (see the function GCVscore)
+	aow = sum(Wtot(:))/noe; % 0 < aow <= 1
+	%---
+	while tol>OPTIONS.TolZ && nit<OPTIONS.MaxIter
+		nit = nit+1;
+		for i = 1:ny
+			DCTy{i} = dctn(Wtot.*(y{i}-z{i})+z{i});
+		end
+		if isauto && ~rem(log2(nit),1)
+			%---
+			% The generalized cross-validation (GCV) method is used.
+			% We seek the smoothing parameter S that minimizes the GCV
+			% score i.e. S = Argmin(GCVscore).
+			% Because this process is time-consuming, it is performed from
+			% time to time (when the step number - nit - is a power of 2)
+			%---
+			fminbnd(@gcv,log10(sMinBnd),log10(sMaxBnd),opt);
+		end
+		for i = 1:ny
+			z{i} = RF*idctn(Gamma.*DCTy{i}) + (1-RF)*z{i};
+		end
+		
+		% if no weighted/missing data => tol=0 (no iteration)
+		tol = isweighted*norm(vec([z0{:}]-[z{:}]))/norm(vec([z{:}]));
+		
+		z0 = z; % re-initialization
+	end
+	exitflag = nit<OPTIONS.MaxIter;
+	if isrobust %-- Robust Smoothing: iteratively re-weighted process
+		%--- average leverage
+		h = 1;
+		for k = 1:N
+			if m==0 % not recommended - only for numerical purpose
+				h0 = 1/(1+s/dI(k)^(2^m));
+			elseif m==1
+				h0 = 1/sqrt(1+4*s/dI(k)^(2^m));
+			elseif m==2
+				h0 = sqrt(1+16*s/dI(k)^(2^m));
+				h0 = sqrt(1+h0)/sqrt(2)/h0;
+			else
+				error('m must be 0, 1 or 2.')
+			end
+			h = h*h0;
+		end
+		%--- take robust weights into account
+		Wtot = W.*RobustWeights(y,z,IsFinite,h,OPTIONS.Weight);
+		%--- re-initialize for another iterative weighted process
+		isweighted = true; tol = 1; nit = 0;
+		%---
+		RobustStep = RobustStep+1;
+		RobustIterativeProcess = RobustStep<4; % 3 robust steps are enough.
+	else
+		RobustIterativeProcess = false; % stop the whole process
+	end
 end
-
 %% Warning messages
 %---
 if isauto
-    if abs(log10(s)-log10(sMinBnd))<errp
-        warning('MATLAB:smoothn:SLowerBound',...
-            ['S = ' num2str(s,'%.3e') ': the lower bound for S ',...
-            'has been reached. Specify S as an input variable.'])
-    elseif abs(log10(s)-log10(sMaxBnd))<errp
-        warning('MATLAB:smoothn:SUpperBound',...
-            ['S = ' num2str(s,'%.3e') ': the upper bound for S ',...
-            'has been reached. Specify S as an input variable.'])
-    end
+	if abs(log10(s)-log10(sMinBnd))<errp
+		warning('MATLAB:smoothn:SLowerBound',...
+			['S = ' num2str(s,'%.3e') ': the lower bound for S ',...
+			'has been reached. Specify S as an input variable.'])
+	elseif abs(log10(s)-log10(sMaxBnd))<errp
+		warning('MATLAB:smoothn:SUpperBound',...
+			['S = ' num2str(s,'%.3e') ': the upper bound for S ',...
+			'has been reached. Specify S as an input variable.'])
+	end
 end
 if nargout<3 && ~exitflag
-    warning('MATLAB:smoothn:MaxIter',...
-        ['Maximum number of iterations (' int2str(OPTIONS.MaxIter) ') has been exceeded. ',...
-        'Increase MaxIter option (OPTIONS.MaxIter) or decrease TolZ (OPTIONS.TolZ) value.'])
+	warning('MATLAB:smoothn:MaxIter',...
+		['Maximum number of iterations (' int2str(OPTIONS.MaxIter) ') has been exceeded. ',...
+		'Increase MaxIter option (OPTIONS.MaxIter) or decrease TolZ (OPTIONS.TolZ) value.'])
 end
-
 if numel(z)==1, z = z{:}; end
-
-
 %% GCV score
 %---
-function GCVscore = gcv(p)
-    % Search the smoothing parameter s that minimizes the GCV score
-    %---
-    s = 10^p;
-    Gamma = 1./(1+s*Lambda.^m);
-    %--- RSS = Residual sum-of-squares
-    RSS = 0;
-    if aow>0.9 % aow = 1 means that all of the data are equally weighted
-        % very much faster: does not require any inverse DCT
-        for kk = 1:ny
-            RSS = RSS + norm(DCTy{kk}(:).*(Gamma(:)-1))^2;
-        end
-    else
-        % take account of the weights to calculate RSS:
-        for kk = 1:ny
-            yhat = idctn(Gamma.*DCTy{kk});
-            RSS = RSS + norm(sqrt(Wtot(IsFinite)).*...
-                (y{kk}(IsFinite)-yhat(IsFinite)))^2;
-        end
-    end
-    %---
-    TrH = sum(Gamma(:));
-    GCVscore = RSS/nof/(1-TrH/noe)^2;
+	function GCVscore = gcv(p)
+		% Search the smoothing parameter s that minimizes the GCV score
+		%---
+		s = 10^p;
+		Gamma = 1./(1+s*Lambda.^m);
+		%--- RSS = Residual sum-of-squares
+		RSS = 0;
+		if aow>0.9 % aow = 1 means that all of the data are equally weighted
+			% very much faster: does not require any inverse DCT
+			for kk = 1:ny
+				RSS = RSS + norm(DCTy{kk}(:).*(Gamma(:)-1))^2;
+			end
+		else
+			% take account of the weights to calculate RSS:
+			for kk = 1:ny
+				yhat = idctn(Gamma.*DCTy{kk});
+				RSS = RSS + norm(sqrt(Wtot(IsFinite)).*...
+					(y{kk}(IsFinite)-yhat(IsFinite)))^2;
+			end
+		end
+		%---
+		TrH = sum(Gamma(:));
+		GCVscore = RSS/nof/(1-TrH/noe)^2;
+	end
 end
-
-end
-
 function W = RobustWeights(y,z,I,h,wstr)
-    % One seeks the weights for robust smoothing...
-    ABS = @(x) sqrt(sum(abs(x).^2,2));
-    r = cellfun(@minus,y,z,'UniformOutput',0); % residuals
-    r = cellfun(@(x) x(:),r,'UniformOutput',0);
-    rI = cell2mat(cellfun(@(x) x(I),r,'UniformOutput',0));
-    MMED = median(rI); % marginal median
-    AD = ABS(bsxfun(@minus,rI,MMED)); % absolute deviation
-    MAD = median(AD); % median absolute deviation
- 
-    %-- Studentized residuals
-    u = ABS(cell2mat(r))/(1.4826*MAD)/sqrt(1-h); 
-    u = reshape(u,size(I));
-    
-    switch lower(wstr)
-        case 'cauchy'
-            c = 2.385; W = 1./(1+(u/c).^2); % Cauchy weights
-        case 'talworth'
-            c = 2.795; W = u<c; % Talworth weights
-        case 'bisquare'
-            c = 4.685; W = (1-(u/c).^2).^2.*((u/c)<1); % bisquare weights
-        otherwise
-            error('MATLAB:smoothn:IncorrectWeights',...
-                'A valid weighting function must be chosen')
-    end
-    W(isnan(W)) = 0;
 
+persistent useBSXFUN %#ok
+% One seeks the weights for robust smoothing...
+ABS = @(x) sqrt(sum(abs(x).^2,2));
+r = cellfun(@minus,y,z,'UniformOutput',0); % residuals
+r = cellfun(@(x) x(:),r,'UniformOutput',0);
+rI = cell2mat(cellfun(@(x) x(I),r,'UniformOutput',0));
+MMED = median(rI); % marginal median
+if useBSXFUN
+	AD = ABS(bsxfun(@minus,rI,MMED)); % absolute deviation
+else
+	AD = ABS(rI-MMED); % absolute deviation
+end
+MAD = median(AD); % median absolute deviation
+
+%-- Studentized residuals
+u = ABS(cell2mat(r))/(1.4826*MAD)/sqrt(1-h);
+u = reshape(u,size(I));
+
+switch lower(wstr)
+	case 'cauchy'
+		c = 2.385; W = 1./(1+(u/c).^2); % Cauchy weights
+	case 'talworth'
+		c = 2.795; W = u<c; % Talworth weights
+	case 'bisquare'
+		c = 4.685; W = (1-(u/c).^2).^2.*((u/c)<1); % bisquare weights
+	otherwise
+		error('MATLAB:smoothn:IncorrectWeights',...
+			'A valid weighting function must be chosen')
+end
+W(isnan(W)) = 0;
 % NOTE:
 % ----
 % The RobustWeights subfunction looks complicated since we work with cell
@@ -590,54 +597,50 @@ function W = RobustWeights(y,z,I,h,wstr)
 %     c = 4.685; W = (1-(u/c).^2).^2.*((u/c)<1); % bisquare weights
 %     W(isnan(W)) = 0;
 % end
-
 end
-
 %% Initial Guess with weighted/missing data
 function z = InitialGuess(y,I)
-    ny = numel(y);
-    %-- nearest neighbor interpolation (in case of missing values)
-    if any(~I(:))
-        z = cell(size(y));        
-        if license('test','image_toolbox')
-            for i = 1:ny
-                [z{i},L] = bwdist(I);
-                z{i} = y{i};
-                z{i}(~I) = y{i}(L(~I));
-            end
-        else
-        % If BWDIST does not exist, NaN values are all replaced with the
-        % same scalar. The initial guess is not optimal and a warning
-        % message thus appears.
-            z = y;
-            for i = 1:ny
-                z{i}(~I) = mean(y{i}(I));
-            end
-            warning('MATLAB:smoothn:InitialGuess',...
-                ['BWDIST (Image Processing Toolbox) does not exist. ',...
-                'The initial guess may not be optimal; additional',...
-                ' iterations can thus be required to ensure complete',...
-                ' convergence. Increase ''MaxIter'' criterion if necessary.'])    
-        end
-    else
-        z = y;
-    end
-    %-- coarse fast smoothing using one-tenth of the DCT coefficients
-    siz = size(z{1});
-    z = cellfun(@(x) dctn(x),z,'UniformOutput',0);
-    for k = 1:ndims(z{1})
-        for i = 1:ny
-            z{i}(ceil(siz(k)/10)+1:end,:) = 0;
-            z{i} = reshape(z{i},circshift(siz,[0 1-k]));
-            z{i} = shiftdim(z{i},1);
-        end
-    end
-    z = cellfun(@(x) idctn(x),z,'UniformOutput',0);
+ny = numel(y);
+%-- nearest neighbor interpolation (in case of missing values)
+if any(~I(:))
+	z = cell(size(y));
+	if license('test','image_toolbox')
+		for i = 1:ny
+			[z{i},L] = bwdist(I);
+			z{i} = y{i};
+			z{i}(~I) = y{i}(L(~I));
+		end
+	else
+		% If BWDIST does not exist, NaN values are all replaced with the
+		% same scalar. The initial guess is not optimal and a warning
+		% message thus appears.
+		z = y;
+		for i = 1:ny
+			z{i}(~I) = mean(y{i}(I));
+		end
+		warning('MATLAB:smoothn:InitialGuess',...
+			['BWDIST (Image Processing Toolbox) does not exist. ',...
+			'The initial guess may not be optimal; additional',...
+			' iterations can thus be required to ensure complete',...
+			' convergence. Increase ''MaxIter'' criterion if necessary.'])
+	end
+else
+	z = y;
 end
-
+%-- coarse fast smoothing using one-tenth of the DCT coefficients
+siz = size(z{1});
+z = cellfun(@(x) dctn(x),z,'UniformOutput',0);
+for k = 1:ndims(z{1})
+	for i = 1:ny
+		z{i}(ceil(siz(k)/10)+1:end,:) = 0;
+		z{i} = reshape(z{i},circshift(siz,[0 1-k]));
+		z{i} = shiftdim(z{i},1);
+	end
+end
+z = cellfun(@(x) idctn(x),z,'UniformOutput',0);
+end
 %% DCTN
 function y = dctn(y)
-
 %DCTN N-D discrete cosine transform.
 %   Y = DCTN(X) returns the discrete cosine transform of X. The array Y is
 %   the same size as X and contains the discrete cosine transform
@@ -665,51 +668,49 @@ function y = dctn(y)
 %
 %   -- Damien Garcia -- 2008/06, revised 2011/11
 %   -- www.BiomeCardio.com --
-
+persistent useBSXFUN %#ok
 y = double(y);
 sizy = size(y);
 y = squeeze(y);
 dimy = ndims(y);
-
 % Some modifications are required if Y is a vector
 if isvector(y)
-    dimy = 1;
-    if size(y,1)==1, y = y.'; end
+	dimy = 1;
+	if size(y,1)==1, y = y.'; end
 end
-
 % Weighting vectors
 w = cell(1,dimy);
 for dim = 1:dimy
-    n = (dimy==1)*numel(y) + (dimy>1)*sizy(dim);
-    w{dim} = exp(1i*(0:n-1)'*pi/2/n);
+	n = (dimy==1)*numel(y) + (dimy>1)*sizy(dim);
+	w{dim} = exp(1i*(0:n-1)'*pi/2/n);
 end
-
 % --- DCT algorithm ---
 if ~isreal(y)
-    y = complex(dctn(real(y)),dctn(imag(y)));
+	y = complex(dctn(real(y)),dctn(imag(y)));
 else
-    for dim = 1:dimy
-        siz = size(y);
-        n = siz(1);
-        y = y([1:2:n 2*floor(n/2):-2:2],:);
-        y = reshape(y,n,[]);
-        y = y*sqrt(2*n);
-        y = ifft(y,[],1);
-        y = bsxfun(@times,y,w{dim});
-        y = real(y);
-        y(1,:) = y(1,:)/sqrt(2);
-        y = reshape(y,siz);
-        y = shiftdim(y,1);
-    end
+	for dim = 1:dimy
+		siz = size(y);
+		n = siz(1);
+		y = y([1:2:n 2*floor(n/2):-2:2],:);
+		y = reshape(y,n,[]);
+		y = y*sqrt(2*n);
+		y = ifft(y,[],1);
+		if useBSXFUN
+			y = bsxfun(@times,y,w{dim});
+		else
+			y = y.*w{dim};
+		end
+		y = real(y);
+		y(1,:) = y(1,:)/sqrt(2);
+		y = reshape(y,siz);
+		y = shiftdim(y,1);
+	end
 end
-        
+
 y = reshape(y,sizy);
-
 end
-
 %% IDCTN
 function y = idctn(y)
-
 %IDCTN N-D inverse discrete cosine transform.
 %   X = IDCTN(Y) inverts the N-D DCT transform, returning the original
 %   array if Y was obtained using Y = DCTN(X).
@@ -738,64 +739,59 @@ function y = idctn(y)
 %
 %   -- Damien Garcia -- 2009/04, revised 2011/11
 %   -- www.BiomeCardio.com --
-
+persistent useBSXFUN %#ok
 y = double(y);
 sizy = size(y);
 y = squeeze(y);
 dimy = ndims(y);
-
 % Some modifications are required if Y is a vector
 if isvector(y)
-    dimy = 1;
-    if size(y,1)==1
-        y = y.';
-    end
+	dimy = 1;
+	if size(y,1)==1
+		y = y.';
+	end
 end
-
 % Weighing vectors
 w = cell(1,dimy);
 for dim = 1:dimy
-    n = (dimy==1)*numel(y) + (dimy>1)*sizy(dim);
-    w{dim} = exp(1i*(0:n-1)'*pi/2/n);
+	n = (dimy==1)*numel(y) + (dimy>1)*sizy(dim);
+	w{dim} = exp(1i*(0:n-1)'*pi/2/n);
 end
-
 % --- IDCT algorithm ---
 if ~isreal(y)
-    y = complex(idctn(real(y)),idctn(imag(y)));
+	y = complex(idctn(real(y)),idctn(imag(y)));
 else
-    for dim = 1:dimy
-        siz = size(y);
-        n = siz(1);
-        y = reshape(y,n,[]);
-        y = bsxfun(@times,y,w{dim});
-        y(1,:) = y(1,:)/sqrt(2);
-        y = ifft(y,[],1);
-        y = real(y*sqrt(2*n));
-        I = (1:n)*0.5+0.5;
-        I(2:2:end) = n-I(1:2:end-1)+1;
-        y = y(I,:);
-        y = reshape(y,siz);
-        y = shiftdim(y,1);            
-    end
+	for dim = 1:dimy
+		siz = size(y);
+		n = siz(1);
+		y = reshape(y,n,[]);
+		if useBSXFUN
+			y = bsxfun(@times,y,w{dim});
+		else
+			y = y.*w{dim};
+		end
+		y(1,:) = y(1,:)/sqrt(2);
+		y = ifft(y,[],1);
+		y = real(y*sqrt(2*n));
+		I = (1:n)*0.5+0.5;
+		I(2:2:end) = n-I(1:2:end-1)+1;
+		y = y(I,:);
+		y = reshape(y,siz);
+		y = shiftdim(y,1);
+	end
 end
-        
+
 y = reshape(y,sizy);
-
 end
-
-
 %% -----------------------------------------------
 %  Simplified SMOOTHN function for better clarity.
 %  -----------------------------------------------
 %  The following function works with complex N-D arrays.
-
 %{
 function z = ezsmoothn(y)
-
 sizy = size(y);
 n = prod(sizy);
 N = sum(sizy~=1);
-
 Lambda = zeros(sizy);
 d = ndims(y);
 for i = 1:d
@@ -804,7 +800,6 @@ for i = 1:d
     Lambda = bsxfun(@plus,Lambda,...
         2-2*cos(pi*(reshape(1:sizy(i),siz0)-1)/sizy(i)));
 end
-
 W = ones(sizy);
 zz = y;
 for k = 1:4
@@ -819,7 +814,7 @@ for k = 1:4
     h = (sqrt(1+tmp)/sqrt(2)/tmp)^N;
     W = bisquare(y-z,h);
 end
-    function GCVs = GCVscore(p)
+function GCVs = GCVscore(p)
         s = 10^p;
         Gamma = 1./(1+s*Lambda.^2);
         z = idctn(Gamma.*DCTy);
@@ -828,11 +823,9 @@ end
         GCVs = RSS/n/(1-TrH/n)^2;
     end
 end
-
 function W = bisquare(r,h)
 MAD = median(abs(r(:)-median(r(:))));
 u = abs(r/(1.4826*MAD)/sqrt(1-h));
 W = (1-(u/4.685).^2).^2.*((u/4.685)<1);
 end
-
 %}

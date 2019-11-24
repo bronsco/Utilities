@@ -1,7 +1,7 @@
 function colornames_cube(palette,space)
-% Plot COLORNAMES palettes in a color cube (RGB/Lab/LCh/HSV/XYZ). With DataCursor labels.
+% Plot COLORNAMES palettes in a color cube (RGB/DIN99/Lab/LCh/HSV/XYZ). With DataCursor labels.
 %
-% (c) 2017 Stephen Cobeldick
+% (c) 2014-2019 Stephen Cobeldick
 %
 %%% Syntax:
 %  colornames(palette,space)
@@ -12,30 +12,30 @@ function colornames_cube(palette,space)
 % Two vertical colorbars are displayed on the figure's right hand side,
 % showing the colormap in sequence, both in color and converted to grayscale.
 %
-% See also COLORNAMES CUBEHELIX BREWERMAP RGBPLOT COLORMAP DATACURSORMODE
-%
 % Note: Requires the function COLORNAMES and its associated MAT file (FEX 48155).
 %
-%% Input Arguments %%
+%% Input and Output Arguments %%
 %
 %%% Inputs (all inputs are optional):
-%  palette = String, the name of a palette supported by COLORNAMES.
-%  space   = String, the color space to plot the palette in, e.g. 'RGB'.
+%  palette = CharRowVector, the name of a palette supported by COLORNAMES.
+%  space   = CharRowVector, the colorspace to plot the palette in, e.g. 'RGB'.
 %
-% colornames_cube(palette,space)
-
+%%% Outputs:
+% none
+%
+% See also COLORNAMES COLORNAMES_DELTAE COLORNAMES_VIEW MAXDISTCOLOR COLORMAP
 %% Figure Parameters %%
 %
-persistent fgh axh lnh axc axg imc img txt pah sph
+persistent fgh axh lnh axc axg imc img txt rgb pah sph
 %
 %% Get COLORNAMES Palettes %%
 %
-[fnm,fun] = colornames();
+[fnm,csf] = colornames();
 %
 if nargin<1
 	idp = 1+rem(round(now*1e7),numel(fnm));
 else
-	assert(ischar(palette)&&isrow(palette),'First input <palette> must be a string.')
+	assert(ischar(palette)&&isrow(palette),'First input <palette> must be a 1xN char.')
 	idz = strcmpi(palette,fnm);
 	assert(any(idz),'Palette ''%s'' is not supported. Call COLORNAMES() to list all palettes.',palette)
 	idp = find(idz);
@@ -45,26 +45,29 @@ end
 %
 clm = {... % axes limits
 	{[0,1],[0,1],[0,1]},... RGB
-	{[0,100],[-150,150],[-150,150]},... Lab
-	{[0,100],[0,150],[0,360]},... LCh
+	{[0,100],[-Inf,+Inf],[-Inf,+Inf]},... DIN99
+	{[0,100],[-Inf,+Inf],[-Inf,+Inf]},... Lab
+	{[0,100],[0,+Inf],[0,360]},... LCh
 	{[0,360],[0,1],[0,1]},... HSV
 	{[0,1],[0,1],[0,1]}}; % XYZ
 lbl = {... % axes labels
 	{'Red','Green','Blue'},... RGB
-	{'Lightness','a','b'},...  Lab
+	{'L_{99}','a_{99}','b_{99}'},...  DIN99
+	{'L*','a*','b*'},...  Lab
 	{'Lightness','Chroma','Hue'},... LCh
 	{'Hue','Saturation','Value'},... HSV
 	{'X','Y','Z'}}; % XYZ
-cps = {'RGB','Lab','LCh','HSV','XYZ'}; % colorspace
-ord = {'GBR','abL','ChL','SVH','XYZ'}; % plot order
-[~,xyz] = cellfun(@ismember,ord,cps,'UniformOutput',false);
+z90 = [   true,  false,  false,   true,   true,  false]; % 90 degree Z label. 
+aar = [  false,  false,  false,   true,   true,  false]; % automatic axes ratio.
+csp = {  'RGB','DIN99',  'Lab',  'LCh',  'HSV',  'XYZ'}; % colorspace.
+xyz = {[3,2,1],[3,2,1],[3,2,1],[3,2,1],[1,2,3],[1,2,3]}; % axis order.
 %
 if nargin<2
-	ids = 1+rem(round(now*1e7),numel(cps));
+	ids = 1+rem(round(now*1e7),numel(csp));
 else
-	assert(ischar(space)&&isrow(space),'Second input <sort> must be a string.')
-	tmp = strcmpi(space,cps);
-	assert(any(tmp),'Second input must be one of:%s\b',sprintf(' %s,',cps{:}))
+	assert(ischar(space)&&isrow(space),'Second input <sort> must be a 1xN char.')
+	tmp = strcmpi(space,csp);
+	assert(any(tmp),'Second input must be one of:%s\b.',sprintf(' %s,',csp{:}))
 	ids = find(tmp);
 end
 %
@@ -86,11 +89,11 @@ if isempty(fgh) || ~ishghandle(fgh)
 	txt = uicontrol(fgh, 'Units','Pixels', 'Position',[0,0,30,15], 'Style','text');
 	uicontrol(fgh, 'Units','Normalized', 'Position',[0.88,0.96,0.08,0.04],...
 		 'Style','togglebutton', 'Callback',@cncDemoClBk, 'String','Demo');
-	% Create RGB/Lab button and palette menu:
+	% Create space and palette menus:
 	pah = uicontrol(fgh, 'Units','normalized', 'Position',[0,0.95,0.15,0.05],...
 		'Style','popupmenu', 'Callback',@cncScmClBk, 'String',fnm);
 	sph = uicontrol(fgh, 'Units','normalized', 'Position',[0,0.90,0.10,0.05],...
-		'Style','popupmenu', 'Callback',@cncSpcClBk, 'String',cps);
+		'Style','popupmenu', 'Callback',@cncSpcClBk, 'String',csp);
 	% Add DataCursor labels:
 	dcm = datacursormode(fgh);
 	set(dcm,'UpdateFcn',@(o,e)get(get(e,'Target'),'UserData'));
@@ -102,7 +105,6 @@ set(sph,'Value',ids);
 %% Callback Functions %%
 %
 	function cncScmClBk(h,~) % Palette Callback
-		% Select a new palette.
 		idp = get(h,'Value');
 		cncMapPlot()
 		cncClrSpace()
@@ -119,15 +121,16 @@ set(sph,'Value',ids);
 		% Delete any existing colors:
 		delete(lnh(ishghandle(lnh)))
 		% Get new colors:
-		[clr,rgb] = colornames(fnm{idp});
-		N = numel(clr);
+		[cnc,rgb] = colornames(fnm{idp});
+		N = numel(cnc);
+		mag = rgb*[0.298936;0.587043;0.114021];
 		% Update main axes:
 		set(axh, 'ColorOrder',rgb, 'NextPlot','replacechildren');
 		% Update colorbars:
 		set(axc, 'YLim',[0,N]+0.5)
 		set(axg, 'YLim',[0,N]+0.5)
 		set(imc, 'CData',permute(rgb,[1,3,2]))
-		set(img, 'CData',permute(rgb2gray(rgb),[1,3,2]))
+		set(img, 'CData',repmat(mag,[1,1,3]))
 		set(txt, 'String',num2str(N))
 		% Plot each node:
 		idx = xyz{ids};
@@ -137,34 +140,48 @@ set(sph,'Value',ids);
 		lnh = plot3(map(:,:,idx(1)),map(:,:,idx(2)),map(:,:,idx(3)),...
 			'.','MarkerSize',36, 'Parent',axh);
 		% Add DataCursor labels:
-		arrayfun(@(h,n)set(h,'UserData',n{1}), lnh, clr(:));
+		arrayfun(@(h,n)set(h,'UserData',n{1}), lnh, cnc(:));
 	end
 %
 	function cncClrSpace()
 		% Plot the data in the requested color space.
-		switch cps{ids}
+		switch csp{ids}
 			case 'RGB'
 				map = rgb;
 			case 'HSV'
-				map = fun.rgb2hsv(rgb);
+				map = csf.rgb2hsv(rgb);
 			case 'XYZ'
-				map = fun.rgb2xyz(rgb);
+				map = csf.rgb2xyz(rgb);
 			case 'Lab'
-				map = fun.xyz2lab(fun.rgb2xyz(rgb));
+				map = csf.xyz2lab(csf.rgb2xyz(rgb));
 			case 'LCh'
-				map = fun.lab2lch(fun.xyz2lab(fun.rgb2xyz(rgb)));
+				map = csf.lab2lch(csf.xyz2lab(csf.rgb2xyz(rgb)));
+			case 'DIN99'
+				map = csf.lab2d99(csf.xyz2lab(csf.rgb2xyz(rgb)));
 			otherwise
-				error('Sorry, the colorspace "%s" is not recognized.',cps{ids})
+				error('Sorry, the colorspace "%s" is not recognized.',csp{ids})
 		end
-		set(lnh,{'XData','YData','ZData'},num2cell(map(:,xyz{ids})))
 		%
 		idx = xyz{ids};
 		lab = lbl{ids};
 		lim = clm{ids};
-		xlabel(axh,lab(idx(1)));
-		ylabel(axh,lab(idx(2)));
-		zlabel(axh,lab(idx(3)));
-		set(axh,'XLim',lim{idx(1)},'YLim',lim{idx(2)},'ZLim',lim{idx(3)})
+		%
+		set(lnh,{'XData','YData','ZData'},num2cell(map(:,idx)))
+		%
+		xlabel(axh,lab{idx(1)})
+		ylabel(axh,lab{idx(2)})
+		zlabel(axh,lab{idx(3)}, 'Rotation',90*z90(ids))
+		xlim(axh,lim{idx(1)})
+		ylim(axh,lim{idx(2)})
+		zlim(axh,lim{idx(3)})
+		%
+		if aar(ids)
+			set(axh,'DataAspectRatioMode','auto')
+		else
+			set(axh,'DataAspectRatio',[1,1,1])
+		end
+		%
+		drawnow()
 	end
 %
 %% Demonstration Function %%
@@ -180,23 +197,23 @@ set(sph,'Value',ids);
 				dth = stp*sind(ang);
 				dph = stp*cosd(ang);
 			end
-			cnvOrbit(axh,dth,dph,'camera')
+			cncOrbit(axh,dth,dph)
 			itr = itr-1;
- 			% Wait a smidgen:
- 			pause(0.07)
+			% Wait a smidgen:
+			pause(0.07)
 		end
 	end
 %
 %% Initialize the Figure %%
 %
 rgb = [];
-clr = {};
+cnc = {};
 cncMapPlot()
 cncClrSpace()
 %
 end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%colornames_cube
-function cnvOrbit(axh,dth,dph,~)
+function cncOrbit(axh,dth,dph)
 % Rotate camera around the center of the axes. Avoids bug in CAMROTATE.
 %
 C = get(axh, {'CameraPosition','CameraTarget','CameraUpVector','DataAspectRatio'});
@@ -233,4 +250,4 @@ upv = (+hax*rotM).*C{4};
 set(axh,'CameraPosition',pos, 'CameraUpVector',upv)
 %
 end
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%cnvOrbit
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%cncOrbit
