@@ -94,3 +94,6 @@
 [submodule "Matlab/3rdParty/Math/Optimization/GA-Toolbox"]
 	path = Matlab/3rdParty/Math/Optimization/GA-Toolbox
 	url = git@github.com:UoS-CODeM/GA-Toolbox.git
+[submodule "Matlab/3rdParty/ComputerVision/Point_cloud_tools_for_Matlab"]
+	path = Matlab/3rdParty/ComputerVision/Point_cloud_tools_for_Matlab
+	url = git@github.com:pglira/Point_cloud_tools_for_Matlab.git
