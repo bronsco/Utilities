@@ -25,21 +25,17 @@ function h=ellipse(ra,rb,ang,x0,y0,C,Nb)
 %
 % h=ELLIPSE(...) returns the handles to the ellipses.
 %
-% as a sample of how ellipse works, the following produces a red ellipse
-% tipped up at a 45 deg axis from the x axis
-% ellipse(1,2,pi/8,1,1,'r')
+% usage exmple: the following produces a red ellipse centered at 1,1
+% and tipped down at a 45 deg axis from the x axis
+% ellipse(1,2,pi/4,1,1,'r')
 %
 % note that if ra=rb, ELLIPSE plots a circle
 %
-
 % written by D.G. Long, Brigham Young University, based on the
 % CIRCLES.m original 
 % written by Peter Blattner, Institute of Microtechnology, University of 
 % Neuchatel, Switzerland, blattner@imt.unine.ch
-
-
 % Check the number of input arguments 
-
 if nargin<1,
   ra=[];
 end;
@@ -49,11 +45,6 @@ end;
 if nargin<3,
   ang=[];
 end;
-
-%if nargin==1,
-%  error('Not enough arguments');
-%end;
-
 if nargin<5,
   x0=[];
   y0=[];
@@ -62,13 +53,10 @@ end;
 if nargin<6,
   C=[];
 end
-
 if nargin<7,
   Nb=[];
 end
-
 % set up the default values
-
 if isempty(ra),ra=1;end;
 if isempty(rb),rb=1;end;
 if isempty(ang),ang=0;end;
@@ -76,35 +64,27 @@ if isempty(x0),x0=0;end;
 if isempty(y0),y0=0;end;
 if isempty(Nb),Nb=300;end;
 if isempty(C),C=get(gca,'colororder');end;
-
 % work on the variable sizes
-
 x0=x0(:);
 y0=y0(:);
 ra=ra(:);
 rb=rb(:);
 ang=ang(:);
 Nb=Nb(:);
-
 if isstr(C),C=C(:);end;
-
 if length(ra)~=length(rb),
   error('length(ra)~=length(rb)');
 end;
 if length(x0)~=length(y0),
   error('length(x0)~=length(y0)');
 end;
-
 % how many inscribed elllipses are plotted
-
 if length(ra)~=length(x0)
   maxk=length(ra)*length(x0);
 else
   maxk=length(ra);
 end;
-
 % drawing loop
-
 for k=1:maxk
   
   if length(x0)==1
@@ -136,14 +116,16 @@ for k=1:maxk
     xpos=x0(rem(k-1,size(x0,1))+1);
     ypos=y0(rem(k-1,size(y0,1))+1);
   end;
-
   co=cos(an);
   si=sin(an);
   the=linspace(0,2*pi,Nb(rem(k-1,size(Nb,1))+1,:)+1);
 %  x=radm*cos(the)*co-si*radn*sin(the)+xpos;
 %  y=radm*cos(the)*si+co*radn*sin(the)+ypos;
-  h(k)=line(radm*cos(the)*co-si*radn*sin(the)+xpos,radm*cos(the)*si+co*radn*sin(the)+ypos);
-  set(h(k),'color',C(rem(k-1,size(C,1))+1,:));
-
+  p=line(radm*cos(the)*co-si*radn*sin(the)+xpos,radm*cos(the)*si+co*radn*sin(the)+ypos);
+  set(p,'color',C(rem(k-1,size(C,1))+1,:));
+  
+  if nargout > 0
+    h(k)=p;
+  end
+  
 end;
-
