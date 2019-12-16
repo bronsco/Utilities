@@ -76,6 +76,7 @@ Continuously growing collection of various utility functions that might be usefu
 | readObj | readObj file into Matlab structure | [click](https://de.mathworks.com/matlabcentral/fileexchange/18957-readobj) | 1.0.0.0 | February 28, 2008 | - |
 | saveppt2 | Save Matlab figure(s) to a PowerPoint Slide | [click](https://de.mathworks.com/matlabcentral/fileexchange/19322-saveppt2) | 1.2.0.0 | June 3, 2010 | - |
 | savezip | save/load data in a compressed zip file | [click](https://de.mathworks.com/matlabcentral/fileexchange/47698-savezip) | 1.0.0.0 | August 29, 2014 | - |
+| STLRead | STLREAD imports geometry from a binary stereolithography (STL) file into MATLAB | [click](https://de.mathworks.com/matlabcentral/fileexchange/22409-stl-file-reader) | 1.2.0.0 | July 20, 2011 | - |
 | struct2csv | Output a structure to a .csv file, with column headers | [click](https://de.mathworks.com/matlabcentral/fileexchange/34889-struct2csv) | 1.4.0.0 | June 18, 2013 | - |
 | struct2xml | Convert a MATLAB structure into a XML file | [click](https://github.com/joe-of-all-trades/struct2xml) | - | - | submodule |
 | xml_io_tools_2011_11_05 | Read XML files into MATLAB struct and writes MATLAB data types to XML | [click](https://de.mathworks.com/matlabcentral/fileexchange/12907-xml_io_tools) | 1.13.0.0 | November 5, 2010 | - |
