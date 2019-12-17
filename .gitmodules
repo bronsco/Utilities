@@ -97,3 +97,6 @@
 [submodule "Matlab/ComputerVision/Point_cloud_tools_for_Matlab"]
 	path = Matlab/ComputerVision/Point_cloud_tools_for_Matlab
 	url = git@github.com:pglira/Point_cloud_tools_for_Matlab.git
+[submodule "Matlab/Visualization/matlab2tikz"]
+	path = Matlab/Visualization/matlab2tikz
+	url = https://github.com/matlab2tikz/matlab2tikz.git
