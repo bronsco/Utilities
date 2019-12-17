@@ -8,21 +8,21 @@ Continuously growing collection of various utility functions that might be usefu
 
 [Matlab](#matlab)
 
-- [ComputerVision](#computer-vision)
-- [ControlSystems](#control-systems)
-- [DataHandling](#data-handling)
-- [Finance](#finance)
-- [General](#general)
-- [ImageProcessing](#image-processing)
-- [MachineLearning](#machine-learning)
-- [Math](#math)
-- [ParallelComputing](#parallel-computing)
-- [Simulation](#mat-simulation)
-- [Visualization](#visualization)
+- [ComputerVision](#matComputerVision)
+- [ControlSystems](#matControlSystems)
+- [DataHandling](#matDataHandling)
+- [Finance](#matFinance)
+- [General](#matGeneral)
+- [ImageProcessing](#matImagePprocessing)
+- [MachineLearning](#matMachineLearning)
+- [Math](#matMath)
+- [ParallelComputing](#matParallelComputing)
+- [Simulation](#matSimulation)
+- [Visualization](#matVisualization)
 
 [Python](#python)
 
-- [Simulation](#py-simulation)
+- [Video](#pyVideo)
 
 
 
