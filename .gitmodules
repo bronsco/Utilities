@@ -100,3 +100,6 @@
 [submodule "Matlab/Visualization/matlab2tikz"]
 	path = Matlab/Visualization/matlab2tikz
 	url = https://github.com/matlab2tikz/matlab2tikz.git
+[submodule "Matlab/Math/Interpolation/matlab_scatteredInterpn"]
+	path = Matlab/Math/Interpolation/matlab_scatteredInterpn
+	url = https://github.com/johwing/matlab_scatteredInterpn.git
